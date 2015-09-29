@@ -18,8 +18,14 @@
 @import "variables";
 @import "bootstrap/bootstrap";
 
+// Any controls that wish to extend bootstrap controls must go here.
+
 .field_with_errors .form-control {
   @extend .form-control-error;
 }
 
 .field_with_errors { @extend .has-error; }
+
+.glyphicons {
+  line-height: 1.5;
+}

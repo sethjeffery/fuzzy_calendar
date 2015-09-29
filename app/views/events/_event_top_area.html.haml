@@ -11,5 +11,18 @@
       = link_to "RSVP", auth_at_provider_path(provider: :facebook, redirect_after_login: event_path(@event, rsvp: true)), class: "btn btn-sm btn-primary btn-glow"
 
     = link_to "Share", "#event-share-modal", class: 'btn btn-sm btn-secondary', data: { toggle: 'modal' }
+
     - if @event.creator == current_user
-      = link_to "Edit", edit_event_path(@event), class: 'btn btn-sm btn-secondary'
+      .btn-group
+        = link_to "Edit", edit_event_path(@event), class: 'btn btn-sm btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }
+        .dropdown-menu.dropdown-menu-right
+          %a.dropdown-item
+            %i.glyphicons.glyphicons-pencil.m-r-sm
+            Edit details
+          %a.dropdown-item
+            %i.glyphicons.glyphicons-star.m-r-sm
+            Finalise event date
+          .dropdown-divider
+          %a.dropdown-item
+            %i.glyphicons.glyphicons-lock.m-r-sm
+            Close event
