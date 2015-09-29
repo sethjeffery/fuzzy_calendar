@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
-  before_filter :fetch_event, only: [:show, :rsvp, :update]
+  before_filter :fetch_event, except: [:index, :new]
+  before_filter :authenticate_event!, only: [:edit, :update, :close, :finalise]
 
   def index
     @events = Event.all
@@ -36,6 +37,14 @@ class EventsController < ApplicationController
     redirect_to @event
   end
 
+  def close
+
+  end
+
+  def finalise
+
+  end
+
   private
 
   def rsvp_params
@@ -48,5 +57,9 @@ class EventsController < ApplicationController
 
   def fetch_event
     @event = Event.find(params[:id])
+  end
+
+  def authenticate_event!
+    not_found unless @event.creator == current_user
   end
 end

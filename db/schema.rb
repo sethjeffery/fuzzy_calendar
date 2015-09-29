@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150925223210) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "authentications", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.string   "provider",   null: false
@@ -38,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150925223210) do
     t.datetime "updated_at",                    null: false
   end
 
-  add_index "event_user_times", ["event_user_id"], name: "index_event_user_times_on_event_user_id"
+  add_index "event_user_times", ["event_user_id"], name: "index_event_user_times_on_event_user_id", using: :btree
 
   create_table "event_users", force: :cascade do |t|
     t.integer  "event_id",   null: false
@@ -47,8 +50,8 @@ ActiveRecord::Schema.define(version: 20150925223210) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "event_users", ["event_id", "user_id"], name: "index_event_users_on_event_id_and_user_id", unique: true
-  add_index "event_users", ["user_id"], name: "index_event_users_on_user_id"
+  add_index "event_users", ["event_id", "user_id"], name: "index_event_users_on_event_id_and_user_id", unique: true, using: :btree
+  add_index "event_users", ["user_id"], name: "index_event_users_on_user_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.integer  "creator_id",                          null: false
@@ -67,7 +70,7 @@ ActiveRecord::Schema.define(version: 20150925223210) do
     t.datetime "cover_updated_at"
   end
 
-  add_index "events", ["creator_id"], name: "index_events_on_creator_id"
+  add_index "events", ["creator_id"], name: "index_events_on_creator_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -82,6 +85,6 @@ ActiveRecord::Schema.define(version: 20150925223210) do
     t.datetime "avatar_updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end

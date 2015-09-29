@@ -18,8 +18,8 @@ class Event < ActiveRecord::Base
       transition [:open, :confirmed] => :closed
     end
 
-    event :confirm do
-      transition [:open] => :confirmed
+    event :finalise do
+      transition [:open] => :finalised
     end
 
     event :reopen do
@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
 
   def status_name
     case state
-      when :confirmed then 'Confirmed'
+      when :finalised then 'Finalised'
       when :closed then 'Closed'
       else 'Fuzzy'
     end
