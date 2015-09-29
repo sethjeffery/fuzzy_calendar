@@ -79,3 +79,31 @@
     border-left: solid 1px #f0f0f0;
   }
 }
+
+.event-attendees {
+  display: block;
+  list-style: none;
+  padding: 0;
+}
+
+.event-attendee {
+  display: block;
+  line-height: 1.5rem;
+  padding: .375rem 0;
+  border-bottom: solid 1px #f0f0f0;
+
+  .avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    float: left;
+  }
+}
+
+
+.event-attendee-date {
+  color: #888;
+
+  .event-attendee:hover & {
+    color: #444;
+  }
+}
