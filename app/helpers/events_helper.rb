@@ -33,4 +33,7 @@ module EventsHelper
     event.creator == current_user
   end
 
+  def specificity_long_format(specificity, date)
+    date.strftime('%A, %-d %B %Y')
+  end
 end

@@ -22,7 +22,13 @@ class EventsController < ApplicationController
   end
 
   def rsvp
-    @event_user = @event.event_users.find_by_user_id(current_user.id) || @event.event_users.create(user_id: current_user.id)
+    new_event_user = false
+    @event_user = @event.event_users.find_by_user_id(current_user.id)
+
+    unless @event_user
+      @event_user = @event.event_users.create(user_id: current_user.id)
+      new_event_user = true
+    end
 
     dates = JSON.parse(rsvp_params[:dates])
     dates.each do |date, options|
@@ -32,7 +38,11 @@ class EventsController < ApplicationController
     end
 
     @event_user.times.where("time NOT IN (?)", dates.keys.map(&:to_datetime)).delete_all
-    @event_user.save
+    @event_user.save!
+
+    if new_event_user
+      RsvpMailer.rsvp(@event_user).deliver!
+    end
 
     redirect_to @event
   end

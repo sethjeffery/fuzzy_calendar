@@ -1,0 +1,15 @@
+Hi there, <%= @creator.name %>.
+
+It's my pleasure to let you know that <%= @sender.name %> has RSVP'd to your event, <%= @event.name %>.
+
+<% if @times.blank? %>Sadly, they are not available for any of the dates.<% else %>Here are the dates they picked:
+
+<% @times.each do |time| %>- <%= specificity_long_format(@event.specificity, time.time) %><%= ' *' if time.favorite %>
+<% end %>
+<% end %>
+
+For more information, you can view your event here:
+<%= event_url(@event) %>
+
+Yours sincerely,
+Fuzzy
