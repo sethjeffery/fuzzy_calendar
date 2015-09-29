@@ -1,0 +1,49 @@
+@import 'variables';
+
+.form-control-lg {
+  font-family: $serif;
+  font-size: 1.5rem;
+}
+
+.form-control-top {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.form-control-bottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: -1px;
+  padding: 0.75rem 1.25rem;
+}
+
+.form-control-top, .form-control-bottom {
+  &:focus {
+    position: relative;
+  }
+}
+
+.form-group-lg {
+  margin-bottom: 2rem;
+}
+
+.c-indicator {
+  top: 1px;
+}
+
+.card-fill-x {
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+
+  .form-control {
+    border-radius: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+  }
+
+  .form-control-bottom {
+    border-top-width: 1px;
+    border-bottom-width: 0;
+  }
+}

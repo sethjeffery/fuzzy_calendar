@@ -1,0 +1,32 @@
+@import 'compass/css3/transition';
+
+.wizard {
+  position: relative;
+
+  &.moving {
+    overflow: hidden !important;
+    @include transition(height 0.5s);
+  }
+}
+
+.wizard-step {
+  width: 100%;
+  display: none;
+  position: relative;
+  top: 0;
+  @include transition(left 0.5s, opacity 0.5s);
+
+  &.fade {
+    opacity: 0;
+  }
+
+  &.active {
+    display: block;
+    opacity: 1;
+  }
+
+  &.moving.in {
+    position: absolute;
+    display: block;
+  }
+}

@@ -1,0 +1,54 @@
+.card.card-event.m-t-lg
+  .card-img-top{style: "background-image:url('http://www.adu.ac.ae/portals/0/AduImage/calendar-banner.jpg')"}
+
+  - if @event.errors.present?
+    %ul.alert.alert-danger.card-alert
+      - @event.errors.each do |key, error|
+        %li= error
+
+  .card-block
+    = form_for @event do |f|
+
+      .form-group-lg.card-fill-x
+        = f.text_field :name, class: 'form-control form-control-top form-control-lg', placeholder: 'Enter a name for your event'
+        = f.text_area :description, class: 'form-control form-control-bottom form-control-sm', placeholder: 'And optionally a small description or instructions for your guests...', rows: 1
+
+      .form-group-lg
+        .subtitle
+          How specific is the time-frame for this event?
+
+        .m-t-sm
+          %label.c-input.c-radio
+            = f.radio_button :specificity, :day
+            %span.c-indicator
+            I need to know what <strong>day</strong> invitees are available.
+
+        .m-t-sm
+          %label.c-input.c-radio
+            = f.radio_button :specificity, :week
+            %span.c-indicator
+            I need to know what <strong>week</strong> invitees are available.
+
+        .m-t-sm
+          %label.c-input.c-radio
+            = f.radio_button :specificity, :month
+            %span.c-indicator
+            I need to know what <strong>month</strong> invitees are available.
+
+      .subtitle
+        Between which dates will it approximately take place?
+
+      .help
+        You can drag an area, or just click the start and end dates.
+
+      #event_date_range.picker{ data: { name: 'event[date_range]',
+                       double: true,
+                       blocks: 2,
+                       dates: { @event.starts_at.try(:strftime, '%F') => {}, @event.ends_at.try(:strftime, '%F') => {} }.reject{|k,v| !k}.to_json,
+                       specificity: @event.specificity,
+                       range: true }}
+
+      %hr.card-fill-x.m-t-0.m-b
+
+      .text-center
+        = f.submit "Create my event", class: 'btn btn-primary btn-lg'

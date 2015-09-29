@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 
+  starts_on: 
+  ends_on: 
+  name: 
+
+two:
+  id: 
+  starts_on: 
+  ends_on: 
+  name: 

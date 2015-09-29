@@ -1,0 +1,22 @@
+@import "variables";
+
+.tooltip-inner {
+  font-size: 0.75rem;
+}
+
+.picker-event-user {
+  text-align: left;
+  padding: 0 1rem;
+}
+
+.picker-event-favorite {
+  &::before {
+    float: left;
+    content: '';
+    width: .5rem;
+    height: .5rem;
+    border-radius: $border-radius-circle;
+    margin: .3125rem 0 0 -.875rem;
+    background-color: $brand-favorite;
+  }
+}

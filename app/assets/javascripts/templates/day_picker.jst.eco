@@ -1,0 +1,79 @@
+<div class="picker-block">
+  <% if @useDropdown: %>
+    <div class="picker-title">
+      <div class="pull-left dropdown m-r">
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><%= moment(@date).format('MMMM') %></a>
+        <div class="dropdown-menu">
+          <% for i in [0..11]: %>
+            <a class="dropdown-item <%= 'active' if @date.month() == i %>" href="#" data-toggle="picker" data-date="<%= moment(@date).startOf('year').add(i, 'months').format('YYYY-MM-DD') %>">
+              <%= moment(@date).startOf('year').add(i, 'months').format('MMMM') %>
+            </a>
+          <% end %>
+        </div>
+      </div>
+      <div class="pull-left dropdown">
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><%= moment(@date).format('YYYY') %></a>
+        <div class="dropdown-menu">
+          <% for i in [-2..2]: %>
+            <% date = moment(@date).add(i, 'years') %>
+            <a class="dropdown-item <%= 'active' if @date.year() == date.year() %>" href="#" data-toggle="picker" data-date="<%= date.format('YYYY-MM-DD') %>">
+              <%= date.format('YYYY') %>
+            </a>
+          <% end %>
+        </div>
+      </div>
+      <div class="pull-right">
+        <a class="arrow-left  pull-left" data-toggle="picker" data-date="<%= moment(@date).add(-1, 'month').format('YYYY-MM-DD') %>"></a>
+        <a class="arrow-right pull-left" data-toggle="picker" data-date="<%= moment(@date).add(1,  'month').format('YYYY-MM-DD') %>"></a>
+      </div>
+    </div>
+  <% else: %>
+    <div class="picker-title">
+      <%= moment(@date).format('MMMM') %>
+    </div>
+  <% end %>
+
+  <div class="picker-container">
+    <div class="picker-row">
+      <% for i in [0..6]: %>
+        <div class="picker-cell picker-cell-title">
+          <div class="picker-title-content">
+            <% if @size == 'sm': %>
+              <%= moment().startOf('week').add(i, 'days').format('dd') %>
+            <% else: %>
+              <%= moment().startOf('week').add(i, 'days').format('ddd') %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="picker-days">
+      <% week = moment(@date).startOf('month').startOf('week').add(-1, 'week') %>
+      <% endOfMonth = moment(@date).endOf('month').endOf('week') %>
+
+      <% while week.add(1, 'week') < endOfMonth: %>
+        <% weekAvailable = (!@minDate or moment(week).endOf('week') >= @minDate) and (!@maxDate or moment(week).startOf('week') <= @maxDate) %>
+        <% weekTag = if @specificity == 'week' and weekAvailable and !@readOnly then 'a' else 'div' %>
+        <<%=weekTag%> class="picker-row" data-date="<%= week.format('YYYY-MM-DD') %>">
+
+          <% day = moment(week).add(-1, 'day') %>
+          <% endOfWeek = moment(week).endOf('week') %>
+          <% thisWeek = moment().format('YYYY-w') == week.format('YYYY-w') %>
+
+          <% while day.add(1, 'day') < endOfWeek: %>
+            <% dayAvailable = day.month() == moment(@date).month() and day.year() == moment(@date).year() and (!@minDate or day >= @minDate) and (!@maxDate or day <= @maxDate) %>
+            <% dayTag   = if @specificity == 'day' and dayAvailable and !@readOnly then 'a' else 'div' %>
+            <% today    = moment().format('YYYY-MM-DD') == day.format('YYYY-MM-DD') %>
+
+            <<%=dayTag%> class="picker-cell <%= 'picker-day-today' if today %> <%= 'picker-day-this-week' if thisWeek %> <%= 'picker-day-outside' unless dayAvailable %> picker-day-<%= day.format('ddd').toLowerCase() %>" data-date="<%= day.format('YYYY-MM-DD') %>">
+              <div class="picker-day-content"><%= day.format('D') %></div>
+            </<%=dayTag%>>
+
+          <% end %>
+
+        </<%=weekTag%>>
+      <% end %>
+    </div>
+  </div>
+</div>

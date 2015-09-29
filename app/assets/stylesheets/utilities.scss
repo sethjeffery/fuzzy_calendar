@@ -1,0 +1,103 @@
+/* Type
+ *
+ * Utility classes can be used to override styles in HTML templates.
+ * If you want to extend styles into other classes, then see the `placeholders` file.
+ */
+
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+
+@mixin resolution-specific-utilities($prefix) {
+
+  // Resolution-specific spacing
+  @each $size, $mult in (0, 0), (md, 1.5), (lg, 3), (sm, .5), (xs, .25), (xl, 4), (xxl, 6) {
+    .#{$prefix}-m-a-#{$size} { margin:        ($spacer   * $mult) !important; }
+    .#{$prefix}-m-t-#{$size} { margin-top:    ($spacer-y * $mult) !important; }
+    .#{$prefix}-m-r-#{$size} { margin-right:  ($spacer-y * $mult) !important; }
+    .#{$prefix}-m-b-#{$size} { margin-bottom: ($spacer-y * $mult) !important; }
+    .#{$prefix}-m-l-#{$size} { margin-left:   ($spacer-y * $mult) !important; }
+    .#{$prefix}-m-x-#{$size} { @extend .#{$prefix}-m-l-#{$size}, .#{$prefix}-m-r-#{$size}; }
+    .#{$prefix}-m-y-#{$size} { @extend .#{$prefix}-m-t-#{$size}, .#{$prefix}-m-b-#{$size}; }
+
+    .#{$prefix}-p-a-#{$size} { padding:        ($spacer * $mult) !important; }
+    .#{$prefix}-p-t-#{$size} { padding-top:    ($spacer-y * $mult) !important; }
+    .#{$prefix}-p-r-#{$size} { padding-right:  ($spacer-y * $mult) !important; }
+    .#{$prefix}-p-b-#{$size} { padding-bottom: ($spacer-y * $mult) !important; }
+    .#{$prefix}-p-l-#{$size} { padding-left:   ($spacer-y * $mult) !important; }
+    .#{$prefix}-p-x-#{$size} { @extend .#{$prefix}-p-l-#{$size}, .#{$prefix}-p-r-#{$size}; }
+    .#{$prefix}-p-y-#{$size} { @extend .#{$prefix}-p-t-#{$size}, .#{$prefix}-p-b-#{$size}; }
+  }
+
+  .#{$prefix}-m-a { margin:        $spacer !important; }
+  .#{$prefix}-m-t { margin-top:    $spacer-y !important; }
+  .#{$prefix}-m-r { margin-right:  $spacer-x !important; }
+  .#{$prefix}-m-b { margin-bottom: $spacer-y !important; }
+  .#{$prefix}-m-l { margin-left:   $spacer-x !important; }
+  .#{$prefix}-m-x { margin-right:  $spacer-x !important; margin-left: $spacer-x !important; }
+  .#{$prefix}-m-y { margin-top:    $spacer-y !important; margin-bottom: $spacer-y !important; }
+
+  .#{$prefix}-p-a { padding:        $spacer !important; }
+  .#{$prefix}-p-t { padding-top:    $spacer-y !important; }
+  .#{$prefix}-p-r { padding-right:  $spacer-x !important; }
+  .#{$prefix}-p-b { padding-bottom: $spacer-y !important; }
+  .#{$prefix}-p-l { padding-left:   $spacer-x !important; }
+  .#{$prefix}-p-x { padding-right:  $spacer-x !important; padding-left:   $spacer-x !important; }
+  .#{$prefix}-p-y { padding-top:    $spacer-y !important; padding-bottom: $spacer-y !important; }
+}
+
+@each $bp in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($bp) {
+    @include resolution-specific-utilities(#{$bp}-up);
+  }
+  @include media-breakpoint-down($bp) {
+    @include resolution-specific-utilities(#{$bp}-down);
+  }
+}
+
+
+// More margin and padding classes than bootstrap provides
+// -sm = 4px
+// -xs = 2px
+// -xl = 32px
+// -xxl = 48px
+
+@each $size, $mult in (sm, .5), (xs, .25), (xl, 4), (xxl, 6) {
+  .m-a-#{$size} { margin:        ($spacer   * $mult) !important; }
+  .m-t-#{$size} { margin-top:    ($spacer-y * $mult) !important; }
+  .m-r-#{$size} { margin-right:  ($spacer-y * $mult) !important; }
+  .m-b-#{$size} { margin-bottom: ($spacer-y * $mult) !important; }
+  .m-l-#{$size} { margin-left:   ($spacer-y * $mult) !important; }
+  .m-x-#{$size} { @extend .m-l-#{$size}, .m-r-#{$size}; }
+  .m-y-#{$size} { @extend .m-t-#{$size}, .m-b-#{$size}; }
+
+  .p-a-#{$size} { padding:        ($spacer * $mult) !important; }
+  .p-t-#{$size} { padding-top:    ($spacer-y * $mult) !important; }
+  .p-r-#{$size} { padding-right:  ($spacer-y * $mult) !important; }
+  .p-b-#{$size} { padding-bottom: ($spacer-y * $mult) !important; }
+  .p-l-#{$size} { padding-left:   ($spacer-y * $mult) !important; }
+  .p-x-#{$size} { @extend .p-l-#{$size}, .p-r-#{$size}; }
+  .p-y-#{$size} { @extend .p-t-#{$size}, .p-b-#{$size}; }
+}
+
+
+// Different size row gutters
+@each $size, $gutter in (row-lg, 3rem),
+                        (row-md, 2rem),
+                        (row-sm, 1rem),
+                        (row-xs, .5rem),
+                        (row-0,  0) {
+
+  .#{$size} {
+    @include make-row($gutter: $gutter);
+
+    @each $breakpoint in map-keys($grid-breakpoints) {
+      @for $i from 1 through $grid-columns {
+        .col-#{$breakpoint}-#{$i} {
+          padding-left: $gutter/2;
+          padding-right: $gutter/2;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+body {
+  background-color: #f0f0f0;
+}
+
+.navbar {
+  background-color: white;
+  border-bottom: solid 1px #ddd;
+
+  .avatar {
+    margin-top: -.1875rem;
+    margin-bottom: -1.875rem;
+    vertical-align: top;
+  }
+}
+
+.navbar-brand img {
+  margin: -.25rem .5rem -.25rem 0;
+  float: left;
+}
+
+.navbar-nav {
+  .nav-link {
+    padding-top: .4375rem;
+    padding-bottom: .4375rem;
+  }
+}

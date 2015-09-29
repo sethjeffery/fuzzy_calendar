@@ -1,0 +1,28 @@
+//$brand-primary:             #5cb85c !default;
+$serif:                       Merriweather, serif;
+
+
+$alert-success-bg:            #5cb85c !default;
+$alert-success-text:          white !default;
+$alert-success-border:        transparent !default;
+
+$alert-info-bg:               #5bc0de !default;
+$alert-info-text:             white !default;
+$alert-info-border:           transparent !default;
+
+$alert-warning-bg:            #f0ad4e !default;
+$alert-warning-text:          white !default;
+$alert-warning-border:        transparent !default;
+
+$alert-danger-bg:             #d9534f !default;
+$alert-danger-text:           white !default;
+$alert-danger-border:         transparent !default;
+
+$alert-padding:               10px 15px !default;
+
+$border-radius-circle:        1000px;
+
+$brand-highlight:             #c94465;
+$brand-favorite:              #f0ad4e;
+
+@import "bootstrap/variables";

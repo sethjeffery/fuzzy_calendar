@@ -1,0 +1,36 @@
+@import "variables";
+@import "mixins";
+
+@include media-breakpoint-up(sm) {
+  .modal-dialog {
+    margin-top: 80px;
+  }
+
+  .modal-dialog-sm {
+    width: 22rem;
+  }
+}
+
+.modal-content {
+  border-color: transparent;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+.modal.fade .modal-dialog {
+  transform: scale(0.9);
+}
+
+.modal.fade.in .modal-dialog {
+  transform: scale(1);
+}
+
+.modal-body {
+  padding: 1.25rem;
+}
+
+.modal-body > .close {
+  position: absolute;
+  right: 1.25rem;
+  top: 1.25rem;
+  z-index: 1;
+}

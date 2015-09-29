@@ -1,0 +1,7 @@
+<div class="list-group">
+  <% @events.each do |event| %>
+    <%= link_to event, class: 'list-group-item' do %>
+      <%= event.name %>
+    <% end %>
+  <% end %>
+</div>

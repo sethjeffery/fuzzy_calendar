@@ -1,0 +1,3 @@
+<% for user in @users: %>
+  <div class="picker-event-user <%= 'picker-event-favorite' if user.favorite %>"><%= user.name %></div>
+<% end %>

@@ -1,0 +1,10 @@
+@import "variables";
+
+@keyframes glow {
+  from { box-shadow: 0 0 0 1px white, 0 0 1px 1px transparent, inset 0 0 1px 1px transparent; }
+  to   { box-shadow: 0 0 0 1px white, 0 0 5px 1px $brand-primary, inset 0 0 10px 1px rgba(255,255,255,0.25); }
+}
+
+.btn-glow {
+  animation: glow 1s alternate infinite;
+}

@@ -1,0 +1,11 @@
+.subtitle
+  Attendance
+.help
+  - if @event.event_users.count == 0
+    = link_to "Share this page", "#event-share-modal", data: { toggle: 'modal' }
+    to invite friends to attend.
+  - elsif @event.event_users.count == 1
+    One invitee has RSVP'd to this event.
+  - else
+    #{@event.event_users.count} invitees have RSVP'd to this event.
+

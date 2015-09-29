@@ -1,0 +1,205 @@
+@import "variables";
+
+$day-border-color:                rgba(0,0,0, .07);
+$current-day-text-color:          $brand-highlight;
+$current-day-border-color:        mix($brand-highlight, white, 30);
+$outside-text-color:              rgba(0,0,0, .1);
+$in-range-bg-color:               mix($brand-highlight, white, 10);
+$weekend-bg-color:                rgba(0,0,0, .03);
+$highlight-bg-color:              #f8f5da;
+$gutter:                          16px;
+
+.picker {
+  margin: 0 0-$gutter/2;
+  font-size: 0;
+}
+
+.picker-block {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  padding: 0 $gutter/2 $gutter;
+  font-size: 16px;
+  .picker-sm & { font-size: 14px; }
+}
+
+.picker-double .picker-block {
+  width: 50%;
+}
+
+// Title area, usually containing month and year
+.picker-title {
+  font-weight: bold;
+  padding: 4px 4px 0;
+  .picker-sm & { padding: 2px 2px 0; }
+}
+
+// Main area, rows, cells
+.picker-row {
+  display: table;
+  width: 100%;
+  font-size: 12px;
+  .picker-sm & { font-size: 11px; }
+}
+
+.picker-cell {
+  display: table-cell;
+  overflow: hidden;
+  white-space: nowrap;
+  width: (100%/7);
+  padding: 0 4px;
+  cursor: default;
+  .picker-sm & { padding: 0 2px; }
+}
+
+.picker-title-content {
+  padding: 4px 0;
+  .picker-sm & { padding: 2px 0; }
+}
+
+.picker-day-content {
+  border-top: solid 1px $day-border-color;
+  padding: 4px 0 16px;
+  .picker-sm & { padding: 2px 0 8px; }
+}
+
+// "Outside" style is for inactive cells, usually being outside the min-max date
+// or showing dates outside the calendar month
+.picker-day-outside {
+  color: $outside-text-color;
+}
+
+// Styling of the item that highlights the current week
+.picker-day-this-week {
+  .picker-day-content {
+    border-top-color: $current-day-border-color;
+  }
+}
+
+// Styling of the item that highlights the current day
+.picker-day-today {
+  color: $current-day-text-color;
+
+  &:hover, &:focus {
+    color: $current-day-text-color;
+  }
+
+  .picker-day-content {
+    border-top-color: $current-day-border-color;
+    border-top-width: 3px;
+    padding-top: 2px;
+    .picker-sm & { padding-top: 1px; border-top-width: 2px; }
+  }
+}
+
+// Styling the weekend cells
+.picker-day-sun, .picker-day-sat {
+  background-color: $weekend-bg-color;
+}
+
+// Styling the range picker
+.picker-cell-in-range {
+  background-color: $in-range-bg-color;
+
+  .picker-day-content {
+    border-top-color: transparent;
+  }
+}
+
+.picker-cell-start-range {
+  border-top-left-radius: 8px;
+}
+
+.picker-cell-end-range {
+  border-bottom-right-radius: 8px;
+}
+
+// Styling the actively selected and favorited items
+%picker-cell-active {
+  &, &:hover, &:focus { color: white; }
+  .picker-day-content { border-top-color: transparent; }
+}
+
+.picker-cell-active {
+  @extend %picker-cell-active;
+  background-color: $brand-highlight;
+}
+
+.picker-cell-low {
+  background-color: mix($brand-highlight, white, 20);
+  color: $brand-highlight;
+}
+
+.picker-cell-mid {
+  background-color: mix($brand-highlight, white, 50);
+}
+
+.picker-cell-high {
+  background-color: mix($brand-highlight, white, 80);
+}
+
+// Styling the actively selected items
+.picker-cell-favorite {
+  @extend %picker-cell-active;
+  background-color: $brand-favorite;
+}
+
+%picker-cell-hover {
+  text-decoration: none;
+  background-color: $highlight-bg-color;
+
+  &.picker-cell-active   { background-color: darken($brand-highlight, 5%); }
+  &.picker-cell-favorite { background-color: darken($brand-favorite, 5%); }
+}
+
+a.picker-cell {
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover, &:focus {
+    @extend %picker-cell-hover;
+  }
+}
+
+// Extensions for week picker
+.picker-row-active:not(.picker-row-start-range):not(.picker-row-end-range) .picker-cell,
+.picker-row-active.picker-row-start-range       .picker-cell:first-child,
+.picker-row-active.picker-row-end-range         .picker-cell:last-child  {
+  &:not(.picker-day-outside) { @extend .picker-cell-active; }
+}
+.picker-row-favorite:not(.picker-row-start-range):not(.picker-row-end-range) .picker-cell,
+.picker-row-favorite.picker-row-start-range       .picker-cell:first-child,
+.picker-row-favorite.picker-row-end-range         .picker-cell:last-child  {
+  &:not(.picker-day-outside) { @extend .picker-cell-favorite; }
+}
+.picker-row-start-range .picker-cell:first-child:not(.picker-day-outside) { @extend .picker-cell-start-range; }
+.picker-row-end-range   .picker-cell:last-child:not(.picker-day-outside)  { @extend .picker-cell-end-range;   }
+.picker-row-in-range    .picker-cell:not(.picker-day-outside)             { @extend .picker-cell-in-range;    }
+
+
+a.picker-row {
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover, &:focus {
+    .picker-cell { @extend %picker-cell-hover; }
+
+    &.picker-row-active:not(.picker-row-start-range):not(.picker-row-end-range) .picker-cell,
+    &.picker-row-active.picker-row-start-range       .picker-cell:first-child,
+    &.picker-row-active.picker-row-end-range         .picker-cell:last-child  {
+      &:not(.picker-day-outside) { background-color: darken($brand-highlight, 5%); }
+    }
+
+    &.picker-row-favorite:not(.picker-row-start-range):not(.picker-row-end-range) .picker-cell,
+    &.picker-row-favorite.picker-row-start-range       .picker-cell:first-child,
+    &.picker-row-favorite.picker-row-end-range         .picker-cell:last-child  {
+      &:not(.picker-day-outside) { background-color: darken($brand-favorite, 5%); }
+    }
+  }
+}
+
+// Extensions for month picker
+.picker-month-content {
+  @extend .picker-day-content;
+  padding-bottom: 24px;
+}
