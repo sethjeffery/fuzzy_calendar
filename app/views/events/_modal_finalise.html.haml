@@ -1,0 +1,34 @@
+.modal.fade#event-finalise-modal
+  .modal-dialog
+    .modal-content
+      .modal-body
+        %button.close{type: "button", data: { dismiss: "modal" }}
+          %span &times;
+        = form_for :finalise, url: finalise_event_path(@event), html: { class: 'card-fill-x' } do
+
+          .p-x.sm-up-p-x-md
+            %p.text-center By my calculation, the best #{@event.specificity_name} would be...
+
+            .title.text-center
+              = @event.best_date.strftime('%A, %-d %B %Y')
+
+          %hr
+
+          .p-x.sm-up-p-x-md
+            .subtitle
+              But what #{@event.specificity_name} have you decided?
+            .help
+              Pick the #{@event.specificity_name} for the event. The attendees will be notified and no more RSVPs accepted.
+
+            .picker#picker-rsvp-available{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
+                                                  min_date: @event.starts_at.strftime('%F'),
+                                                  max_date: @event.ends_at.strftime('%F'),
+                                                  specificity: @event.specificity,
+                                                  dates: @event.scored_dates.to_json,
+                                                  name: 'finalise[date]',
+                                                  }}
+
+            .clearfix
+              %a.pull-left.btn.btn-secondary{data: { dismiss: 'modal' }}
+                Cancel
+              %input.pull-right.btn.btn-primary{type: 'submit', value: 'Finalise!', data: { toggle: 'wizard', move: 'next' }}

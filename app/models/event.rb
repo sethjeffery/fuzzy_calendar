@@ -55,4 +55,21 @@ class Event < ActiveRecord::Base
       else specificity.to_s
     end
   end
+
+  def best_date
+    Date.parse(scored_dates.sort_by{|k, v| [ -v[:score], -v[:favorites] ] }.first[0]) if scored_dates.present?
+  end
+
+  def scored_dates
+    @scored_dates ||= event_users.reduce({}){|memo, event_user|
+      name = event_user.user.name
+      event_user.times.reduce(memo) {|m, time|
+        m[time.time.strftime('%F')] ||= { score: 0, favorites: 0, users: [] }
+        m[time.time.strftime('%F')][:score] += 1
+        m[time.time.strftime('%F')][:favorites] += 1 if time.favorite
+        m[time.time.strftime('%F')][:users] << { name: name, favorite: time.favorite }
+        m
+      }
+    } || {}
+  end
 end

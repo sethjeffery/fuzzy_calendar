@@ -29,19 +29,8 @@ module EventsHelper
     end
   end
 
-  def scored_dates_json(event)
-    event.event_users.reduce({}){|memo, event_user|
-      name = event_user.user.name
-      event_user.times.reduce(memo) {|m, time|
-        m[time.time.strftime('%F')] ||= { score: 0, users: [] }
-        m[time.time.strftime('%F')][:score] += 1
-        m[time.time.strftime('%F')][:users] << { name: name, favorite: time.favorite }
-        m
-      }
-    }
-  end
-
   def mine?(event)
     event.creator == current_user
   end
+
 end

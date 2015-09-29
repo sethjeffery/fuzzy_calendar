@@ -21,9 +21,10 @@
             %i.glyphicons.glyphicons-pencil.m-r-sm
             Edit details
 
-          = link_to '#event-finalise-modal', class: 'dropdown-item', data: { toggle: 'modal' } do
-            %i.glyphicons.glyphicons-star.m-r-sm
-            Finalise event date
+          - if @event.best_date.present?
+            = link_to '#event-finalise-modal', class: 'dropdown-item', data: { toggle: 'modal' } do
+              %i.glyphicons.glyphicons-ok-2.m-r-sm
+              Finalise event date
 
           .dropdown-divider
 
@@ -33,4 +34,4 @@
 
 - if mine?(@event)
   = render "modal_close"
-  = render "modal_finalise"
+  = render "modal_finalise" if @event.best_date.present?

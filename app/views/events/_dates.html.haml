@@ -6,5 +6,5 @@
                 min_date: @event.starts_at.strftime('%F'),
                 max_date: @event.ends_at.strftime('%F'),
                 specificity: @event.specificity,
-                dates: scored_dates_json(@event).to_json || {},
+                dates: @event.scored_dates.to_json,
                 read_only: true }}
