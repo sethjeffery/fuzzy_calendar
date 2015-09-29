@@ -161,7 +161,9 @@ a.picker-cell {
   }
 }
 
+
 // Extensions for week picker
+a.picker-row .picker-cell { @extend a.picker-cell; }
 .picker-row-active:not(.picker-row-start-range):not(.picker-row-end-range) .picker-cell,
 .picker-row-active.picker-row-start-range       .picker-cell:first-child,
 .picker-row-active.picker-row-end-range         .picker-cell:last-child  {

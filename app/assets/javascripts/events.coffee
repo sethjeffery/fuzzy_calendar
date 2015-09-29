@@ -12,6 +12,7 @@ $(document).on 'wizard.moving', '#wizard-rsvp', (e, data) ->
   pickerAvailable = $('#picker-rsvp-available').data('picker')
 
   if pickerFavorites and pickerAvailable
-    _.defaults pickerFavorites.favorites, pickerAvailable.dates
-    pickerFavorites.favorites = _(pickerFavorites.favorites).filter((f) -> _.contains pickerAvailable.dates, f)
+    _.defaults pickerFavorites.dates, pickerAvailable.dates
+    for own k, v of pickerFavorites.dates
+      delete pickerFavorites.dates[k] unless pickerAvailable.dates[k]
     pickerFavorites.render()
