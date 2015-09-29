@@ -40,7 +40,7 @@ class EventsController < ApplicationController
     @event_user.times.where("time NOT IN (?)", dates.keys.map(&:to_datetime)).delete_all
     @event_user.save!
 
-    if new_event_user
+    if new_event_user && @event.creator != current_user
       RsvpMailer.rsvp(@event_user).deliver!
     end
 
