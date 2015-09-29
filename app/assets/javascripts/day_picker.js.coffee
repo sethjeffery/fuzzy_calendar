@@ -109,9 +109,9 @@ class @DayPicker extends Picker
       classesToAdd += 'picker-cell-favorite ' if props.favorite and @favorite
 
       if props.score?
-        classesToadd += 'picker-cell-low '  if props.score > 0               and props.score < maxScore * .33
-        classesToadd += 'picker-cell-mid '  if props.score >= maxScore * .33 and props.score < maxScore * .66
-        classesToadd += 'picker-cell-high ' if props.score >= maxScore *.66  and props.score < maxScore
+        classesToAdd += 'picker-cell-low '  if props.score > 0               and props.score < maxScore * .33
+        classesToAdd += 'picker-cell-mid '  if props.score >= maxScore * .33 and props.score < maxScore * .66
+        classesToAdd += 'picker-cell-high ' if props.score >= maxScore *.66  and props.score < maxScore
         $cellDate.tooltip(title: JST["templates/cell_tooltip"](props), html: true)
 
       $allOtherCells = $allOtherCells.not($cellDate)
