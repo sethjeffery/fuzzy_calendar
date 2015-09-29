@@ -48,4 +48,11 @@ class Event < ActiveRecord::Base
       else 'Fuzzy'
     end
   end
+
+  def specificity_name
+    case specificity
+      when :day then 'date'
+      else specificity.to_s
+    end
+  end
 end

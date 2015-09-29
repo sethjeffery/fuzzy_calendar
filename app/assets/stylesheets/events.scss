@@ -1,4 +1,5 @@
 @import "variables";
+@import 'mixins';
 
 .card-img-top {
   height: 200px;
@@ -9,7 +10,7 @@
   h1 {
     text-align: center;
     margin: 0;
-    padding: 2rem 2rem 4rem;
+    padding: 1em 1em 2em;
     color: white;
     text-shadow: 0 1px 2px rgba(0,0,0,0.25);
     background-image: linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(0,0,0,0));
@@ -20,6 +21,13 @@
     font-size: 2rem;
     font-family: $serif;
     font-weight: 700;
+  }
+
+  @include media-breakpoint-down(xs) {
+    height: 150px;
+    h1 {
+      padding-top: 2em;
+    }
   }
 }
 
@@ -67,16 +75,18 @@
   }
 }
 
-.row-center-line {
-  position: relative;
+@include media-breakpoint-up(md) {
+  .row-md-center-line {
+    position: relative;
 
-  &:before {
-    position: absolute;
-    content: '';
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    border-left: solid 1px #f0f0f0;
+    &:before {
+      position: absolute;
+      content: '';
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      border-left: solid 1px #f0f0f0;
+    }
   }
 }
 

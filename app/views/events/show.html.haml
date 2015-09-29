@@ -1,20 +1,20 @@
 .card.m-y-md
   .card-img-top{style: "background-image:url('http://www.adu.ac.ae/portals/0/AduImage/calendar-banner.jpg')"}
-    %h1= @event.name
+    %h1.xs-down-size-md= @event.name
   .card-circle
     = image_tag "sprites-retina/logo.png"
     .logo-text= @event.status_name
 
-  .card-block
-    .event-top-area
+  .card-block.xs-down-p-t-lg
+    .event-top-area.xs-down-p-t-sm
       = render "event_top_area"
 
-    .row.row-lg.row-center-line
-      .col-sm-6.p-y-md
+    .row.row-lg.p-y-md.row-md-center-line
+      .col-md-6
         = render "description"
         = render "attendance"
 
-      .col-sm-6.p-y-md
+      .col-md-6
         = render "dates"
 
     = render "comment_form"

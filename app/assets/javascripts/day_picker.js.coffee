@@ -112,7 +112,10 @@ class @DayPicker extends Picker
         classesToAdd += 'picker-cell-low '  if props.score > 0               and props.score < maxScore * .33
         classesToAdd += 'picker-cell-mid '  if props.score >= maxScore * .33 and props.score < maxScore * .66
         classesToAdd += 'picker-cell-high ' if props.score >= maxScore *.66  and props.score < maxScore
-        $cellDate.tooltip(title: JST["templates/cell_tooltip"](props), html: true)
+        $cellDate.tooltip
+          title: JST["templates/cell_tooltip"](props)
+          html: true
+          placement: 'top'
 
       $allOtherCells = $allOtherCells.not($cellDate)
       $cellDate.removeClass(classesToRemove).addClass(classesToAdd)

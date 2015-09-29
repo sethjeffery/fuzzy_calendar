@@ -1,4 +1,5 @@
 @import "variables";
+@import 'mixins';
 
 $day-border-color:                rgba(0,0,0, .07);
 $current-day-text-color:          $brand-highlight;
@@ -23,8 +24,10 @@ $gutter:                          16px;
   .picker-sm & { font-size: 14px; }
 }
 
-.picker-double .picker-block {
-  width: 50%;
+@include media-breakpoint-up(sm) {
+  .picker-double .picker-block {
+    width: 50%;
+  }
 }
 
 // Title area, usually containing month and year

@@ -1,5 +1,5 @@
 .subtitle Dates
-.help This event's final date is still #{link_to "undecided", "#"}.
+.help This event's final #{@event.specificity_name} is still #{link_to "undecided", "#"}.
 
 .picker{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
                 size: :sm,

@@ -7,11 +7,11 @@
             %span &times;
           = form_for :rsvp, url: rsvp_event_path(@event), html: { class: 'card-fill-x' } do
             .wizard#wizard-rsvp
-              .wizard-step.p-x-md.active
+              .wizard-step.p-x.sm-up-p-x-md.active
                 .subtitle
-                  What dates are you available?
+                  What #{@event.specificity_name.pluralize} are you available?
                 .help
-                  Just mark all dates you could possibly do. To save time you can click and drag.
+                  Just mark all #{@event.specificity_name.pluralize} you could possibly do. To save time you can click and drag.
 
                 .picker#picker-rsvp-available{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
                                                       min_date: @event.starts_at.strftime('%F'),
@@ -29,9 +29,9 @@
 
               .wizard-step.p-x-md
                 .subtitle
-                  What would be your best dates?
+                  What would be your best #{@event.specificity_name.pluralize}?
                 .help
-                  Highlight any of the dates that would be the most convenient for you.
+                  Highlight any of the #{@event.specificity_name.pluralize} that would be the most convenient for you.
 
                 .picker#picker-rsvp-favorites{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
                                                       min_date: @event.starts_at.strftime('%F'),

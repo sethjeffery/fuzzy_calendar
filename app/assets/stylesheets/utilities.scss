@@ -29,6 +29,15 @@
     .#{$prefix}-p-y-#{$size} { @extend .#{$prefix}-p-t-#{$size}, .#{$prefix}-p-b-#{$size}; }
   }
 
+  .#{$prefix}-text-left   { text-align: left; }
+  .#{$prefix}-text-right  { text-align: right; }
+  .#{$prefix}-text-center { text-align: center; }
+  .#{$prefix}-size-xs   { font-size: 0.75rem !important; }
+  .#{$prefix}-size-sm   { font-size: 0.875rem !important; }
+  .#{$prefix}-size-md   { font-size: 1.25rem !important; }
+  .#{$prefix}-size-lg   { font-size: 1.5rem !important; }
+  .#{$prefix}-size-xl   { font-size: 2rem !important; }
+
   .#{$prefix}-m-a { margin:        $spacer !important; }
   .#{$prefix}-m-t { margin-top:    $spacer-y !important; }
   .#{$prefix}-m-r { margin-right:  $spacer-x !important; }

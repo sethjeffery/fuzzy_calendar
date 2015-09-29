@@ -45,7 +45,10 @@ class @WeekPicker extends DayPicker
         $rowDate.addClass('picker-row-low')  if props.score > 0               and props.score < maxScore * .33
         $rowDate.addClass('picker-row-mid')  if props.score >= maxScore * .33 and props.score < maxScore * .66
         $rowDate.addClass('picker-row-high') if props.score >= maxScore *.66  and props.score < maxScore
-        $rowDate.tooltip(title: JST["templates/cell_tooltip"](props), html: true)
+        $rowDate.tooltip
+          title: JST["templates/cell_tooltip"](props)
+          html: true
+          placement: 'left'
 
     dates = _.keys(@dates).sort()
 

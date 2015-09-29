@@ -19,4 +19,4 @@
             - if event_user.times.count == 0
               Unavailable
             - else
-              = pluralize(event_user.times.count, 'date')
+              = pluralize(event_user.times.count, @event.specificity_name)
