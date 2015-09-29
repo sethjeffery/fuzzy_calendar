@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_filter :fetch_event, except: [:index, :new]
+  before_filter :fetch_event, except: [:index, :new, :create]
   before_filter :authenticate_event!, only: [:edit, :update, :close, :finalise]
 
   def index

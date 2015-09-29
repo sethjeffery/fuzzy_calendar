@@ -1,0 +1,31 @@
+.wow-header.text-center
+  .container
+    = link_to "Create a new Fuzzy Calendar event", new_event_path, class: 'btn btn-lg btn-white-outline'
+
+.container.m-y-lg
+  .row
+    .col-md-6
+      .subtitle
+        My events
+
+      - if current_user.created_events.any?
+        .list-group.m-t-sm
+          - current_user.created_events.each do |event|
+            = render "event", event: event
+
+      - else
+        .help
+          You have not yet created any events.
+          #{link_to "Fix that?", new_event_path}
+
+    .col-sm-6
+      .subtitle
+        Attending
+
+      - if current_user.attended_events.any?
+        .list-group.m-t-sm
+          - current_user.attended_events.each do |event|
+            = render "event", event: event
+
+      - else
+        You are not yet attending any events.

@@ -1,0 +1,12 @@
+= link_to event, class: 'list-group-item' do
+  .pull-right
+    - if event.state_name == :open
+      %i.glyphicons.glyphicons-cardio
+
+    - elsif event.state_name == :finalised
+      %i.glyphicons.glyphicons-ok-2
+
+    - elsif event.state_name == :closed
+      %i.glyphicons.glyphicons-lock
+
+  = event.name

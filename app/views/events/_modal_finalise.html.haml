@@ -10,7 +10,7 @@
             %p.text-center By my calculation, the best #{@event.specificity_name} would be...
 
             .title.text-center
-              = specificity_long_format(@event.best_date, @event.specificity)
+              = specificity_long_format(@event.specificity, @event.best_date)
 
           %hr
 
