@@ -40,4 +40,8 @@ module EventsHelper
       }
     }
   end
+
+  def mine?(event)
+    event.creator == current_user
+  end
 end

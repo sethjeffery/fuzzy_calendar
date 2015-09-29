@@ -1,0 +1,19 @@
+.modal.fade#event-close-modal
+  .modal-dialog.modal-dialog-sm
+    .modal-content
+      .modal-body
+        %button.close{type: "button", data: { dismiss: "modal" }}
+          %span &times;
+        .subtitle
+          Close event
+
+        = form_for :close_event, url: close_event_path(@event), method: :put do |f|
+          %p.m-y
+            All current attendees will be notified that the event is closed, and no one
+            will be able to RSVP. Are you sure?
+
+          .clearfix
+            .pull-left
+              = link_to "Cancel", '#', class: 'btn btn-secondary', data: { dismiss: 'modal' }
+            .pull-right
+              = f.submit "Close event", class: 'btn btn-danger'

@@ -12,17 +12,25 @@
 
     = link_to "Share", "#event-share-modal", class: 'btn btn-sm btn-secondary', data: { toggle: 'modal' }
 
-    - if @event.creator == current_user
+    - if mine?(@event)
       .btn-group
         = link_to "Edit", edit_event_path(@event), class: 'btn btn-sm btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }
         .dropdown-menu.dropdown-menu-right
-          %a.dropdown-item
+
+          = link_to edit_event_path(@event), class: 'dropdown-item' do
             %i.glyphicons.glyphicons-pencil.m-r-sm
             Edit details
-          %a.dropdown-item
+
+          = link_to '#event-finalise-modal', class: 'dropdown-item', data: { toggle: 'modal' } do
             %i.glyphicons.glyphicons-star.m-r-sm
             Finalise event date
+
           .dropdown-divider
-          %a.dropdown-item
+
+          = link_to '#event-close-modal', class: 'dropdown-item', data: { toggle: 'modal' } do
             %i.glyphicons.glyphicons-lock.m-r-sm
             Close event
+
+- if mine?(@event)
+  = render "modal_close"
+  = render "modal_finalise"

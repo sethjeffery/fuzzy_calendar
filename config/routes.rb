@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :events do
     post :rsvp, on: :member, as: :rsvp
+    put :close, on: :member, as: :close
     resources :users, controller: :event_users
   end
 
