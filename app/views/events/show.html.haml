@@ -7,105 +7,17 @@
 
   .card-block
     .event-top-area
-      .row.row-lg
-        .col-sm-6.size-sm.p-t-xs.gray
-          Created by
-          = link_to @event.creator.name, @event.creator
-
-        .col-sm-6.text-right
-          - if logged_in?
-            = link_to "RSVP", '#event-rsvp-modal', class: "btn btn-sm #{@event.event_users.where(user_id: current_user.id).exists? ? 'btn-secondary': 'btn-primary btn-glow'}", data: { toggle: 'modal' }
-          - else
-            = link_to "RSVP", auth_at_provider_path(provider: :facebook, redirect_after_login: event_path(@event, rsvp: true)), class: "btn btn-sm btn-primary btn-glow"
-
-          = link_to "Share", "#event-share-modal", class: 'btn btn-sm btn-secondary', data: { toggle: 'modal' }
-          - if @event.creator == current_user
-            = link_to "Edit", edit_event_path(@event), class: 'btn btn-sm btn-secondary'
+      = render "event_top_area"
 
     .row.row-lg.row-center-line
       .col-sm-6.p-y-md
-        - if @event.description.present?
-          .form-group-lg
-            .subtitle
-              Details
-            %blockquote
-              = simple_html(@event.description, truncate: 15)
-
-        .form-group-lg
-          = render "attendance"
+        = render "description"
+        = render "attendance"
 
       .col-sm-6.p-y-md
-        .subtitle Dates
-        .help This event's final date is still #{link_to "undecided", "#"}.
-
-        .picker{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
-                        size: :sm,
-                        min_date: @event.starts_at.strftime('%F'),
-                        max_date: @event.ends_at.strftime('%F'),
-                        specificity: @event.specificity,
-                        dates: scored_dates_json(@event).to_json || {},
-                        read_only: true }}
+        = render "dates"
 
     = render "comment_form"
 
-.modal.fade#event-share-modal{data: { autofocus: 'input'}}
-  .modal-dialog.modal-dialog-sm
-    .modal-content
-      .modal-body
-        %button.close{type: "button", data: { dismiss: "modal" }}
-          %span &times;
-        .subtitle
-          Share Link
-        .help
-          Invite others to this event by sharing this link.
-
-        %input.form-control.form-control-sm{type: 'text', value: event_url(@event)}
-
-- if logged_in?
-  .modal.fade#event-rsvp-modal
-    .modal-dialog
-      .modal-content
-        .modal-body
-          %button.close{type: "button", data: { dismiss: "modal" }}
-            %span &times;
-          = form_for :rsvp, url: rsvp_event_path(@event), html: { class: 'card-fill-x' } do
-            .wizard#wizard-rsvp
-              .wizard-step.p-x-md.active
-                .subtitle
-                  What dates are you available?
-                .help
-                  Just mark all dates you could possibly do. To save time you can click and drag.
-
-                .picker#picker-rsvp-available{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
-                                                      min_date: @event.starts_at.strftime('%F'),
-                                                      max_date: @event.ends_at.strftime('%F'),
-                                                      specificity: @event.specificity,
-                                                      dates: (my_dates_json(@event) || {}).to_json,
-                                                      name: 'rsvp[available]',
-                                                      multi: true }}
-
-                .clearfix
-                  %a.pull-left.btn.btn-secondary{data: { dismiss: 'modal' }}
-                    Cancel
-                  %a.pull-right.btn.btn-primary{data: { toggle: 'wizard', move: 'next' }}
-                    Next &rarr;
-
-              .wizard-step.p-x-md
-                .subtitle
-                  What would be your best dates?
-                .help
-                  Highlight any of the dates that would be the most convenient for you.
-
-                .picker#picker-rsvp-favorites{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
-                                                      min_date: @event.starts_at.strftime('%F'),
-                                                      max_date: @event.ends_at.strftime('%F'),
-                                                      specificity: @event.specificity,
-                                                      dates: (my_dates_json(@event) || {}).to_json,
-                                                      multi: true,
-                                                      name: 'rsvp[dates]',
-                                                      favorite: true }}
-
-                .clearfix
-                  %a.pull-left.btn.btn-secondary{data: { toggle: 'wizard', move: 'back' }}
-                    &larr; Back
-                  %input.pull-right.btn.btn-primary{type: 'submit', value: 'Done!', data: { toggle: 'wizard', move: 'next' }}
+= render "modal_share"
+= render "modal_rsvp"

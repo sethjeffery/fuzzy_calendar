@@ -1,0 +1,12 @@
+.modal.fade#event-share-modal{data: { autofocus: 'input'}}
+  .modal-dialog.modal-dialog-sm
+    .modal-content
+      .modal-body
+        %button.close{type: "button", data: { dismiss: "modal" }}
+          %span &times;
+        .subtitle
+          Share Link
+        .help
+          Invite others to this event by sharing this link.
+
+        %input.form-control.form-control-sm{type: 'text', value: event_url(@event)}

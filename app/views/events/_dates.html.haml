@@ -1,0 +1,10 @@
+.subtitle Dates
+.help This event's final date is still #{link_to "undecided", "#"}.
+
+.picker{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
+                size: :sm,
+                min_date: @event.starts_at.strftime('%F'),
+                max_date: @event.ends_at.strftime('%F'),
+                specificity: @event.specificity,
+                dates: scored_dates_json(@event).to_json || {},
+                read_only: true }}

@@ -1,0 +1,6 @@
+- if @event.description.present?
+  .form-group-lg
+    .subtitle
+      Details
+    %blockquote
+      = simple_html(@event.description, truncate: 15)

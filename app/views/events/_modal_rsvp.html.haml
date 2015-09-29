@@ -1,0 +1,48 @@
+- if logged_in?
+  .modal.fade#event-rsvp-modal
+    .modal-dialog
+      .modal-content
+        .modal-body
+          %button.close{type: "button", data: { dismiss: "modal" }}
+            %span &times;
+          = form_for :rsvp, url: rsvp_event_path(@event), html: { class: 'card-fill-x' } do
+            .wizard#wizard-rsvp
+              .wizard-step.p-x-md.active
+                .subtitle
+                  What dates are you available?
+                .help
+                  Just mark all dates you could possibly do. To save time you can click and drag.
+
+                .picker#picker-rsvp-available{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
+                                                      min_date: @event.starts_at.strftime('%F'),
+                                                      max_date: @event.ends_at.strftime('%F'),
+                                                      specificity: @event.specificity,
+                                                      dates: (my_dates_json(@event) || {}).to_json,
+                                                      name: 'rsvp[available]',
+                                                      multi: true }}
+
+                .clearfix
+                  %a.pull-left.btn.btn-secondary{data: { dismiss: 'modal' }}
+                    Cancel
+                  %a.pull-right.btn.btn-primary{data: { toggle: 'wizard', move: 'next' }}
+                    Next &rarr;
+
+              .wizard-step.p-x-md
+                .subtitle
+                  What would be your best dates?
+                .help
+                  Highlight any of the dates that would be the most convenient for you.
+
+                .picker#picker-rsvp-favorites{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
+                                                      min_date: @event.starts_at.strftime('%F'),
+                                                      max_date: @event.ends_at.strftime('%F'),
+                                                      specificity: @event.specificity,
+                                                      dates: (my_dates_json(@event) || {}).to_json,
+                                                      multi: true,
+                                                      name: 'rsvp[dates]',
+                                                      favorite: true }}
+
+                .clearfix
+                  %a.pull-left.btn.btn-secondary{data: { toggle: 'wizard', move: 'back' }}
+                    &larr; Back
+                  %input.pull-right.btn.btn-primary{type: 'submit', value: 'Done!', data: { toggle: 'wizard', move: 'next' }}

@@ -1,0 +1,14 @@
+.row.row-lg
+  .col-sm-6.size-sm.p-t-xs.gray
+    Created by
+    = link_to @event.creator.name, @event.creator
+
+  .col-sm-6.text-right
+    - if logged_in?
+      = link_to "RSVP", '#event-rsvp-modal', class: "btn btn-sm #{@event.event_users.where(user_id: current_user.id).exists? ? 'btn-secondary': 'btn-primary btn-glow'}", data: { toggle: 'modal' }
+    - else
+      = link_to "RSVP", auth_at_provider_path(provider: :facebook, redirect_after_login: event_path(@event, rsvp: true)), class: "btn btn-sm btn-primary btn-glow"
+
+    = link_to "Share", "#event-share-modal", class: 'btn btn-sm btn-secondary', data: { toggle: 'modal' }
+    - if @event.creator == current_user
+      = link_to "Edit", edit_event_path(@event), class: 'btn btn-sm btn-secondary'
