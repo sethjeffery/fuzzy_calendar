@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  obfuscate_id spin: 2957028
+  obfuscate_id spin: ENV["SPIN"].to_i + 30
 
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication

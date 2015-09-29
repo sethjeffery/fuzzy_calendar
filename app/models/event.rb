@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  obfuscate_id spin: 2957029
+  obfuscate_id spin: ENV["SPIN"].to_i + 29
 
   has_many :event_users
   has_many :attendees, through: :event_users, source: :user
