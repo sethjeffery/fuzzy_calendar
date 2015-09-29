@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
+
   get 'oauths/oauth'
 
   get 'oauths/callback'

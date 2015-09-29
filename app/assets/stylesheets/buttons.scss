@@ -1,4 +1,5 @@
 @import "variables";
+@import 'mixins';
 
 @keyframes glow {
   from { box-shadow: 0 0 0 1px white, 0 0 1px 1px transparent, inset 0 0 1px 1px transparent; }
@@ -7,4 +8,11 @@
 
 .btn-glow {
   animation: glow 1s alternate infinite;
+}
+
+.btn-white-outline {
+  @include button-outline-variant(white);
+  @include hover {
+    color: $brand-highlight;
+  }
 }

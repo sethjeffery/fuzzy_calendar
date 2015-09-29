@@ -1,10 +1,6 @@
 @import 'variables';
 @import 'mixins';
 
-body {
-  background-color: #f0f0f0;
-}
-
 .navbar {
   background-color: white;
   border-bottom: solid 1px #ddd;
@@ -44,4 +40,8 @@ body {
 
 hr {
   border-top-color: #f0f0f0;
+}
+
+.grey-page {
+  background-color: #f0f0f0;
 }

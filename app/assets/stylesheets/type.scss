@@ -1,17 +1,26 @@
-@import url(https://fonts.googleapis.com/css?family=Merriweather:300,300italic);
+@import url(https://fonts.googleapis.com/css?family=Merriweather:300,300italic,700);
 @import 'variables';
 
-.title {
+%title {
   font-weight: 300;
   font-family: $serif;
+}
+
+.title {
+  @extend %title;
   font-size: 2rem;
   margin-bottom: 1rem;
   line-height: 1.5;
 }
 
+.super-title {
+  @extend %title;
+  font-size: 2.25rem;
+  margin: 1rem 0;
+}
+
 .subtitle {
-  font-weight: 300;
-  font-family: $serif;
+  @extend %title;
   font-size: 1.375rem;
 }
 
@@ -46,4 +55,10 @@ blockquote {
     top: 0;
     font-size: 2rem;
   }
+}
+
+.wow-header {
+  background-color: $brand-highlight;
+  color: white;
+  padding: 3rem;
 }
