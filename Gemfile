@@ -58,6 +58,9 @@ group :development, :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'fuubar'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
+  gem 'faker'
 
   # Guard
   gem 'guard'

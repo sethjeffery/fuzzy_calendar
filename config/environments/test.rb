@@ -30,6 +30,7 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: "test.host" }
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
@@ -40,3 +41,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
+
+ENV["FB_KEY"] = "1234567890"
+ENV["FB_SECRET"] = "8e4ab915f3325775d6754293444b4581"
+ENV["SITE_URL"] = "http://test.host"

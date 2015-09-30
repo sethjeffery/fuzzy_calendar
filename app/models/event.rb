@@ -28,16 +28,14 @@ class Event < ActiveRecord::Base
   end
 
   def date_range=(range)
-    dates = range.split(',').map{|date| Date.parse(date)}
-    self.starts_at = dates[0]
-    self.ends_at   = dates[1]
+    dates = JSON.parse(range).keys.sort
+    self.starts_at = dates.first
+    self.ends_at   = dates.last
   end
 
   def presence_of_dates
-    if starts_at.blank?
-      errors.add(:starts_at, 'Please specify the start and end date.')
-    elsif ends_at.blank?
-      errors.add(:ends_at, 'Please specify the start and end date.')
+    if starts_at.blank? || ends_at.blank?
+      errors.add(:date_range, 'Please specify the start and end date.')
     end
   end
 

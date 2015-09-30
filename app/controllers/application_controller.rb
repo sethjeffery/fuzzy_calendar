@@ -8,4 +8,12 @@ class ApplicationController < ActionController::Base
   def save_last_request
     session[:last_request] = request.fullpath
   end
+
+  def authenticate!
+    redirect_to login_path unless logged_in?
+  end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
 end

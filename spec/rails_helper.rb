@@ -58,7 +58,12 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.before(:suite) do
+    FactoryGirl.lint
     DatabaseCleaner.clean_with :truncation
+  end
+
+  config.before(:each) do
+    ActionMailer::Base.deliveries = []
   end
 
   config.around(:each) do |example|
@@ -67,4 +72,8 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.include Sorcery::TestHelpers::Rails::Controller, type: :controller
+  config.include Sorcery::TestHelpers::Rails::Integration, type: :feature
+  config.include FactoryGirl::Syntax::Methods
 end
