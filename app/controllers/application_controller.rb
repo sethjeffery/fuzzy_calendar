@@ -16,4 +16,10 @@ class ApplicationController < ActionController::Base
   def not_found
     raise ActionController::RoutingError.new('Not Found')
   end
+
+  def parse_json_params(hash, *args)
+    args.each do |arg|
+      hash[arg] = JSON.parse(hash[arg]) if hash.has_key?(arg)
+    end
+  end
 end

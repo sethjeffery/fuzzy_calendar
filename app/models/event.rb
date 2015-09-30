@@ -28,7 +28,7 @@ class Event < ActiveRecord::Base
   end
 
   def date_range=(range)
-    dates = JSON.parse(range).keys.sort
+    dates = range.keys.sort
     self.starts_at = dates.first
     self.ends_at   = dates.last
   end
@@ -40,8 +40,8 @@ class Event < ActiveRecord::Base
   end
 
   def finalise_with(agreed_time)
-    if agreed_time.is_a?(String) && agreed_time.start_with?("{")
-      self.agreed_time = JSON.parse(agreed_time).keys.first.try(:to_datetime) || best_date
+    if agreed_time.is_a?(Hash)
+      self.agreed_time = agreed_time.keys.first.try(:to_datetime) || best_date
     else
       self.agreed_time = agreed_time || best_date
     end
@@ -49,7 +49,7 @@ class Event < ActiveRecord::Base
   end
 
   def status_name
-    case state
+    case state_name
       when :finalised then 'Finalised'
       when :closed then 'Closed'
       else 'Fuzzy'

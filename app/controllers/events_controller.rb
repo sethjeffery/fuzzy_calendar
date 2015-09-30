@@ -23,7 +23,7 @@ class EventsController < ApplicationController
     new_event_user = !@event_user
     @event_user ||= @event.event_users.create(user_id: current_user.id)
 
-    if @event_user.update_rsvp(JSON.parse(rsvp_params[:dates]))
+    if @event_user.update_rsvp(rsvp_params[:dates])
       if new_event_user && @event.creator != current_user
         RsvpMailer.rsvp(@event_user).deliver_now!
       end
@@ -46,15 +46,15 @@ class EventsController < ApplicationController
   private
 
   def rsvp_params
-    params.require(:rsvp).permit(:dates)
+    params.require(:rsvp).permit(:dates).tap{|x| parse_json_params(x, :dates)}
   end
 
   def event_params
-    params.require(:event).permit(:name, :description, :date_range, :specificity)
+    params.require(:event).permit(:name, :description, :date_range, :specificity).tap{|x| parse_json_params(x, :date_range)}
   end
 
   def finalise_params
-    params.require(:event).permit(:agreed_time)
+    params.require(:event).permit(:agreed_time).tap{|x| parse_json_params(x, :agreed_time)}
   end
 
   def fetch_event

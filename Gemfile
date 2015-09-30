@@ -61,6 +61,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'spring-commands-rspec'
 
   # Guard
   gem 'guard'
