@@ -19,3 +19,5 @@
 
 # Ignore local dotenv file
 .env
+
+spec/examples.txt
