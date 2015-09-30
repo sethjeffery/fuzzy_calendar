@@ -11,6 +11,18 @@
         .event-top-area.xs-down-p-t-sm
           = render "event_top_area"
 
+        - if @event.finalised?
+          .text-center.p-t
+            This event's #{@event.specificity_name} has been finalised!
+            .title
+              = specificity_long_format @event.specificity, @event.agreed_time
+          %hr.fill-card-x.m-b-0
+
+        - if @event.closed?
+          .text-center.p-t
+            The event is now closed. No further RSVPs will be accepted.
+          %hr.fill-card-x.m-b-0
+
         .row.row-lg.p-y-md.row-md-center-line
           .col-md-6
             = render "description"
@@ -22,4 +34,4 @@
         = render "comment_form"
 
     = render "modal_share"
-    = render "modal_rsvp" if logged_in?
+    = render "modal_rsvp" if logged_in? && @event.open?
