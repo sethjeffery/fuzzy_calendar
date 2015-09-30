@@ -48,11 +48,13 @@ class EventsController < ApplicationController
   end
 
   def close
-
+    @event.close!
+    redirect_to @event
   end
 
   def finalise
-
+    @event.finalise_with finalise_params["agreed_time"]
+    redirect_to @event
   end
 
   private
@@ -63,6 +65,10 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:name, :description, :date_range, :specificity)
+  end
+
+  def finalise_params
+    params.require(:event).permit(:agreed_time)
   end
 
   def fetch_event

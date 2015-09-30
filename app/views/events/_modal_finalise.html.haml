@@ -4,7 +4,7 @@
       .modal-body
         %button.close{type: "button", data: { dismiss: "modal" }}
           %span &times;
-        = form_for :finalise, url: finalise_event_path(@event), html: { class: 'card-fill-x' } do
+        = form_for :finalise, url: finalise_event_path(@event), html: { class: 'card-fill-x' }, method: :put do
 
           .p-x.sm-up-p-x-md
             %p.text-center By my calculation, the best #{@event.specificity_name} would be...
@@ -25,7 +25,7 @@
                                                   max_date: @event.ends_at.strftime('%F'),
                                                   specificity: @event.specificity,
                                                   dates: @event.scored_dates.to_json,
-                                                  name: 'finalise[date]',
+                                                  name: 'event[agreed_time]',
                                                   }}
 
             .clearfix
