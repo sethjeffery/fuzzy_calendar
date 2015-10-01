@@ -25,6 +25,9 @@ class Event < ActiveRecord::Base
     event :reopen do
       transition [:closed] => :open
     end
+
+    after_transition :on => :close, :do => :send_close_mails
+    after_transition :on => :finalise, :do => :send_finalise_mails
   end
 
   def date_range=(range)
@@ -82,5 +85,25 @@ class Event < ActiveRecord::Base
 
   def has_rsvps?
     event_users.any?
+  end
+
+  def send_rsvp_mail_from(event_user)
+    EventMailer.rsvp(event_user).deliver_now! if creator.send_emails? && event_user.user.send_emails?
+  end
+
+  def send_close_mails
+    if creator.send_emails?
+      event_users.each do |event_user|
+        EventMailer.close(event_user).deliver_now! if event_user.user_id != creator_id && event_user.user.send_emails?
+      end
+    end
+  end
+
+  def send_finalise_mails
+    if creator.send_emails? && agreed_time.present?
+      event_users.each do |event_user|
+        EventMailer.finalise(event_user).deliver_now! if event_user.user_id != creator_id && event_user.user.send_emails?
+      end
+    end
   end
 end

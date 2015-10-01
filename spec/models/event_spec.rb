@@ -18,6 +18,12 @@ describe Event, type: :model do
   end
 
   describe '#state' do
+    before do
+      event.save
+      recipient = create(:user)
+      event.event_users.create user: recipient
+    end
+
     it 'is open by default' do
       expect(event).to be_open
     end
@@ -25,6 +31,7 @@ describe Event, type: :model do
     it 'can be closed' do
       event.close!
       expect(event).to be_closed
+      expect(ActionMailer::Base.deliveries).to be_present
     end
 
     it 'can be finalised' do
@@ -36,6 +43,7 @@ describe Event, type: :model do
       event.finalise_with({ "2001-01-01" => {} })
       expect(event).to be_finalised
       expect(event.agreed_time).to eq DateTime.new(2001,1,1)
+      expect(ActionMailer::Base.deliveries).to be_present
     end
   end
 

@@ -17,4 +17,8 @@ class User < ActiveRecord::Base
   def has_linked_facebook?
     authentications.where(provider: 'facebook').present?
   end
+
+  def send_emails?
+    email.present?
+  end
 end

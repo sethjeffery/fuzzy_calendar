@@ -78,17 +78,17 @@ describe EventsController, type: :controller do
         login_user(user)
       end
 
-      context 'update existing rsvp' do
+      context 'successful update' do
         let(:event_user) { EventUser.new }
 
         before do
-          allow(event.event_users).to receive(:find_by_user_id).and_return(event_user)
+          allow(event.event_users).to receive(:find_or_create_by).and_return(event_user)
           allow(event_user).to receive(:update_rsvp).and_return(true)
           post :rsvp, id: event.to_param, rsvp: { dates: "{}" }
         end
 
         it 'fetches event_user' do
-          expect(event.event_users).to have_received(:find_by_user_id).with(user.id)
+          expect(event.event_users).to have_received(:find_or_create_by).with(user_id: user.id)
         end
 
         it 'performs update' do
@@ -96,19 +96,17 @@ describe EventsController, type: :controller do
         end
 
         it { is_expected.to redirect_to event_path(event) }
+        it { is_expected.to_not set_flash }
       end
 
-      context 'send first rsvp' do
+      context 'failure updating' do
         before do
-          expect_any_instance_of(EventUser).to receive(:update_rsvp).and_return(true)
+          expect_any_instance_of(EventUser).to receive(:update_rsvp).and_return(false)
           post :rsvp, id: event.to_param, rsvp: { dates: "{}" }
         end
 
-        it 'sends mail' do
-          expect(ActionMailer::Base.deliveries).to be_present
-        end
-
         it { is_expected.to redirect_to event_path(event) }
+        it { is_expected.to set_flash[:alert] }
       end
     end
   end

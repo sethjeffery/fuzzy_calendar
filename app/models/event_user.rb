@@ -11,6 +11,12 @@ class EventUser < ActiveRecord::Base
     end
 
     self.times.where("time NOT IN (?)", rsvp_hash.keys.map(&:to_datetime)).delete_all
-    save
+
+    if save
+      event.send_rsvp_mail_from(self) unless event.creator_id == user_id
+      true
+    else
+      false
+    end
   end
 end

@@ -1,0 +1,11 @@
+Good news, <%= @recipient.name %>!
+
+It's my pleasure to let you know that <%= @creator.name %> has finalised the <%= @event.specificity_name %> for <%= @event.name %>.
+
+The final <%= @event.specificity_name %> is: <%= specificity_long_format(@event.specificity, @event.agreed_time) %>
+
+For more information, you can view the event here:
+<%= event_url(@event) %>
+
+Yours sincerely,
+Fuzzy

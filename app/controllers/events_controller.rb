@@ -19,14 +19,9 @@ class EventsController < ApplicationController
   end
 
   def rsvp
-    @event_user = @event.event_users.find_by_user_id(current_user.id)
-    new_event_user = !@event_user
-    @event_user ||= @event.event_users.create(user_id: current_user.id)
+    @event_user = @event.event_users.find_or_create_by(user_id: current_user.id)
 
     if @event_user.update_rsvp(rsvp_params[:dates])
-      if new_event_user && @event.creator != current_user
-        EventMailer.rsvp(@event_user).deliver_now!
-      end
       redirect_to @event
     else
       redirect_to @event, alert: "Sorry, there was an error saving your RSVP."

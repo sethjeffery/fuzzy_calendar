@@ -1,0 +1,9 @@
+Hello, <%= @recipient.name %>.
+
+I'm sorry to inform you that <%= @creator.name %> has closed the event, <%= @event.name %>.
+
+For more information, you can view the event here:
+<%= event_url(@event) %>
+
+Yours sincerely,
+Fuzzy
