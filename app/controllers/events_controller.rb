@@ -25,7 +25,7 @@ class EventsController < ApplicationController
 
     if @event_user.update_rsvp(rsvp_params[:dates])
       if new_event_user && @event.creator != current_user
-        RsvpMailer.rsvp(@event_user).deliver_now!
+        EventMailer.rsvp(@event_user).deliver_now!
       end
       redirect_to @event
     else
