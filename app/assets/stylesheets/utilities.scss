@@ -8,6 +8,54 @@
 @import "bootstrap/mixins";
 
 
+// More margin and padding classes than bootstrap provides
+// -sm = 4px
+// -xs = 2px
+// -xl = 32px
+// -xxl = 48px
+
+@each $size, $mult in (sm, .5), (xs, .25), (xl, 4), (xxl, 6) {
+  .m-a-#{$size} { margin:        ($spacer   * $mult) !important; }
+  .m-t-#{$size} { margin-top:    ($spacer-y * $mult) !important; }
+  .m-r-#{$size} { margin-right:  ($spacer-y * $mult) !important; }
+  .m-b-#{$size} { margin-bottom: ($spacer-y * $mult) !important; }
+  .m-l-#{$size} { margin-left:   ($spacer-y * $mult) !important; }
+  .m-x-#{$size} { @extend .m-l-#{$size}, .m-r-#{$size}; }
+  .m-y-#{$size} { @extend .m-t-#{$size}, .m-b-#{$size}; }
+
+  .p-a-#{$size} { padding:        ($spacer * $mult) !important; }
+  .p-t-#{$size} { padding-top:    ($spacer-y * $mult) !important; }
+  .p-r-#{$size} { padding-right:  ($spacer-y * $mult) !important; }
+  .p-b-#{$size} { padding-bottom: ($spacer-y * $mult) !important; }
+  .p-l-#{$size} { padding-left:   ($spacer-y * $mult) !important; }
+  .p-x-#{$size} { @extend .p-l-#{$size}, .p-r-#{$size}; }
+  .p-y-#{$size} { @extend .p-t-#{$size}, .p-b-#{$size}; }
+}
+
+
+// Different size row gutters
+@each $size, $gutter in (row-lg, 3rem),
+                        (row-md, 2rem),
+                        (row-sm, 1rem),
+                        (row-xs, .5rem),
+                        (row-0,  0) {
+
+  .#{$size} {
+    @include make-row($gutter: $gutter);
+
+    @each $breakpoint in map-keys($grid-breakpoints) {
+      @for $i from 1 through $grid-columns {
+        .col-#{$breakpoint}-#{$i} {
+          padding-left: $gutter/2;
+          padding-right: $gutter/2;
+        }
+      }
+    }
+  }
+}
+
+
+
 @mixin resolution-specific-utilities($prefix) {
 
   // Resolution-specific spacing
@@ -61,52 +109,5 @@
   }
   @include media-breakpoint-down($bp) {
     @include resolution-specific-utilities(#{$bp}-down);
-  }
-}
-
-
-// More margin and padding classes than bootstrap provides
-// -sm = 4px
-// -xs = 2px
-// -xl = 32px
-// -xxl = 48px
-
-@each $size, $mult in (sm, .5), (xs, .25), (xl, 4), (xxl, 6) {
-  .m-a-#{$size} { margin:        ($spacer   * $mult) !important; }
-  .m-t-#{$size} { margin-top:    ($spacer-y * $mult) !important; }
-  .m-r-#{$size} { margin-right:  ($spacer-y * $mult) !important; }
-  .m-b-#{$size} { margin-bottom: ($spacer-y * $mult) !important; }
-  .m-l-#{$size} { margin-left:   ($spacer-y * $mult) !important; }
-  .m-x-#{$size} { @extend .m-l-#{$size}, .m-r-#{$size}; }
-  .m-y-#{$size} { @extend .m-t-#{$size}, .m-b-#{$size}; }
-
-  .p-a-#{$size} { padding:        ($spacer * $mult) !important; }
-  .p-t-#{$size} { padding-top:    ($spacer-y * $mult) !important; }
-  .p-r-#{$size} { padding-right:  ($spacer-y * $mult) !important; }
-  .p-b-#{$size} { padding-bottom: ($spacer-y * $mult) !important; }
-  .p-l-#{$size} { padding-left:   ($spacer-y * $mult) !important; }
-  .p-x-#{$size} { @extend .p-l-#{$size}, .p-r-#{$size}; }
-  .p-y-#{$size} { @extend .p-t-#{$size}, .p-b-#{$size}; }
-}
-
-
-// Different size row gutters
-@each $size, $gutter in (row-lg, 3rem),
-                        (row-md, 2rem),
-                        (row-sm, 1rem),
-                        (row-xs, .5rem),
-                        (row-0,  0) {
-
-  .#{$size} {
-    @include make-row($gutter: $gutter);
-
-    @each $breakpoint in map-keys($grid-breakpoints) {
-      @for $i from 1 through $grid-columns {
-        .col-#{$breakpoint}-#{$i} {
-          padding-left: $gutter/2;
-          padding-right: $gutter/2;
-        }
-      }
-    }
   }
 }

@@ -16,3 +16,17 @@
     color: $brand-highlight;
   }
 }
+
+.btn-highlight {
+  @include button-variant(white, $brand-highlight, $brand-highlight);
+}
+.btn-highlight-outline {
+  @include button-outline-variant($brand-highlight);
+}
+
+.btn-twitter {
+  @include button-variant(white, $brand-twitter, $brand-twitter);
+}
+.btn-twitter-outline {
+  @include button-outline-variant($brand-twitter);
+}

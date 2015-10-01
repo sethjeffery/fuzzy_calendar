@@ -21,3 +21,6 @@
     = render "navbar"
 
     = yield
+
+    - unless logged_in?
+      = render "modal_login"

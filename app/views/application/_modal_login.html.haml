@@ -1,0 +1,13 @@
+.modal.fade#login-modal
+  .modal-dialog.modal-dialog-sm
+    .modal-content
+      .modal-body
+        %button.close{type: "button", data: { dismiss: "modal" }}
+          %span &times;
+        .subtitle
+          Connect
+        .help
+          No sign up process! Just connect with Facebook and you're ready to go!
+
+        = link_to auth_at_provider_path('facebook'), class: "btn btn-primary btn-block m-b-sm", data: { no_turbolink: true } do
+          Login with Facebook

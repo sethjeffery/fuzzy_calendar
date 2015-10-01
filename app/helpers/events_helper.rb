@@ -34,6 +34,13 @@ module EventsHelper
   end
 
   def specificity_long_format(specificity, date)
-    date.strftime('%A, %-d %B %Y')
+    case specificity.to_sym
+      when :week
+        "w/c #{date.strftime('%-d %B %Y')}"
+      when :month
+        date.strftime('%B %Y')
+      else
+        date.strftime('%A, %-d %B %Y')
+    end
   end
 end
