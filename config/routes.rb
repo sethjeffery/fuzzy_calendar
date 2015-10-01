@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  get "backdoor/:id" => "backdoor#enter" unless Rails.env.production?
+
   resources :events do
     member do
       post :rsvp

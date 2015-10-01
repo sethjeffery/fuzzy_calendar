@@ -5,7 +5,7 @@
   height: 200px;
   background-size: cover;
   background-position: center;
-  background-color: #ccc;
+  background-color: $brand-primary;
 
   h1 {
     text-align: center;
@@ -29,18 +29,6 @@
       padding-top: 2em;
     }
   }
-}
-
-.logo-text {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  right: 0;
-  text-align: center;
-  margin-top: -27px;
-  color: mix($brand-primary, white, 40);
-  font-size: 8px;
-  text-transform: uppercase;
 }
 
 .card-circle {
@@ -115,4 +103,32 @@
   .event-attendee:hover & {
     color: #444;
   }
+}
+
+.event-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius-circle;
+  background-color: #eee;
+  background-size: cover;
+}
+
+.event-icon-sm {
+  width: 24px;
+  height: 24px;
+}
+
+.event-icon-open {
+  background-image: image-url('sprites-retina/event-open.png');
+  background-color: $brand-highlight;
+}
+
+.event-icon-finalised {
+  background-image: image-url('sprites-retina/event-finalised.png');
+  background-color: $brand-success;
+}
+
+.event-icon-closed {
+  background-image: image-url('sprites-retina/event-closed.png');
+  background-color: #ccc;
 }
