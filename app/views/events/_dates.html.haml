@@ -1,6 +1,6 @@
 .subtitle Availability
 - if @event.open?
-  .help This event's final #{@event.specificity_name} is still #{link_to "undecided", "#"}.
+  .help This event's final #{@event.specificity_name} is still #{link_to_if((mine?(@event) && @event.has_rsvps?), "undecided", "#event-finalise-modal", data: { toggle: 'modal' })}.
 
 .picker{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
                 size: :sm,

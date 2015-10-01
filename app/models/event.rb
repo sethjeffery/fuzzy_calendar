@@ -57,7 +57,7 @@ class Event < ActiveRecord::Base
   end
 
   def specificity_name
-    case specificity
+    case specificity.to_sym
       when :day then 'date'
       else specificity.to_s
     end
@@ -78,5 +78,9 @@ class Event < ActiveRecord::Base
         m
       }
     } || {}
+  end
+
+  def has_rsvps?
+    event_users.any?
   end
 end
