@@ -45,6 +45,10 @@ $gutter:                          16px;
   .picker-sm & { font-size: 11px; }
 }
 
+.picker-container {
+  background-color: white;
+}
+
 .picker-cell {
   display: table-cell;
   overflow: hidden;
@@ -83,15 +87,17 @@ $gutter:                          16px;
 .picker-day-today {
   color: $current-day-text-color;
 
-  &:hover, &:focus {
-    color: $current-day-text-color;
-  }
-
   .picker-day-content {
     border-top-color: $current-day-border-color;
     border-top-width: 3px;
     padding-top: 2px;
     .picker-sm & { padding-top: 1px; border-top-width: 2px; }
+  }
+}
+
+a.picker-day-today {
+  &:hover, &:focus {
+    color: $current-day-text-color;
   }
 }
 
@@ -117,15 +123,14 @@ $gutter:                          16px;
   border-bottom-right-radius: 8px;
 }
 
-// Styling the actively selected and favorited items
-%picker-cell-active {
-  &, &:hover, &:focus { color: white; }
+.picker-cell-active {
+  color: white;
   .picker-day-content { border-top-color: transparent; }
+  background-color: $brand-highlight;
 }
 
-.picker-cell-active {
-  @extend %picker-cell-active;
-  background-color: $brand-highlight;
+a.picker-cell-active {
+  &:hover, &:focus { color: white; }
 }
 
 .picker-cell-low {
@@ -143,7 +148,7 @@ $gutter:                          16px;
 
 // Styling the actively selected items
 .picker-cell-favorite {
-  @extend %picker-cell-active;
+  @extend .picker-cell-active;
   background-color: $brand-favorite;
 }
 

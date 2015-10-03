@@ -1,29 +1,113 @@
-.wow-header
-  .container
-    .subtitle
-      Having trouble pinning down dates for meet-ups?
+.welcome
+  .wow-header
+    .container
+      .row
+        .col-md-3.col-lg-4.text-center.lg-up-p-l-lg
+          .cal-canvas.spotlight
+            .cal.cal-right.cal-lg
+              .cal-back
+              .cal-in-back
+              .cal-in-front
+              .cal-front.cal-front-fuzzy
+              .cal-left-clip
+              .cal-right-clip
 
-    %h1.super-title
-      You probably need a
-      %strong Fuzzy Calendar.
+        .col-md-9.col-lg-8.sm-down-text-center.sm-down-m-t-md
+          .subtitle.xs-down-size-md
+            .hidden-sm-down
+              Having trouble pinning down dates for meet-ups?
+            .hidden-md-up
+              Hard to organise meet-ups?
 
-    .text-center.m-t-lg
-      = link_to "Make one now", new_event_path, class: 'btn btn-lg btn-white-outline', data: { toggle: 'modal', target: '#login-modal' }
+          %h1.title.xs-down-size-lg
+            Maybe you need a
+            %strong Fuzzy Calendar.
 
-.container.m-y-lg
-  .subtitle
-    So what is it?
+      .text-center.m-t
+        = link_to "#welcome", class: 'btn-circle js-welcome' do
+          %i.glyphicons.glyphicons-chevron-down
 
-  %p
-    Fuzzy Calendar allows you to invite friends to calendar events whose dates are
-    <strong>not fixed yet</strong>. It permits you to notify people of an upcoming
-    event that you're organising, while letting your invitees vote on the
-    date that best suits them.
+.welcome#welcome
+  .step#step-one
+    .container
+      .row
+        .col-md-6.col-lg-7
+          .step-number
+            1
+          .step-info.size-md.md-up-size-lg.p-t.m-b-lg.sm-down-text-center
+            Pick the date range for when your event might occur.
 
+        .col-md-6.col-lg-5
+          .picker-3d.m-x
+            .picker.cal-slight-left#picker-step-1{data: { min_date: Date.today.beginning_of_month.strftime('%F'),
+                                                          max_date: Date.today.end_of_month.strftime('%F'),
+                                                          specificity: :day,
+                                                          range: true }}
 
-  .subtitle.m-t-lg
-    How do I do it?
+  .step#step-two
+    .container
+      .row
+        .col-md-6.col-lg-7
+          .step-number
+            2
+          .step-info.size-md.md-up-size-lg.p-t.m-b-lg.sm-down-text-center
+            Invite friends to RSVP.
 
-  %p
-    Just #{link_to "create an event", new_event_path}! There's no painful sign up process,
-    just connect it with your Facebook account and get Fuzzy!
+        .col-md-6.col-lg-5
+          .picker-3d.m-x
+            .fbchat.cal-slight-left
+              .fbchat-title
+                Buddies
+              .fbchat-content.clearfix
+                .fbchat-bubble.pull-left
+                  Here is the event I've created.
+                  %br
+                  = link_to "fuzzycalender.com/events/1234567", "javascript:void(0)", class: 'ellipsis'
+                .fbchat-bubble.pull-right.fade
+                  Ahh so awesome!!
+                .fbchat-bubble.pull-right.fade
+                  We love you! x
+                .fbchat-bubble.pull-left.fade
+                  I love Fuzzy Calendar! ;)
+
+  .step#step-three
+    .container
+      .row
+        .col-md-6.col-lg-7
+          .step-number
+            3
+          .step-info.size-md.md-up-size-lg.p-t.m-b-lg.sm-down-text-center
+            Invitees highlight the dates they can attend as well as their favourites.
+
+        .col-md-6.col-lg-5
+          .picker-3d.m-x
+            .picker.cal-slight-left#picker-step-3{data: { min_date: Date.today.beginning_of_month.advance(days: 2).strftime('%F'),
+                                                          max_date: Date.today.end_of_month.advance(days: -2).strftime('%F'),
+                                                          specificity: :day,
+                                                          multi: true }}
+
+  .step#step-four
+    .container
+      .row
+        .col-md-6.col-lg-7
+          .step-number
+            4
+          .step-info.size-md.md-up-size-lg.p-t.m-b-lg.sm-down-text-center
+            Easily see and decide on the best date!
+
+        .col-md-6.col-lg-5
+          .picker-3d.m-x
+            .picker.cal-slight-left#picker-step-4{data: { min_date: Date.today.beginning_of_month.strftime('%F'),
+                                                          max_date: Date.today.end_of_month.strftime('%F'),
+                                                          specificity: :day,
+                                                          read_only: true }}
+
+.wow-footer
+  .container.text-center
+    .size-md No painful sign up process.
+    .size-sm.m-b-md Just connect with your Facebook account and you're ready!
+
+    .hidden-xs-down
+      = link_to "Create a Fuzzy Calendar event", new_event_path, class: 'btn btn-white-outline btn-lg', data: {toggle: 'modal', target: '#login-modal'}
+    .hidden-sm-up
+      = link_to "Create a Fuzzy Calendar event", new_event_path, class: 'btn btn-white-outline btn-md', data: {toggle: 'modal', href: '#login-modal'}

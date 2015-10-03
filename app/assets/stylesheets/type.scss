@@ -13,12 +13,6 @@
   line-height: 1.5;
 }
 
-.super-title {
-  @extend %title;
-  font-size: 2.25rem;
-  margin: 1rem 0;
-}
-
 .subtitle {
   @extend %title;
   font-size: 1.375rem;
@@ -55,12 +49,6 @@ blockquote {
     top: 0;
     font-size: 2rem;
   }
-}
-
-.wow-header {
-  background-color: $brand-highlight;
-  color: white;
-  padding: 3rem;
 }
 
 .text-highlight { color: $brand-highlight; }

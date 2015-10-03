@@ -2,8 +2,8 @@
 @import 'mixins';
 
 .navbar {
-  background-color: white;
-  border-bottom: solid 1px #ddd;
+  // background-color: white;
+  // border-bottom: solid 1px #ddd;
   padding-left: 0;
   padding-right: 0;
 
@@ -27,11 +27,6 @@
 }
 
 @include media-breakpoint-down(xs) {
-  .container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
   .card-block {
     padding-left: 1rem;
     padding-right: 1rem;

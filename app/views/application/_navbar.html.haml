@@ -1,18 +1,22 @@
 %nav.navbar.navbar-light
   .container
-    = link_to "/", class: "navbar-brand" do
-      = image_tag "sprites-retina/logo-header.png", size: '46x46'
-      %span.hidden-xs-down Fu<span class="text-highlight">zz</span>y Calendar
+    - if logged_in?
+      = link_to "/", class: "navbar-brand" do
+        = image_tag "sprites-retina/logo-header.png", size: '46x46'
+        %span.hidden-xs-down Fu<span class="text-highlight">zz</span>y Calendar
 
-    %ul.nav.navbar-nav.pull-right
-      - if logged_in?
-        %li.nav-item.dropdown
+      .nav.navbar-nav.pull-right
+        .nav-item.dropdown
           = link_to user_path(current_user), class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' } do
             .avatar{style: "background-image:url('#{current_user.avatar_file_name}')"}
           .dropdown-menu.dropdown-menu-right
             = link_to logout_path, class: 'dropdown-item' do
               %i.glyphicons.glyphicons-log-out.m-r-sm
               Log out
-      - else
-        %li.nav-item
-          = link_to 'Login with Facebook', auth_at_provider_path(provider: :facebook), class: 'nav-link'
+    - else
+      = link_to "/", class: "navbar-brand hidden-xs-down" do
+        = image_tag "sprites-retina/logo-header.png", size: '46x46'
+        %span Fu<span class="text-highlight">zz</span>y Calendar
+
+      .text-right.xs-down-text-center
+        = link_to 'Login with Facebook', auth_at_provider_path(provider: :facebook), class: 'btn btn-primary-outline'

@@ -1,5 +1,6 @@
 @import "variables";
 @import 'mixins';
+@import 'compass/css3/transition';
 
 @keyframes glow {
   from { box-shadow: 0 0 0 1px white, 0 0 1px 1px transparent, inset 0 0 1px 1px transparent; }
@@ -12,7 +13,7 @@
 
 .btn-white-outline {
   @include button-outline-variant(white);
-  @include hover {
+  &:hover, &:focus {
     color: $brand-highlight;
   }
 }
@@ -29,4 +30,23 @@
 }
 .btn-twitter-outline {
   @include button-outline-variant($brand-twitter);
+}
+
+.btn-circle {
+  color: black;
+  width: 64px; height: 64px;
+  line-height: 64px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: $border-radius-circle;
+  background-color: rgba(0,0,0,0.05);
+  @include transition(background-color 0.3s);
+
+  .glyphicons { line-height: 64px; }
+
+  &:hover, &:focus {
+    background-color: rgba(0,0,0,0.1);
+    color: black;
+  }
 }

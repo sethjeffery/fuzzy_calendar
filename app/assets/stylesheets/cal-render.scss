@@ -1,0 +1,206 @@
+@import "variables";
+@import "mixins";
+@import "compass/css3/box-shadow";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/css3/images";
+
+%cal-block {
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  @include apply-origin(top, false);
+  @include backface-visibility();
+}
+
+a.cal-container {
+  display: block;
+}
+
+.cal-canvas {
+  @include perspective(1000px);
+  @include perspective-origin(center -200%);
+  @include transform(translate3d(0,0,0));
+  @include transition(transform .2s);
+  -webkit-backface-visibility: hidden;
+  width: 10em;
+  height: 10em;
+  font-size: 8px;
+  position: relative;
+  display: inline-block;
+
+  * {
+    @include transform-style(preserve-3d);
+  }
+
+  &.spotlight {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 4.5em;
+      margin: 0 -2em -2em;
+      background-color: white;
+      border-radius: 100%;
+      @include box-shadow(0 2px 0 #eee);
+    }
+  }
+}
+
+.cal {
+  text-align: left;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  -webkit-backface-visibility: hidden;
+  @include transition(transform .2s);
+  pointer-events: none;
+
+  .cal-hover & {
+    @include transform(rotateY(0deg));
+  }
+}
+
+.cal-back {
+  @extend %cal-block;
+  background-color: #9d9d9d;
+  @include transform(rotateX(-20deg));
+  @include backface-visibility(visible);
+
+  &:before {
+    @extend %cal-block;
+    content: '';
+    bottom: inherit;
+    height: .5em;
+    @include transform(rotateX(130deg));
+    background-color: lighten($brand-primary, 10%);
+  }
+
+  &:after {
+    @extend %cal-block;
+    content: '';
+    @include transform(rotateY(180deg) rotateX(-40deg));
+    background-color: lighten(#aaa, 10%);
+    border-top: solid 3em darken($brand-primary, 15%);
+  }
+}
+
+.cal-front {
+  @extend %cal-block;
+  background-color: #f0f0f0;
+  border-top: solid 3em $brand-primary;
+  @include transform(rotateX(20deg) translateZ(.5em));
+  background-repeat: no-repeat;
+  background-size: 8em;
+  background-attachment: scroll;
+  @include backface-visibility();
+
+  &:before, &:after {
+    position: absolute;
+    content: '';
+    display: block;
+    top: -3em;
+    bottom: 0;
+    width: 0.5em;
+    background-color: #ddd;
+    border-top: solid 3em darken($brand-primary, 10%);
+  }
+
+  &:before {
+    left: -0.5em;
+    @include apply-origin(right, false);
+    @include transform(rotateY(-90deg));
+  }
+
+  &:after {
+    @include apply-origin(left, false);
+    @include transform(rotateY(90deg));
+    right: -0.5em;
+  }
+}
+
+.cal-content {
+  @include transform(translateZ(2px));
+  height: 100%;
+
+  .picker {
+    margin: 0;
+    width: 200%;
+    height: 200%;
+    overflow: hidden;
+    @include transform(scale(0.5));
+    @include apply-origin(top left, false);
+
+    .picker-month-content, .picker-day-content {
+      padding: 0;
+    }
+
+    .picker-title {
+      display: none;
+    }
+  }
+}
+
+.cal-in-front {
+  @extend %cal-block;
+  @include backface-visibility(visible);
+  top: 60%;
+  @include transform(translateY(1.375em) rotateX(60deg));
+  background-color: #817d70;
+}
+
+.cal-in-back {
+  @extend %cal-block;
+  @include backface-visibility(visible);
+  top: 60%;
+  @include transform(translateY(1.375em) rotateX(-60deg));
+  background-color: #565656;
+}
+
+.cal-left-clip, .cal-right-clip {
+  @extend %cal-block;
+  left: 25%;
+  top: -.5em;
+  right: inherit;
+  bottom: inherit;
+  margin: -.25em -.75em;
+  width: 1.5em;
+  height: .5em;
+  @include apply-origin(center, false);
+  @include transform(translateZ(.25em) rotateX(90deg));
+  background-color: darken($brand-primary, 10%);
+
+  &:before, &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1.5em;
+  }
+
+  &:before {
+    @include apply-origin(top, false);
+    top: 100%;
+    background-color: darken($brand-primary, 10%);
+    @include transform(rotateX(-70deg));
+  }
+
+  &:after {
+    @include apply-origin(bottom, false);
+    bottom: 100%;
+    background-color: #738492;
+    @include transform(rotateX(70deg));
+  }
+}
+
+.cal-right-clip {
+  left: 75%;
+}
+
+.cal-right { @include transform(rotateY(30deg)); }
+.cal-left  { @include transform(rotateY(-30deg)); }
+
+.cal-slight-right { @include transform(rotateY(15deg)); }
+.cal-slight-left  { @include transform(rotateY(-15deg)); }

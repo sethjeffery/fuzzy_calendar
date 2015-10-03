@@ -26,5 +26,18 @@ $brand-highlight:             #c94465;
 $brand-favorite:              #f0ad4e;
 $brand-twitter:               #5ea9dd;
 
+$grid-breakpoints: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 34em,
+  // Medium screen / tablet
+  md: 48em,
+  // Large screen / desktop
+  lg: 62em//,
+  // Extra large screen / wide desktop
+  //xl: 75em
+) !default;
+
 
 @import "bootstrap/variables";
