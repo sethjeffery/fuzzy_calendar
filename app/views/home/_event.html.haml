@@ -1,3 +1,20 @@
-= link_to event, class: 'list-group-item' do
-  %span{class: "pull-right event-icon event-icon-#{event.state} event-icon-sm"}
-  = event.name
+.col-xs-6.col-lg-3.col-sm-4.text-center.m-b-lg
+  = link_to event, class: 'btn-event' do
+    .cal-canvas.cal-canvas-md
+      .cal.cal-right
+        .cal-back
+        .cal-in-back
+        .cal-in-front
+        .cal-front
+          .cal-content
+            .picker{data: { size: :sm,
+                            min_date: event.starts_at.strftime('%F'),
+                            max_date: event.ends_at.strftime('%F'),
+                            specificity: event.specificity,
+                            dates: event.scored_dates.to_json,
+                            read_only: true }}
+        .cal-left-clip
+        .cal-right-clip
+
+    .cal-tooltip
+      = event.name

@@ -89,12 +89,6 @@
   }
 }
 
-.cal-front-fuzzy {
-  background-image: image-url('sprites-retina/welcome-event-page.png');
-  background-position: top left;
-  background-size: 200% 100%;
-}
-
 @include keyframes(spin360) {
   from { @include transform(rotateY(30deg)); }
   to   { @include transform(rotateY(750deg)); }

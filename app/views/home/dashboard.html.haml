@@ -1,31 +1,22 @@
-.wow-header.text-center
-  .container
-    = link_to "Create a new Fuzzy Calendar event", new_event_path, class: 'btn btn-lg btn-white-outline'
-
 .container.m-y-lg
-  .row
-    .col-md-6
-      .subtitle
-        My events
 
-      - if current_user.created_events.any?
-        .list-group.m-t-sm
-          - current_user.created_events.each do |event|
-            = render "event", event: event
+  - if my_events.any?
+    .row
+      - my_events.each do |event|
+        = render "event", event: event
 
-      - else
-        .help
-          You have not yet created any events.
-          #{link_to "Fix that?", new_event_path}
+  - else
+    .subtitle.text-center
+      You do not have any events.
 
-    .col-sm-6
-      .subtitle
-        Attending
+    %p.m-t.text-center
+      Events are what Fuzzy Calendar is all about.
+      %br
+      To get started, click #{link_to "Create a new event", new_event_path},
+      build an event, and invite your friends to participate.
 
-      - if current_user.attended_events.any?
-        .list-group.m-t-sm
-          - current_user.attended_events.each do |event|
-            = render "event", event: event
-
-      - else
-        You are not yet attending any events.
+.text-center.m-t-md.m-b-xxl
+  .container
+    = link_to new_event_path, class: 'btn btn-lg btn-primary' do
+      %i.glyphicons.glyphicons-calendar.m-r-xs
+      Create a new event

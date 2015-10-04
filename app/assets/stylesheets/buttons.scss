@@ -50,3 +50,14 @@
     color: black;
   }
 }
+
+.btn-lg .glyphicons {
+  margin-top: -3px;
+}
+
+.btn-event {
+  display: inline-block;
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}

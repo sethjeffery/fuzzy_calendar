@@ -48,6 +48,10 @@ a.cal-container {
   }
 }
 
+.cal-canvas-md {
+  font-size: 9px;
+}
+
 .cal {
   text-align: left;
   width: 100%;
@@ -118,6 +122,25 @@ a.cal-container {
     @include transform(rotateY(90deg));
     right: -0.5em;
   }
+
+  a:hover & {
+    border-top-color: $brand-highlight;
+    &:before, &:after {
+      border-top-color: darken($brand-highlight, 10%);
+    }
+  }
+}
+
+.cal-front-open {
+  background-image: image-url('sprites-retina/cal-front-icon.png');
+  background-position: top left;
+  background-size: 200% 100%;
+}
+
+.cal-front-finalised {
+  background-image: image-url('sprites-retina/cal-front-icon.png');
+  background-position: top right;
+  background-size: 200% 100%;
 }
 
 .cal-content {
@@ -133,7 +156,7 @@ a.cal-container {
     @include apply-origin(top left, false);
 
     .picker-month-content, .picker-day-content {
-      padding: 0;
+      padding: 1px 0 2px;
     }
 
     .picker-title {
@@ -193,6 +216,13 @@ a.cal-container {
     background-color: #738492;
     @include transform(rotateX(70deg));
   }
+
+  a:hover & {
+    background-color: darken($brand-highlight, 10%);
+    &:before {
+      background-color: darken($brand-highlight, 10%);
+    }
+  }
 }
 
 .cal-right-clip {
@@ -204,3 +234,30 @@ a.cal-container {
 
 .cal-slight-right { @include transform(rotateY(15deg)); }
 .cal-slight-left  { @include transform(rotateY(-15deg)); }
+
+.cal-tooltip {
+  margin-top: 1.5em;
+  border-radius: 4px;
+  background-color: #eee; // rgba(0,0,0,0.05);
+  color: black;
+  padding: 4px 8px;
+  position: relative;
+
+  &:before {
+    position: absolute;
+    content: '';
+    bottom: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border: solid 6px transparent;
+    border-bottom-color: #eee; // rgba(0,0,0,0.05);
+  }
+
+  a:hover & {
+    background-color: $brand-highlight; //rgba(0,0,0,0.1);
+    color: white;
+    &:before {
+      border-bottom-color: $brand-highlight; // rgba(0,0,0,0.1);
+    }
+  }
+}

@@ -43,4 +43,8 @@ module EventsHelper
         date.strftime('%A, %-d %B %Y')
     end
   end
+
+  def my_events
+    Event.for(current_user).available.ordered
+  end
 end

@@ -1,36 +1,35 @@
-.grey-page.p-y-md
-  .container
-    .card
-      .card-img-top{style: "background-image:url('http://www.adu.ac.ae/portals/0/AduImage/calendar-banner.jpg')"}
-        %h1.xs-down-size-md= @event.name
-      .card-circle
-        %div{class: "event-icon event-icon-#{@event.state}"}
+.container.m-y-sm.m-b-xxl
+  .card
+    .card-img-top{style: "background-image:url('http://www.adu.ac.ae/portals/0/AduImage/calendar-banner.jpg')"}
+      %h1.xs-down-size-md= @event.name
+    .card-circle.card-circle-transparent
+      = render "icon"
 
-      .card-block.xs-down-p-t-lg
-        .event-top-area.xs-down-p-t-sm
-          = render "event_top_area"
+    .card-block.xs-down-p-t-lg
+      .event-top-area.xs-down-p-t-sm
+        = render "event_top_area"
 
-        - if @event.finalised?
-          .text-center.p-t
-            This event's #{@event.specificity_name} has been finalised!
-            .title
-              = specificity_long_format @event.specificity, @event.agreed_time
-          %hr.fill-card-x.m-b-0
+      - if @event.finalised?
+        .text-center.p-t
+          This event's #{@event.specificity_name} has been finalised!
+          .title
+            = specificity_long_format @event.specificity, @event.agreed_time
+        %hr.fill-card-x.m-b-0
 
-        - if @event.closed?
-          .text-center.p-t
-            The event is now closed. No further RSVPs will be accepted.
-          %hr.fill-card-x.m-b-0
+      - if @event.closed?
+        .text-center.p-t
+          The event is now closed. No further RSVPs will be accepted.
+        %hr.fill-card-x.m-b-0
 
-        .row.row-lg.p-y-md.row-md-center-line
-          .col-md-6
-            = render "description"
-            = render "attendance"
+      .row.row-lg.p-y-md.row-md-center-line
+        .col-md-6
+          = render "description"
+          = render "attendance"
 
-          .col-md-6
-            = render "dates"
+        .col-md-6
+          = render "dates"
 
-        = render "comment_form"
+      -#= render "comment_form"
 
-    = render "modal_share"
-    = render "modal_rsvp" if logged_in? && @event.open?
+  = render "modal_share"
+  = render "modal_rsvp" if logged_in? && @event.open?

@@ -13,6 +13,10 @@ class Event < ActiveRecord::Base
   validates_presence_of :name, message: "Please give your event a name."
   validate :presence_of_dates
 
+  scope :ordered, -> { order(:starts_at, :ends_at) }
+  scope :available, -> { where.not(state: 'closed').where("ends_at >= ?", Date.today) }
+  scope :for, ->(user){ joins("LEFT OUTER JOIN event_users ON events.id = event_users.event_id").where("events.creator_id = ? OR event_users.user_id = ?", user.id, user.id).select('events.*') }
+
   state_machine :state, initial: :open do
     event :close do
       transition [:open, :confirmed] => :closed

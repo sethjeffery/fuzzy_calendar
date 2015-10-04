@@ -1,6 +1,16 @@
 @import 'variables';
 @import 'mixins';
 
+body {
+  background-image: image-url('sky-bottom.png'), image-url('sky-top.jpg');
+  background-size: contain, contain;
+  background-position: center bottom, center top;
+  background-repeat: no-repeat;
+  background-color: white;
+  min-height: 100vh;
+  padding-bottom: 1px;
+}
+
 .navbar {
   // background-color: white;
   // border-bottom: solid 1px #ddd;
@@ -37,6 +47,7 @@ hr {
   border-top-color: #f0f0f0;
 }
 
-.grey-page {
-  background-color: #f0f0f0;
+.card {
+  border-width: 0;
+  background-color: rgba(255,255,255,0.75);
 }
