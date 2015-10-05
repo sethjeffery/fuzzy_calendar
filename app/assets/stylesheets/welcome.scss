@@ -48,10 +48,6 @@
   .cal {
     @include animation(spin360 4s forwards ease-in-out);
   }
-
-  .cal-front {
-    @include animation(spin360-finalised 0s 2.5s forwards);
-  }
 }
 
 .step {
@@ -93,11 +89,6 @@
 @include keyframes(spin360) {
   from { @include transform(rotateY(30deg)); }
   to   { @include transform(rotateY(750deg)); }
-}
-
-@include keyframes(spin360-finalised) {
-  from { background-position: top right; }
-  to   { background-position: top right; }
 }
 
 

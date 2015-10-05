@@ -74,11 +74,15 @@ $(document).on 'ready page:load', ->
 
   spinCanvas = ->
     $spinCanvas = $('.welcome .wow-header .cal-canvas')
+    $spinCanvas.addClass('spin') if $spinCanvas.length
 
-    if $spinCanvas.length
-      $spinCanvas.addClass('spin')
+  finalisedCanvas = ->
+    $calFront = $('.welcome .wow-header .cal-canvas .cal-front')
+    $calFront.addClass('cal-front-finalised') if $calFront.length
 
-  setTimeout spinCanvas, 1000 if $('.wow-header .cal-canvas').length
+  if $('.wow-header .cal-canvas').length
+    setTimeout spinCanvas, 1000
+    setTimeout finalisedCanvas, 3500
 
 $(document).on 'click', '.js-welcome', (e) ->
   e.preventDefault()
