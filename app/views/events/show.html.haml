@@ -1,3 +1,5 @@
+- content_for :title, @event.name
+
 .container.m-y-sm.m-b-xxl
   .card-img-top{style: "background-image:url('#{@event.cover.url}')"}
     %h1.xs-down-size-md= @event.name

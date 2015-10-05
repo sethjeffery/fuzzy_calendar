@@ -1,7 +1,14 @@
 !!!
-%html
+%html{prefix: "og: http://ogp.me/ns#"}
   %head
-    %title Fuzzy Calendar
+    %title
+      = yield(:title) || "Fuzzy Calendar"
+
+    = tag "og:title", content: (yield(:title) || "Fuzzy Calendar")
+    = tag "og:image", content: image_url("sprites-retina/logo-header.png")
+    = tag "og:url",   content: request.url
+    = tag "og:type",  content: "website"
+
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
