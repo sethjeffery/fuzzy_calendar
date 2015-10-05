@@ -47,4 +47,8 @@ module EventsHelper
   def my_events
     Event.for(current_user).available.ordered
   end
+
+  def has_rsvp?(event)
+    event.event_users.where(user_id: current_user.id).exists?
+  end
 end

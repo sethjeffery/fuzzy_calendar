@@ -6,6 +6,9 @@ $(document).on 'ready page:load', ->
   $('#event-rsvp-modal').modal('show') if /rsvp=true/.test(location.search)
   $('#event_name').focus()
 
+  $('#event-rsvp-modal').modal('show') if location.hash == '#rsvp'
+  $('#event-share-modal').modal('show') if location.hash == '#share'
+
 $(document).on 'wizard.moving', '#wizard-rsvp', (e, data) ->
   # Populate picker-rsvp-favorites dates with picker-rsvp-available
   pickerFavorites = $('#picker-rsvp-favorites').data('picker')
