@@ -2,12 +2,13 @@
 %html{prefix: "og: http://ogp.me/ns#"}
   %head
     %title
-      = content_for(:title) ? yield(:title) : "Fuzzy Calendar"
+      = content_for?(:title) ? yield(:title) : "Fuzzy Calendar"
 
-    = tag "meta", property: "og:title", content: (content_for(:title) ? yield(:title) : "Fuzzy Calendar")
+    = tag "meta", property: "og:title", content: (content_for?(:title) ? yield(:title) : "Fuzzy Calendar")
     = tag "meta", property: "og:image", content: image_url("sprites-retina/logo-header.png")
     = tag "meta", property: "og:url",   content: request.url
     = tag "meta", property: "og:type",  content: "website"
+    = tag("meta", property: "og:description", content: yield(:description)) if content_for?(:description)
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
