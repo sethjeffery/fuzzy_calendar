@@ -6,6 +6,7 @@
   background-size: cover;
   background-position: center;
   background-color: rgba(192,192,192, 0.25);
+  border-radius: 0.25rem;
 
   h1 {
     text-align: center;
@@ -29,6 +30,10 @@
       padding-top: 2em;
     }
   }
+}
+
+.card .card-img-top {
+  border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .card-circle {
