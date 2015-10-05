@@ -146,6 +146,7 @@ a.cal-container {
 .cal-content {
   @include transform(translateZ(2px));
   height: 100%;
+  position: relative;
 
   .picker {
     margin: 0;
@@ -163,6 +164,17 @@ a.cal-container {
       display: none;
     }
   }
+}
+
+.cal-content-title {
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: .5em;
+  text-align: center;
+  color: white;
+  position: absolute;
+  opacity: .75;
 }
 
 .cal-in-front {
@@ -238,7 +250,7 @@ a.cal-container {
 .cal-tooltip {
   margin-top: 1.5em;
   border-radius: 4px;
-  background-color: #eee; // rgba(0,0,0,0.05);
+  background-color: rgba(0,0,0,0.075);
   color: black;
   padding: 4px 8px;
   position: relative;
@@ -250,7 +262,7 @@ a.cal-container {
     left: 50%;
     margin-left: -6px;
     border: solid 6px transparent;
-    border-bottom-color: #eee; // rgba(0,0,0,0.05);
+    border-bottom-color: rgba(0,0,0,0.075);
   }
 
   a:hover & {

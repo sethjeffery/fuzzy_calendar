@@ -1,6 +1,6 @@
 .container.m-y-sm.m-b-xxl
   .card
-    .card-img-top{style: "background-image:url('http://www.adu.ac.ae/portals/0/AduImage/calendar-banner.jpg')"}
+    .card-img-top{style: "background-image:url('#{@event.cover.url}')"}
       %h1.xs-down-size-md= @event.name
     .card-circle.card-circle-transparent
       = render "icon"

@@ -1,6 +1,6 @@
 .container.m-y-sm.m-b-xxl
   .card
-    .card-img-top{style: "background-image:url('http://www.adu.ac.ae/portals/0/AduImage/calendar-banner.jpg')"}
+    .card-img-top{style: "background-image:url('#{@event.cover.url}')"}
 
     - if @event.errors.present?
       %ul.alert.alert-danger.card-alert
@@ -30,7 +30,7 @@
               %span.c-indicator
               I need to know what <strong>week</strong> invitees are available.
 
-          .m-t-sm
+          -#.m-t-sm
             %label.c-input.c-radio
               = f.radio_button :specificity, :month
               %span.c-indicator
@@ -49,7 +49,5 @@
                          specificity: @event.specificity,
                          range: true }}
 
-        %hr.card-fill-x.m-t-0.m-b
-
-        .text-center
+        .text-center.m-t
           = f.submit "Create my event", class: 'btn btn-primary btn-lg'

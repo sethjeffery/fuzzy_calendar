@@ -7,6 +7,10 @@
         .cal-in-front
         .cal-front
           .cal-content
+            - if event.finalised?
+              .cal-content-title
+                %i.glyphicons.glyphicons-ok-2
+
             .picker{data: { size: :sm,
                             min_date: event.starts_at.strftime('%F'),
                             max_date: event.ends_at.strftime('%F'),
