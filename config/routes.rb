@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get "backdoor/:id" => "backdoor#enter" unless Rails.env.production?
 
-  resources :events do
+  resources :events, path: 'e' do
     member do
       post :rsvp
       put :close
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users, path: 'u'
 
   get 'me' => "users#me", as: :me
 
