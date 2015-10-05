@@ -11,7 +11,7 @@ describe EventsController, type: :controller do
   describe '#new' do
     context 'not logged in' do
       before { get :new }
-      it { is_expected.to redirect_to login_path }
+      it { is_expected.to redirect_to root_path }
     end
 
     context 'logged in' do
@@ -31,7 +31,7 @@ describe EventsController, type: :controller do
   describe '#create' do
     context 'not logged in' do
       before { post :create }
-      it { is_expected.to redirect_to login_path }
+      it { is_expected.to redirect_to root_path }
     end
 
     context 'logged in' do
@@ -70,7 +70,7 @@ describe EventsController, type: :controller do
   describe '#rsvp' do
     context 'not logged in' do
       before { post :rsvp, id: event.to_param, rsvp: {} }
-      it { is_expected.to redirect_to login_path }
+      it { is_expected.to redirect_to root_path }
     end
 
     context 'logged in' do
@@ -114,7 +114,7 @@ describe EventsController, type: :controller do
   describe '#close' do
     context 'not logged in' do
       before { put :close, id: event.to_param }
-      it { is_expected.to redirect_to login_path }
+      it { is_expected.to redirect_to root_path }
     end
 
     context 'not event creator' do
@@ -144,7 +144,7 @@ describe EventsController, type: :controller do
   describe '#finalise' do
     context 'not logged in' do
       before { put :finalise, id: event.to_param }
-      it { is_expected.to redirect_to login_path }
+      it { is_expected.to redirect_to root_path }
     end
 
     context 'not event creator' do
