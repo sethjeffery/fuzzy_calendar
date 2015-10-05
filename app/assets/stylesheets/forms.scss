@@ -5,21 +5,24 @@
   font-size: 1.5rem;
 }
 
-.form-control-top {
+.form-control-clear {
   background-color: transparent;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 }
 
-.form-control-bottom {
-  background-color: transparent;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  margin-top: -1px;
+.form-control-group {
   padding: 0.75rem 1.25rem;
-}
 
-.form-control-top, .form-control-bottom {
+  &:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: -1px;
+  }
+
+  &:not(:last-child) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
   &:focus {
     position: relative;
   }
