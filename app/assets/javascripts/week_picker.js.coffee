@@ -14,7 +14,7 @@ class @WeekPicker extends DayPicker
       else
         activating = !$(@).hasClass('picker-row-active') or !_picker.multi
 
-      _picker.toggleDate @.dataset.date, activating
+      _picker.toggleDate $(@).data('date'), activating
 
       # Track dragging and highlight the rows we drag over
       $(window).on 'mousemove.picker', (e) ->
@@ -23,11 +23,11 @@ class @WeekPicker extends DayPicker
         $el.find('a.picker-row').each ->
           $offset = $(@).offset()
           if $offset.left < e.pageX and $offset.left + $(@).outerWidth() > e.pageX and $offset.top < e.pageY and $offset.top + $(@).outerHeight() > e.pageY
-            _picker.toggleDate @.dataset.date, activating
+            _picker.toggleDate $(@).data('date'), activating
 
     $el.on 'click', '[data-toggle=picker]', (e) ->
       e.preventDefault()
-      _picker.date = moment(@.dataset.date)
+      _picker.date = moment($(@).data('date'))
       _picker.render()
 
   updateActiveCells: =>
@@ -61,6 +61,6 @@ class @WeekPicker extends DayPicker
       startHighlighting = $allRows.first().data('date') > firstDate and $allRows.first().data('date') <= lastDate
 
       $allRows.each ->
-        startHighlighting = true if @.dataset.date == firstDate
+        startHighlighting = true if $(@).data('date') == firstDate
         $(@).addClass('picker-row-in-range') if startHighlighting
-        startHighlighting = false if @.dataset.date == lastDate
+        startHighlighting = false if $(@).data('date') == lastDate

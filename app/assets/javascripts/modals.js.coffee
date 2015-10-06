@@ -1,5 +1,5 @@
 $(document).on 'shown.bs.modal', '.modal[data-autofocus]', ->
-  $(@).find(@.dataset.autofocus).focus().select()
+  $(@).find($(@).data('autofocus')).focus().select()
 
 $(document).on 'show.bs.modal', '#login-modal', (e) ->
   href = $(e.relatedTarget).attr('href')

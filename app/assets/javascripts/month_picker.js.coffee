@@ -29,6 +29,6 @@ class @MonthPicker extends DayPicker
       startHighlighting = allCells.first().data('date') > dates[0] and allCells.first().data('date') <= dates[1]
 
       allCells.each ->
-        startHighlighting = true if @.dataset.date == dates[0]
+        startHighlighting = true if $(@).data('date') == dates[0]
         $(@).addClass('picker-cell-in-range') if startHighlighting
-        startHighlighting = false if @.dataset.date == dates[1]
+        startHighlighting = false if $(@).data('date') == dates[1]

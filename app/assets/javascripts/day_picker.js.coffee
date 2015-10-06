@@ -33,7 +33,7 @@ class @DayPicker extends Picker
       else
         activating = !$(@).hasClass('picker-cell-active') or !_picker.multi
 
-      _picker.toggleDate @.dataset.date, activating
+      _picker.toggleDate $(@).data('date'), activating
 
       # Track dragging and highlight the cells we drag over
       $(window).on 'mousemove.picker', (e) ->
@@ -42,11 +42,11 @@ class @DayPicker extends Picker
         $el.find('a.picker-cell').each ->
           $offset = $(@).offset()
           if $offset.left < e.pageX and $offset.left + $(@).outerWidth() > e.pageX and $offset.top < e.pageY and $offset.top + $(@).outerHeight() > e.pageY
-            _picker.toggleDate @.dataset.date, activating
+            _picker.toggleDate $(@).data('date'), activating
 
     $el.on 'click', '[data-toggle=picker]', (e) ->
       e.preventDefault()
-      _picker.date = moment(@.dataset.date)
+      _picker.date = moment($(@).data('date'))
       _picker.render()
 
   toggleDate: (date, active) ->
@@ -132,9 +132,9 @@ class @DayPicker extends Picker
       startHighlighting = $allCells.first().data('date') > firstDate and $allCells.first().data('date') <= lastDate
 
       $allCells.each ->
-        startHighlighting = true if @.dataset.date == firstDate
+        startHighlighting = true if $(@).data('date') == firstDate
         $(@).addClass('picker-cell-in-range') if startHighlighting
-        startHighlighting = false if @.dataset.date == lastDate
+        startHighlighting = false if $(@).data('date') == lastDate
 
 $(window).on 'mouseup.day_picker', ->
   $(window).off 'mousemove.day_picker'
