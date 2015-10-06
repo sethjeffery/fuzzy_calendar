@@ -124,3 +124,9 @@
     }
   }
 }
+
+@include media-breakpoint-down(sm) {
+  .picker-3d .cal-slight-left, .picker-3d .cal-slight-right {
+    @include transform(none);
+  }
+}

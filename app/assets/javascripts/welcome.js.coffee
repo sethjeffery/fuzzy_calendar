@@ -104,3 +104,6 @@ $(window).on 'scroll', ->
       if $step.length and !stepStarted[step] and $step.position().top < $(document).scrollTop() + $(window).height() / 2
         stepStarted[step] = true
         setTimeout stepAnimations[step], 500
+
+$ ->
+  FastClick.attach(document.body)

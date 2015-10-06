@@ -25,8 +25,8 @@ class @DayPicker extends Picker
     $el = @$el
     _picker = @
 
-    $el.on 'mousedown', 'a.picker-cell', (e) ->
-      return unless e.buttons == 1 # left-click only
+    $el.on 'mousedown touchstart', 'a.picker-cell', (e) ->
+      return unless e.buttons == 1 or e.type == 'touchstart' # left-click or taps only
 
       if _picker.favorite
         activating = !$(@).hasClass('picker-cell-favorite') or !_picker.multi
@@ -36,12 +36,16 @@ class @DayPicker extends Picker
       _picker.toggleDate $(@).data('date'), activating
 
       # Track dragging and highlight the cells we drag over
-      $(window).on 'mousemove.picker', (e) ->
-        return unless e.buttons == 1
+      $(window).on 'mousemove.day_picker touchmove.day_picker', (e) ->
+        return unless e.buttons == 1 or e.type == 'touchmove'
+
+        e.preventDefault() if e.type == 'touchmove'
+        pageX = if e.originalEvent?.touches then e.originalEvent.touches[0].pageX else e.pageX
+        pageY = if e.originalEvent?.touches then e.originalEvent.touches[0].pageY else e.pageX
 
         $el.find('a.picker-cell').each ->
           $offset = $(@).offset()
-          if $offset.left < e.pageX and $offset.left + $(@).outerWidth() > e.pageX and $offset.top < e.pageY and $offset.top + $(@).outerHeight() > e.pageY
+          if $offset.left < pageX and $offset.left + $(@).outerWidth() > pageX and $offset.top < pageY and $offset.top + $(@).outerHeight() > pageY
             _picker.toggleDate $(@).data('date'), activating
 
     $el.on 'click', '[data-toggle=picker]', (e) ->
@@ -136,6 +140,6 @@ class @DayPicker extends Picker
         $(@).addClass('picker-cell-in-range') if startHighlighting
         startHighlighting = false if $(@).data('date') == lastDate
 
-$(window).on 'mouseup.day_picker', ->
-  $(window).off 'mousemove.day_picker'
+$(window).on 'mouseup.day_picker touchend.day_picker', ->
+  $(window).off('mousemove.day_picker').off('touchmove.day_picker')
   rangeItemMoving = undefined

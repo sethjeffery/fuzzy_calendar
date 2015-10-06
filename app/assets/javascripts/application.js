@@ -19,4 +19,5 @@
 //= require moment
 //= require autosize
 //= require browser
+//= require fastclick
 //= require_tree .
