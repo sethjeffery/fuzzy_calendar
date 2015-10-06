@@ -4,14 +4,16 @@
     %title
       = content_for?(:title) ? yield(:title) : "Fuzzy Calendar"
 
-    = tag "meta", property: "og:title", content: (content_for?(:title) ? yield(:title) : "Fuzzy Calendar")
-    = tag "meta", property: "og:image", content: image_url("sprites-retina/logo-header.png")
-    = tag "meta", property: "og:url",   content: request.url
-    = tag "meta", property: "og:type",  content: "website"
-    = tag("meta", property: "og:description", content: yield(:description)) if content_for?(:description)
+    = tag :meta, property: "og:title", content: (content_for?(:title) ? yield(:title) : "Fuzzy Calendar")
+    = tag :meta, property: "og:image", content: image_url("sprites-retina/logo-header.png")
+    = tag :meta, property: "og:url",   content: request.url
+    = tag :meta, property: "og:type",  content: "website"
+    = tag(:meta, property: "og:description", content: yield(:description)) if content_for?(:description)
+    = tag :meta, "http-equiv" => "X-UA-Compatible", content: "IE=edge"
+    = tag :meta, name: "viewport", content: "width=device-width, initial-scale=1"
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    /[if lt IE 10]
+    /[if IE]
       = stylesheet_link_tag    'legacy', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
