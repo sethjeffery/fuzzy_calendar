@@ -11,7 +11,7 @@
     = tag("meta", property: "og:description", content: yield(:description)) if content_for?(:description)
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    /[if IE lt 10]
+    /[if lt IE 10]
       = stylesheet_link_tag    'legacy', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
