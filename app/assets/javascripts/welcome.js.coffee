@@ -82,8 +82,8 @@ $(document).on 'ready page:load', ->
     $calFront.addClass('cal-front-finalised') if $calFront.length
 
   if $('.wow-header .cal-canvas').length
-    setTimeout finalisedCanvas, 3500
-    unless $.browser.msie
+    unless $.browser.msie and parseInt($.browser.version) < 12
+      setTimeout finalisedCanvas, 3500
       setTimeout spinCanvas, 1000
 
 $(document).on 'click', '.js-welcome', (e) ->
