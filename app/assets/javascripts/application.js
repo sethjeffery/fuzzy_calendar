@@ -18,4 +18,5 @@
 //= require turbolinks
 //= require moment
 //= require autosize
+//= require browser
 //= require_tree .

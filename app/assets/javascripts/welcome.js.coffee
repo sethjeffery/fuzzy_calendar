@@ -10,10 +10,11 @@ stepAnimations =
     $picker = $('.welcome #picker-step-1')
     if $picker.length && !$picker.data('stop')
       picker = $picker.data('picker')
-      $(day: 0).animate { day: 3 },
-        duration: 300
-        step: (now, fx) ->
-          setPickerDates picker, moment().startOf('month'), moment().startOf('month').add(parseInt(now), 'weeks')
+      for i in [0..3]
+        do (i, setPickerDates, picker) ->
+          setTimeout ->
+            setPickerDates picker, moment().startOf('month'), moment().startOf('month').add(i, 'weeks')
+          , i * 100
 
   two: ->
     showNextChat = -> $('.fbchat .fade:not(.in)').first().addClass('in')
@@ -27,15 +28,16 @@ stepAnimations =
     $picker = $('.welcome #picker-step-3')
     if $picker.length && !$picker.data('stop')
       picker = $picker.data('picker')
-      $(week: 0).animate { week: 7 },
-        duration: 1000
-        step: (now, fx) ->
-          if now < 4
-            date = moment().startOf('month').add(5, 'days').add(parseInt(now), 'weeks')
-            addPickerDate picker, date if date.month() == moment().month()
-          else
-            date = moment().startOf('month').add(8, 'days').add(parseInt(now) - 4, 'weeks')
-            addPickerDate picker, date if date.month() == moment().month()
+      for i in [0..7]
+        do (i, addPickerDate, picker) ->
+          setTimeout ->
+            if i < 4
+              date = moment().startOf('month').add(5, 'days').add(i, 'weeks')
+              addPickerDate picker, date if date.month() == moment().month()
+            else
+              date = moment().startOf('month').add(8, 'days').add(i - 4, 'weeks')
+              addPickerDate picker, date if date.month() == moment().month()
+          , i * 100
 
   four: ->
     addPickerDateUser = (picker, date, name) ->
@@ -48,26 +50,25 @@ stepAnimations =
     $picker = $('.welcome #picker-step-4')
     if $picker.length && !$picker.data('stop')
       picker = $picker.data('picker')
-      $(week: 0).animate { week: 17 },
-        duration: 2000
-        easing: 'linear'
-        step: (now, fx) ->
-          if now < 4
-            date = moment().startOf('month').add(5, 'days').add(parseInt(now), 'weeks')
-            addPickerDateUser picker, date, 'John' if date.month() == moment().month()
-          else if now < 8
-            date = moment().startOf('month').add(8, 'days').add(parseInt(now) - 4, 'weeks')
-            addPickerDateUser picker, date, 'Andy' if date.month() == moment().month()
-          else if now < 14
-            date = moment().startOf('month').add(15, 'days').startOf('week').add(parseInt(now) - 8, 'days')
-            addPickerDateUser picker, date, 'Sarah' if date.month() == moment().month()
-          else if now < 17
-            date = moment().startOf('month').add(5, 'days').add(parseInt(now) - 14, 'weeks')
-            addPickerDateUser picker, date, 'Alice' if date.month() == moment().month()
-          else
-            date = moment().startOf('month').add(5, 'days').add(1, 'weeks')
-            addPickerDateUser picker, date, 'Andy' if date.month() == moment().month()
-
+      for i in [0..17]
+        do (i, addPickerDateUser, picker) ->
+          setTimeout ->
+            if i < 4
+              date = moment().startOf('month').add(5, 'days').add(i, 'weeks')
+              addPickerDateUser picker, date, 'John' if date.month() == moment().month()
+            else if i < 8
+              date = moment().startOf('month').add(8, 'days').add(i - 4, 'weeks')
+              addPickerDateUser picker, date, 'Andy' if date.month() == moment().month()
+            else if i < 14
+              date = moment().startOf('month').add(15, 'days').startOf('week').add(i - 8, 'days')
+              addPickerDateUser picker, date, 'Sarah' if date.month() == moment().month()
+            else if i < 17
+              date = moment().startOf('month').add(5, 'days').add(i - 14, 'weeks')
+              addPickerDateUser picker, date, 'Alice' if date.month() == moment().month()
+            else
+              date = moment().startOf('month').add(5, 'days').add(1, 'weeks')
+              addPickerDateUser picker, date, 'Andy' if date.month() == moment().month()
+          , i * 100
 
 $(document).on 'ready page:load', ->
   stepStarted = {}
@@ -81,8 +82,9 @@ $(document).on 'ready page:load', ->
     $calFront.addClass('cal-front-finalised') if $calFront.length
 
   if $('.wow-header .cal-canvas').length
-    setTimeout spinCanvas, 1000
     setTimeout finalisedCanvas, 3500
+    unless $.browser.msie
+      setTimeout spinCanvas, 1000
 
 $(document).on 'click', '.js-welcome', (e) ->
   e.preventDefault()
