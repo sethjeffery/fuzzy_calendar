@@ -71,6 +71,8 @@ stepAnimations =
           , i * 100
 
 $(document).on 'ready page:load', ->
+  $('html').addClass('legacy') if $.browser.msie and parseInt($.browser.version) < 12
+
   stepStarted = {}
 
   spinCanvas = ->
@@ -82,7 +84,7 @@ $(document).on 'ready page:load', ->
     $calFront.addClass('cal-front-finalised') if $calFront.length
 
   if $('.wow-header .cal-canvas').length
-    unless $.browser.msie and parseInt($.browser.version) < 12
+    unless $('html').hasClass('legacy')
       setTimeout finalisedCanvas, 3500
       setTimeout spinCanvas, 1000
 
