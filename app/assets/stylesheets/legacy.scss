@@ -36,37 +36,6 @@
     @include perspective-origin(center center);
   }
 
-  .cal-canvas.spin {
-    // spin items individually
-    .cal {
-      @include animation(none);
-    }
-    .cal-front {
-      @include animation(spin360 4s forwards ease-in-out);
-    }
-    .cal-back {
-      @include animation(spin-back360 4s forwards ease-in-out);
-    }
-  }
-
-  @include keyframes(spin360) {
-    from {
-      @include transform(rotateY(0deg));
-    }
-    to {
-      @include transform(rotateY(720deg));
-    }
-  }
-
-  @include keyframes(spin-back360) {
-    from {
-      @include transform(rotateY(180deg));
-    }
-    to {
-      @include transform(rotateY(900deg));
-    }
-  }
-
   // no 3d effect on demo pickers
   .picker-3d {
     .picker {
