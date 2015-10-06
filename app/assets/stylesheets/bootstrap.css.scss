@@ -1,0 +1,14 @@
+@import "modules/variables";
+@import "bootstrap/bootstrap";
+
+// Any styles that wish to override bootstrap controls must go here.
+
+.field_with_errors .form-control {
+  @extend .form-control-error;
+}
+
+.field_with_errors { @extend .has-error; }
+
+.glyphicons {
+  line-height: 1.5;
+}
