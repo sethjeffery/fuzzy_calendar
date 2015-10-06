@@ -1,0 +1,71 @@
+@import 'compass/css3/transform';
+@import 'compass/css3/transition';
+@import 'compass/css3/animation';
+@import 'compass/css3/box-shadow';
+@import 'modules/variables';
+
+// remove complex 3d transforms
+.cal-in-back, .cal-in-front, .cal-left-clip, .cal-right-clip {
+  display: none;
+}
+
+.cal-front, .cal-canvas, .cal, .cal-back {
+  @include transform(none);
+  @include transition(none);
+}
+
+.cal-front, .cal-back {
+  @include box-shadow(0 2px 0 rgba(0,0,0,0.25));
+  border-radius: 4px;
+  &:before, &:after {
+    display: none;
+  }
+}
+
+.cal-back {
+  @include transform(rotateY(180deg));
+  @include backface-visibility();
+  border-top: solid 3em darken($brand-primary, 10%);
+  background-color: #ccc;
+}
+
+// spin about center, no strong perspective
+.cal-canvas {
+  @include perspective-origin(center center);
+}
+
+.cal-canvas.spin {
+  // spin items individually
+  .cal {
+    @include animation(none);
+  }
+  .cal-front {
+    @include animation(spin360 4s forwards ease-in-out);
+  }
+  .cal-back {
+    @include animation(spin-back360 4s forwards ease-in-out);
+  }
+}
+
+@include keyframes(spin360) {
+  from { @include transform(rotateY(0deg)); }
+  to   { @include transform(rotateY(720deg)); }
+}
+
+@include keyframes(spin-back360) {
+  from { @include transform(rotateY(180deg)); }
+  to   { @include transform(rotateY(900deg)); }
+}
+
+// no 3d effect on demo pickers
+.picker-3d {
+  .picker {
+    @include box-shadow(none);
+  }
+}
+
+.cal-right { @include transform(none); }
+.cal-left  { @include transform(none); }
+
+.cal-slight-right { @include transform(none); }
+.cal-slight-left  { @include transform(none); }
