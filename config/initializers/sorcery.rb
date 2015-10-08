@@ -13,7 +13,7 @@ Rails.application.config.sorcery.configure do |config|
   #
   # config.not_authenticated_action =
 
-  config.external_providers = [:facebook, :twitter]
+  config.external_providers = [:facebook, :twitter, :google]
 
   # When a non logged in user tries to enter a page that requires login, save
   # the URL he wanted to reach, and send him there after login, using 'redirect_back_or_to'.
@@ -108,7 +108,8 @@ Rails.application.config.sorcery.configure do |config|
   config.twitter.key = ENV["TWITTER_KEY"]
   config.twitter.secret = ENV["TWITTER_SECRET"]
   config.twitter.callback_url = "#{ENV["SITE_URL"]}/oauth/callback?provider=twitter"
-  config.twitter.user_info_mapping = {:name => "name"}
+  config.twitter.user_info_mapping = {:name => "name", :email => "email", :avatar_file_name => "profile_image_url"}
+  config.twitter.user_info_path = '/1.1/account/verify_credentials.json'
   #
   config.facebook.key = ENV["FB_KEY"]
   config.facebook.secret = ENV["FB_SECRET"]
@@ -123,10 +124,10 @@ Rails.application.config.sorcery.configure do |config|
   # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
   # config.github.user_info_mapping = {:email => "name"}
   #
-  # config.google.key = ""
-  # config.google.secret = ""
-  # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
-  # config.google.user_info_mapping = {:email => "email", :username => "name"}
+  config.google.key = ENV["GOOGLE_KEY"]
+  config.google.secret = ENV["GOOGLE_SECRET"]
+  config.google.callback_url = "#{ENV["SITE_URL"]}/oauth/callback?provider=google"
+  config.google.user_info_mapping = {:email => "email", :name => "name", :avatar_file_name => "picture"}
   #
   # config.vk.key = ""
   # config.vk.secret = ""

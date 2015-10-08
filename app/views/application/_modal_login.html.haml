@@ -10,11 +10,9 @@
           .help
             Get straight in with Facebook or Twitter, it's easy!
 
-          = link_to auth_at_provider_path('facebook'), class: "btn btn-facebook btn-block m-b-sm", data: { no_turbolink: true } do
-            Log in with Facebook
-
-          = link_to auth_at_provider_path('twitter'), class: "btn btn-twitter btn-block m-b-sm", data: { no_turbolink: true } do
-            Log in with Twitter
+          - %w(facebook twitter google).each do |provider|
+            = link_to auth_at_provider_path(provider), class: "btn btn-#{provider} btn-block m-b-sm", data: { no_turbolink: true } do
+              Log in with #{provider.titleize}
 
           %hr.card-fill-x
 

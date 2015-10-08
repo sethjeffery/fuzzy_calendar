@@ -39,6 +39,13 @@
   @include button-outline-variant($brand-facebook);
 }
 
+.btn-google {
+  @include button-variant(white, $brand-google, $brand-google);
+}
+.btn-google-outline {
+  @include button-outline-variant($brand-google);
+}
+
 .btn-circle {
   color: black;
   width: 64px; height: 64px;
