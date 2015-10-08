@@ -43,7 +43,44 @@ describe OauthsController, type: :controller do
     let(:provider) { double(:provider) }
     let(:user_mapping) { { email: "email", name: "name" } }
 
-    context 'with existing user' do
+    context 'with existing not-oauthd user' do
+      let!(:user) { create(:user, email: 'test@example.com') }
+
+      before do
+        allow(provider).to receive(:user_info_mapping).and_return(user_mapping)
+        allow(controller).to receive(:login_from) do
+          set_controller_provider_variables
+          nil
+        end
+      end
+
+      context 'without redirect in session' do
+        before do
+          get :callback, provider: 'facebook'
+        end
+
+        it 'adds the provider' do
+          expect(user.reload.authentications.count).to eq 1
+        end
+
+        it 'logs in' do
+          expect(session[:user_id]).to eq user.id.to_s
+        end
+
+        it { is_expected.to redirect_to root_path }
+      end
+
+      context 'with redirect in session' do
+        before do
+          session[:return_to_url] = "/some_path"
+          get :callback, provider: 'facebook'
+        end
+
+        it { is_expected.to redirect_to "/some_path" }
+      end
+    end
+
+    context 'with existing oauthd user' do
       before do
         allow(provider).to receive(:user_info_mapping).and_return(user_mapping)
         allow(controller).to receive(:login_from) do

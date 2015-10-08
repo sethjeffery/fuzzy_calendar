@@ -58,7 +58,7 @@ describe SessionsController, type: :controller do
         post :create, session: { email: 'wrong', password: 'wrong' }
       end
 
-      it { is_expected.to set_the_flash.now[:alert] }
+      it { is_expected.to set_flash.now[:alert] }
       it { is_expected.to render_template :new }
     end
   end

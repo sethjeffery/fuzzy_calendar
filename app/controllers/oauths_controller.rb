@@ -14,24 +14,31 @@ class OauthsController < ApplicationController
     @user = login_from(provider)
     return_to_url = session[:return_to_url]
 
+    attrs = user_attrs(@provider.user_info_mapping, @user_hash)
+
     if @user
-      attrs = user_attrs(@provider.user_info_mapping, @user_hash)
       @user.update_attributes(attrs)
-
       redirect_to return_to_url || root_path
+
     else
-      begin
-        @user = create_from(provider) {|user|
-          user.password = SecureRandom.hex
-        }
+      @user = User.find_by(email: attrs[:email])
 
-        # NOTE: this is the place to add '@user.activate!' if you are using user_activation submodule
-
-        reset_session # protect from session fixation attack
-        auto_login(@user)
+      if @user
+        reset_and_login @user
+        @user.add_provider_to_user(provider, @user_hash[:uid].to_s)
         redirect_to return_to_url || root_path
-      rescue
-        redirect_to root_path, :alert => "Failed to login from #{provider.titleize}!"
+
+      else
+        begin
+          @user = create_from(provider) {|user|
+            user.password = SecureRandom.hex
+          }
+
+          reset_and_login(@user)
+          redirect_to return_to_url || root_path
+        rescue
+          redirect_to root_path, :alert => "Failed to login from #{provider.titleize}!"
+        end
       end
     end
   end
@@ -42,4 +49,8 @@ class OauthsController < ApplicationController
     params.permit(:code, :provider)
   end
 
+  def reset_and_login(user)
+    reset_session # protect from session fixation attack
+    auto_login(@user)
+  end
 end
