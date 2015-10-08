@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   after_filter :save_last_request
 
   def save_last_request
-    session[:last_request] = request.fullpath
+    session[:return_to_url] = request.fullpath
   end
 
   def authenticate!

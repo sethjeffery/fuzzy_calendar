@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, styles: { full: "600x600>", medium: "300x300>", thumb: "80x80>" }
   validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
+  validates :name, presence: true
+  validates :password, presence: true, allow_nil: true
+  validates :email, presence: true, uniqueness: true, allow_nil: true, unless: :has_linked_facebook?
+
   def has_linked_facebook?
     authentications.where(provider: 'facebook').present?
   end

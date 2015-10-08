@@ -1,13 +1,38 @@
 .modal.fade#login-modal
   .modal-dialog.modal-dialog-sm
     .modal-content
-      .modal-body
-        %button.close{type: "button", data: { dismiss: "modal" }}
-          %span &times;
-        .subtitle
-          Connect
-        .help
-          No sign up process! Just connect with Facebook and you're ready to go!
+      .wizard#wizard-login
+        .wizard-step.active.modal-body
+          %button.close{type: "button", data: { dismiss: "modal" }}
+            %span &times;
+          .subtitle
+            Connect
+          .help
+            Get straight in with Facebook or Twitter, it's easy!
 
-        = link_to auth_at_provider_path('facebook'), class: "btn btn-primary btn-block m-b-sm", data: { no_turbolink: true } do
-          Login with Facebook
+          = link_to auth_at_provider_path('facebook'), class: "btn btn-facebook btn-block m-b-sm", data: { no_turbolink: true } do
+            Log in with Facebook
+
+          = link_to auth_at_provider_path('twitter'), class: "btn btn-twitter btn-block m-b-sm", data: { no_turbolink: true } do
+            Log in with Twitter
+
+          %hr.card-fill-x
+
+          .help.m-b
+            Or log in with your email and password.
+
+          = render "sessions/form_simple"
+
+          %hr.card-fill-x
+
+          = link_to "Sign up for a new account", '#', class: 'btn btn-link btn-block', data: { toggle: 'wizard', move: '1', target: '#wizard-login' }
+
+        .wizard-step.modal-body
+          %button.close{type: "button", data: { toggle: "wizard", move: '0', target: '#wizard-login' }}
+            %span &times;
+          .subtitle
+            Sign up
+          .help
+            We only need to know three things about you to get your account set up.
+
+          = render "users/form"

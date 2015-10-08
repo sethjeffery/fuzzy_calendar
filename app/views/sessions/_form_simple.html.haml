@@ -1,0 +1,10 @@
+= form_for (@session || :session), url: login_path do |f|
+  .row-xs.m-b-sm
+    .col-sm-6
+      %i.glyphicons.glyphicons-envelope.form-control-icon
+      = f.email_field :email, class: 'form-control', placeholder: 'Email'
+    .col-sm-6
+      %i.glyphicons.glyphicons-lock.form-control-icon
+      = f.password_field :password, class: 'form-control', placeholder: 'Password'
+  = hidden_field_tag :redirect_after_login
+  = f.submit "Log in", class: 'btn btn-secondary btn-block'

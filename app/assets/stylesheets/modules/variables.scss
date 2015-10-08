@@ -2,21 +2,17 @@
 $serif:                       Merriweather, serif;
 
 
-$alert-success-bg:            #5cb85c !default;
-$alert-success-text:          white !default;
-$alert-success-border:        transparent !default;
+$alert-success-text:          #5cb85c !default;
+$alert-success-border:        #5cb85c !default;
 
-$alert-info-bg:               #5bc0de !default;
-$alert-info-text:             white !default;
-$alert-info-border:           transparent !default;
+$alert-info-text:             #5bc0de !default;
+$alert-info-border:           #5bc0de !default;
 
-$alert-warning-bg:            #f0ad4e !default;
-$alert-warning-text:          white !default;
-$alert-warning-border:        transparent !default;
+$alert-warning-text:          #f0ad4e !default;
+$alert-warning-border:        #f0ad4e !default;
 
-$alert-danger-bg:             #d9534f !default;
-$alert-danger-text:           white !default;
-$alert-danger-border:         transparent !default;
+$alert-danger-text:           #d9534f !default;
+$alert-danger-border:         #d9534f !default;
 
 $alert-padding:               10px 15px !default;
 
@@ -25,6 +21,7 @@ $border-radius-circle:        1000px;
 $brand-highlight:             #c94465;
 $brand-favorite:              #f0ad4e;
 $brand-twitter:               #5ea9dd;
+$brand-facebook:              #45619e;
 
 $grid-breakpoints: (
   // Extra small screen / phone

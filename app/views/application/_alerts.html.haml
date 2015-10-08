@@ -1,0 +1,25 @@
+- if flash[:alert].present?
+  .alert.alert-danger
+    .glyphicons.glyphicons-remove-2.pull-left
+    = flash[:alert]
+- elsif defined?(model) && model.errors.present?
+  %ul.alert.alert-danger
+    - model.errors.full_messages.each do |error|
+      %li
+        .glyphicons.glyphicons-remove-2.pull-left
+        = error
+
+- if flash[:success].present?
+  .alert.alert-success
+    .glyphicons.glyphicons-ok-2.pull-left
+    = flash[:success]
+
+- if flash[:info].present?
+  .alert.alert-info
+    .glyphicons.glyphicons-circle-info.pull-left
+    = flash[:info]
+
+- if flash[:warning].present?
+  .alert.alert-warning
+    .glyphicons.glyphicons-warning-sign.pull-left
+    = flash[:warning]

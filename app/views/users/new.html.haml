@@ -1,0 +1,10 @@
+.modal-dialog
+  .modal-content
+    .modal-body
+      .subtitle
+        Sign up
+      .help
+        We only need to know three things about you to get your account set up.
+
+      = render "application/alerts", model: @user
+      = render "form"

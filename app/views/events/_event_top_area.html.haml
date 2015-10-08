@@ -9,7 +9,7 @@
       - if logged_in?
         = link_to "RSVP", '#event-rsvp-modal', class: "btn btn-sm #{has_rsvp?(@event) ? 'btn-secondary': 'btn-primary btn-glow'}", data: { toggle: 'modal' }
       - else
-        = link_to "RSVP", event_path(@event, hash: 'rsvp'), class: "btn btn-sm btn-primary btn-glow", data: { toggle: 'modal', target: '#login-modal'}
+        = link_to "RSVP", event_path(@event) + '#rsvp', class: "btn btn-sm btn-primary btn-glow", data: { toggle: 'modal', target: '#login-modal'}
 
     = link_to "Share", "#event-share-modal", class: 'btn btn-sm btn-secondary', data: { toggle: 'modal' }
 

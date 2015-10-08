@@ -32,6 +32,13 @@
   @include button-outline-variant($brand-twitter);
 }
 
+.btn-facebook {
+  @include button-variant(white, $brand-facebook, $brand-facebook);
+}
+.btn-facebook-outline {
+  @include button-outline-variant($brand-facebook);
+}
+
 .btn-circle {
   color: black;
   width: 64px; height: 64px;

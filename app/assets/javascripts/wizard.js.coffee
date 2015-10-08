@@ -81,6 +81,8 @@ Wizard =
 
 # Automatic wire-up of click event
 $(document).on 'click', '[data-toggle=wizard]', (e) ->
+  e?.preventDefault()
+
   $el = $(@)
   selector = @getAttribute('data-target')
 

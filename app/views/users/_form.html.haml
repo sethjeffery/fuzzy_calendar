@@ -1,0 +1,18 @@
+= form_for (@user || :user), url: signup_path do |f|
+  .m-t
+    %i.glyphicons.glyphicons-user.form-control-icon
+    = f.text_field :name, class: 'form-control', placeholder: 'Name'
+
+  .m-y-sm
+    %i.glyphicons.glyphicons-envelope.form-control-icon
+    = f.email_field :email, class: 'form-control', placeholder: 'Email'
+
+  .m-y-sm
+    %i.glyphicons.glyphicons-lock.form-control-icon
+    = f.password_field :password, class: 'form-control', placeholder: 'Password'
+
+  .help.m-y
+    Please take care in filling out your password and email, as you'll need them to log back in!
+
+  = hidden_field_tag :redirect_after_login
+  = f.submit "Sign up", class: 'btn btn-primary btn-block'

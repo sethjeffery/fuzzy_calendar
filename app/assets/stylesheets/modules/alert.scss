@@ -1,3 +1,5 @@
+@import 'variables';
+
 .alert li {
   list-style: none;
   display: block;
@@ -7,4 +9,34 @@
   border-radius: 0;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+}
+
+.alert {
+  border-radius: 0;
+  border-left-width: 0.25rem;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  margin-bottom: 0.125rem;
+  padding-left: 2.75rem;
+
+  .pull-left {
+    margin-left: -1.75rem;
+  }
+}
+
+.alert-danger {
+  background-color: transparentize($alert-danger-bg, 0.5);
+}
+
+.alert-success {
+  background-color: transparentize($alert-success-bg, 0.5);
+}
+
+.alert-info {
+  background-color: transparentize($alert-info-bg, 0.5);
+}
+
+.alert-warning {
+  background-color: transparentize($alert-warning-bg, 0.5);
 }

@@ -13,7 +13,7 @@ Rails.application.config.sorcery.configure do |config|
   #
   # config.not_authenticated_action =
 
-  config.external_providers = [:facebook]
+  config.external_providers = [:facebook, :twitter]
 
   # When a non logged in user tries to enter a page that requires login, save
   # the URL he wanted to reach, and send him there after login, using 'redirect_back_or_to'.
@@ -105,10 +105,10 @@ Rails.application.config.sorcery.configure do |config|
   # Twitter wil not accept any requests nor redirect uri containing localhost,
   # make sure you use 0.0.0.0:3000 to access your app in development
   #
-  #config.twitter.key = ENV["TWITTER_KEY"]
-  #config.twitter.secret = ENV["TWITTER_SECRET"]
-  #config.twitter.callback_url = "#{ENV["SITE_URL"]}/oauth/callback?provider=twitter"
-  #config.twitter.user_info_mapping = {:name => "name"}
+  config.twitter.key = ENV["TWITTER_KEY"]
+  config.twitter.secret = ENV["TWITTER_SECRET"]
+  config.twitter.callback_url = "#{ENV["SITE_URL"]}/oauth/callback?provider=twitter"
+  config.twitter.user_info_mapping = {:name => "name"}
   #
   config.facebook.key = ENV["FB_KEY"]
   config.facebook.secret = ENV["FB_SECRET"]
