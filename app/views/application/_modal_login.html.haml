@@ -8,7 +8,7 @@
           .subtitle
             Connect
           .help
-            Get straight in with Facebook or Twitter, it's easy!
+            Get straight in without signing up, it's easy!
 
           - %w(facebook twitter google).each do |provider|
             = link_to auth_at_provider_path(provider), class: "btn btn-#{provider} btn-block m-b-sm", data: { no_turbolink: true } do
