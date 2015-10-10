@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :users, path: 'u'
   resources :sessions
 
-  get 'me' => "users#me", as: :me
+  get 'me' => "users#edit", as: :me
 
   post "oauth/callback" => "oauths#callback"
   get "oauth/callback" => "oauths#callback", as: :auth_callback # for use with Github, Facebook

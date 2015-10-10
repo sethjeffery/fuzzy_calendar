@@ -1,0 +1,65 @@
+- content_for :title, @user.name
+
+.container.m-t-md.m-b-xxl
+  .card
+    .card-circle
+      .avatar{style: "background-image:url('#{@user.avatar_url(:medium)}')"}
+
+    .card-block.xs-down-size-sm
+      %h1.title.text-center.m-t-lg
+        = @user.name
+
+      - if alerts?(@user)
+        .row-sm.m-b-md
+          .col-sm-8.col-sm-offset-3
+            = render 'application/alerts', model: @user
+
+      = form_for @user, html: { multipart: true } do |f|
+        .row-sm.m-b-md
+          .col-sm-3.sm-up-text-right
+            = f.label :name, class: 'form-control-label'
+          .col-sm-8
+            %i.glyphicons.glyphicons-user.form-control-icon
+            = f.text_field :name, class: 'form-control'
+
+        .row-sm.m-b-sm
+          .col-sm-3.sm-up-text-right
+            = f.label :email, class: 'form-control-label'
+          .col-sm-8
+            %i.glyphicons.glyphicons-envelope.form-control-icon
+            = f.email_field :email, class: 'form-control'
+
+        .row-sm.m-b-md
+          .col-sm-8.col-sm-offset-3
+            %label.c-checkbox.c-input.m-l
+              = f.check_box :email_notifications, class: 'checkbox'
+              .c-indicator
+              %span.size-sm Receive email notifications for events I create or respond to
+
+        .row-sm.m-b-md
+          .col-sm-3.sm-up-text-right
+            = f.label :avatar, class: 'form-control-label'
+          .col-sm-8
+            %label.btn.btn-secondary{for: 'user_avatar'}
+              %i.glyphicons.glyphicons-picture.pull-left.m-r-sm
+              %span Upload new picture
+            = f.file_field :avatar, class: 'invisible'
+
+        .row-sm.m-b-md
+          .col-sm-3.sm-up-text-right
+            = f.label :password, class: 'form-control-label'
+          .col-sm-8
+            %a#change_password.btn.btn-secondary
+              %i.glyphicons.glyphicons-lock.pull-left.m-r-sm
+              Change password
+            #change_password_fields{hidden: true}
+              %i.glyphicons.glyphicons-lock.form-control-icon
+              = f.password_field :password, class: 'form-control'
+
+        .row-sm.m-b-md
+          .col-sm-8.col-sm-offset-3
+            = f.submit "Save changes", class: 'btn btn-primary'
+
+      %hr
+
+      = render "stats"

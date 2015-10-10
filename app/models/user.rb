@@ -25,4 +25,12 @@ class User < ActiveRecord::Base
   def send_emails?
     email.present?
   end
+
+  def avatar_url(size = :thumb)
+    avatar_file_name.try(:start_with?, 'http') ? avatar_file_name : avatar.url(size)
+  end
+
+  def password=(new_password)
+    @password = new_password if new_password.present?
+  end
 end

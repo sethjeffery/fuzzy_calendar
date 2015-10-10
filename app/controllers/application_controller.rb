@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate!
-    redirect_to root_path unless logged_in?
+    redirect_to login_path unless logged_in?
   end
 
   def not_found

@@ -8,11 +8,28 @@
       .nav.navbar-nav.pull-right
         .nav-item.dropdown
           = link_to user_path(current_user), class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' } do
-            .avatar{style: "background-image:url('#{current_user.avatar_file_name}')"}
+            - if notifications?
+              .label.label-danger.label-status
+                = notifications.count
+            .avatar{style: "background-image:url('#{current_user.avatar_url}')"}
+
           .dropdown-menu.dropdown-menu-right
+            - if notifications?
+              .dropdown-header
+                %i.glyphicons.glyphicons-warning-sign.m-r-sm
+                = pluralize(notifications.count, 'alert')
+
+              - notifications.each do |alert|
+                = link_to alert.url, class: 'dropdown-item' do
+                  %i{class: "glyphicons glyphicons-#{alert.icon} m-r-sm"}
+                  = alert.message
+
+              .dropdown-divider
+
             = link_to logout_path, class: 'dropdown-item' do
               %i.glyphicons.glyphicons-log-out.m-r-sm
               Log out
+
     - else
       = link_to "/", class: "navbar-brand" do
         = image_tag "sprites-retina/logo-header.png", size: '46x46'

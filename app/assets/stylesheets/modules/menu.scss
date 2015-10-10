@@ -1,3 +1,15 @@
+@import 'variables';
+
 .dropdown-menu {
   font-size: 0.85rem;
+}
+
+.dropdown-header {
+  background-color: rgba(0,0,0,0.2);
+  color: white;
+  margin: -6px -1px 6px;
+  border-radius: 4px 4px 0 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  cursor: default;
 }

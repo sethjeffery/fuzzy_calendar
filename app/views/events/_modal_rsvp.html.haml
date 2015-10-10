@@ -4,7 +4,7 @@
       .modal-body
         %button.close{type: "button", data: { dismiss: "modal" }}
           %span &times;
-        = form_for :rsvp, url: rsvp_event_path(@event), html: { class: 'card-fill-x' } do
+        = form_for :rsvp, url: rsvp_event_path(@event), html: { class: 'card-fill-x' } do |f|
           .wizard#wizard-rsvp
             .wizard-step.p-x.sm-up-p-x-md.active
               .subtitle
@@ -44,4 +44,4 @@
               .clearfix
                 %a.pull-left.btn.btn-secondary{data: { toggle: 'wizard', move: 'back' }}
                   &larr; Back
-                %input.pull-right.btn.btn-primary{type: 'submit', value: 'Done!', data: { toggle: 'wizard', move: 'next' }}
+                = f.submit "Done!", class: 'pull-right btn btn-primary'

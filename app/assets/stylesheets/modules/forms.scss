@@ -57,10 +57,10 @@
 // and the control after it gets some additional padding to compensate.
 .form-control-icon {
   position: absolute !important;
-  margin: 0.375rem 0 0.375rem 0.625rem;
+  margin: 0.4375rem 0 0.4375rem 1rem;
   pointer-events: none;
 
   + .form-control, + .field_with_errors > .form-control {
-    padding-left: 2rem;
+    padding-left: 2.375rem;
   }
 }

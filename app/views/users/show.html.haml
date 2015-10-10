@@ -3,30 +3,10 @@
 .container.m-t-lg.m-b-xxl
   .card
     .card-circle
-      .avatar{style: "background-image:url('#{@user.avatar_file_name}')"}
+      .avatar{style: "background-image:url('#{@user.avatar_url}')"}
 
     .card-block.xs-down-p-t-lg
       %h1.title.text-center.m-t-lg
         = @user.name
 
-      .row.m-b-xs.p-r-lg.xs-down-m-b
-        .col-sm-6.sm-up-text-right.gray.xs-down-size-sm
-          Member since
-        .col-sm-6
-          %i.glyphicons.glyphicons-clock.m-r-sm
-          = @user.created_at.strftime('%-d').to_i.ordinalize
-          = @user.created_at.strftime('%B %Y')
-
-      .row.m-b-xs.p-r-lg.xs-down-m-b
-        .col-sm-6.sm-up-text-right.gray.xs-down-size-sm
-          Created
-        .col-sm-6
-          %i.glyphicons.glyphicons-classic-hammer.m-r-sm
-          = pluralize(@user.created_events.count, 'event')
-
-      .row.m-b-xs.p-r-lg.xs-down-m-b
-        .col-sm-6.sm-up-text-right.gray.xs-down-size-sm
-          Attended
-        .col-sm-6
-          %i.glyphicons.glyphicons-calendar.m-r-sm
-          = pluralize(@user.attended_events.count, 'event')
+      = render "stats"
