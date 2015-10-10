@@ -5,7 +5,7 @@
       = content_for?(:title) ? yield(:title) : "Fuzzy Calendar"
 
     = tag :meta, property: "og:title", content: (content_for?(:title) ? yield(:title) : "Fuzzy Calendar")
-    = tag :meta, property: "og:image", content: image_url("sprites-retina/logo-header.png")
+    = tag :meta, property: "og:image", content: image_url("logos/logo-3d-512.png")
     = tag :meta, property: "og:url",   content: request.url
     = tag :meta, property: "og:type",  content: "website"
     = tag(:meta, property: "og:description", content: yield(:description)) if content_for?(:description)
