@@ -1,4 +1,6 @@
-.welcome
+- content_for :description, "Having trouble pinning down dates for meet-ups? Maybe you need a Fuzzy Calendar."
+
+%article.welcome
   .wow-header
     .container
       .row
@@ -12,14 +14,14 @@
               .cal-left-clip
               .cal-right-clip
 
-        .col-md-9.col-lg-8.sm-down-text-center.sm-down-m-t-md
-          .subtitle.xs-down-size-md
+        %h1.col-md-9.col-lg-8.sm-down-text-center.sm-down-m-t-md
+          .subtitle.xs-down-size-md.m-b
             .hidden-sm-down
               Having trouble pinning down dates for meet-ups?
             .hidden-md-up
               Hard to organise meet-ups?
 
-          %h1.title.xs-down-size-lg
+          .title.xs-down-size-lg
             Maybe you need a
             %strong Fuzzy Calendar.
 
@@ -28,7 +30,7 @@
           %i.glyphicons.glyphicons-chevron-down
 
 .welcome#welcome
-  .step#step-one
+  %section.step#step-one
     .container
       .row
         .col-md-6.col-lg-7
@@ -44,7 +46,7 @@
                                                           specificity: :day,
                                                           range: true }}
 
-  .step#step-two
+  %section.step#step-two
     .container
       .row
         .col-md-6.col-lg-7
@@ -70,7 +72,7 @@
                 .fbchat-bubble.pull-left.fade
                   I love Fuzzy Calendar! ;)
 
-  .step#step-three
+  %section.step#step-three
     .container
       .row
         .col-md-6.col-lg-7
@@ -86,7 +88,7 @@
                                                           specificity: :day,
                                                           multi: true }}
 
-  .step#step-four
+  %section.step#step-four
     .container
       .row
         .col-md-6.col-lg-7
@@ -102,7 +104,7 @@
                                                           specificity: :day,
                                                           read_only: true }}
 
-.wow-footer
+%footer.wow-footer
   .container.text-center
     .size-md No painful sign up process.
     .size-sm.m-b-md Just connect your Facebook, Twitter or Google account and you're ready!
