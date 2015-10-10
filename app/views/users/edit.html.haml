@@ -15,38 +15,63 @@
             = render 'application/alerts', model: @user
 
       = form_for @user, html: { multipart: true } do |f|
+        .row-sm
+          .col-sm-3.sm-up-text-right
+            .form-control-label.gray.p-b-0 Joined
+          .col-sm-8
+            .form-control-label.p-b-0
+              %i.glyphicons.glyphicons-clock.pull-left.m-r-sm
+              = @user.created_at.strftime('%-d').to_i.ordinalize
+              = @user.created_at.strftime('%B %Y')
+
+        .row-sm
+          .col-sm-3.sm-up-text-right
+            .form-control-label.gray.p-b-0 Created
+          .col-sm-8
+            .form-control-label.p-b-0
+              %i.glyphicons.glyphicons-classic-hammer.pull-left.m-r-sm
+              = pluralize(@user.created_events.count, 'event')
+
         .row-sm.m-b-md
           .col-sm-3.sm-up-text-right
+            .form-control-label.gray.p-b-0 Attended
+          .col-sm-8
+            .form-control-label.p-b-0
+              %i.glyphicons.glyphicons-calendar.pull-left.m-r-sm
+              = pluralize(@user.attended_events.count, 'event')
+
+        .row-sm.m-b-md
+          .col-sm-3.sm-up-text-right.gray
             = f.label :name, class: 'form-control-label'
           .col-sm-8
             %i.glyphicons.glyphicons-user.form-control-icon
             = f.text_field :name, class: 'form-control'
 
         .row-sm.m-b-sm
-          .col-sm-3.sm-up-text-right
+          .col-sm-3.sm-up-text-right.gray
             = f.label :email, class: 'form-control-label'
           .col-sm-8
             %i.glyphicons.glyphicons-envelope.form-control-icon
             = f.email_field :email, class: 'form-control'
 
         .row-sm.m-b-md
-          .col-sm-8.col-sm-offset-3
+          .col-sm-8.col-sm-offset-3.gray
             %label.c-checkbox.c-input.m-l
               = f.check_box :email_notifications, class: 'checkbox'
               .c-indicator
               %span.size-sm Receive email notifications for events I create or respond to
 
         .row-sm.m-b-md
-          .col-sm-3.sm-up-text-right
+          .col-sm-3.sm-up-text-right.gray
             = f.label :avatar, class: 'form-control-label'
           .col-sm-8
-            %label.btn.btn-secondary{for: 'user_avatar'}
+            %label.btn.btn-secondary.m-a-0{for: 'user_avatar'}
               %i.glyphicons.glyphicons-picture.pull-left.m-r-sm
               %span Upload new picture
-            = f.file_field :avatar, class: 'invisible'
+            = f.file_field :avatar, class: 'invisible', hidden: true
 
         .row-sm.m-b-md
-          .col-sm-3.sm-up-text-right
+          .col-sm-3.sm-up-text-right.gray
             = f.label :password, class: 'form-control-label'
           .col-sm-8
             %a#change_password.btn.btn-secondary
@@ -59,7 +84,3 @@
         .row-sm.m-b-md
           .col-sm-8.col-sm-offset-3
             = f.submit "Save changes", class: 'btn btn-primary'
-
-      %hr
-
-      = render "stats"
