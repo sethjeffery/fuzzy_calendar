@@ -41,7 +41,7 @@ class @DayPicker extends Picker
 
         e.preventDefault() if e.type == 'touchmove'
         pageX = if e.originalEvent?.touches then e.originalEvent.touches[0].pageX else e.pageX
-        pageY = if e.originalEvent?.touches then e.originalEvent.touches[0].pageY else e.pageX
+        pageY = if e.originalEvent?.touches then e.originalEvent.touches[0].pageY else e.pageY
 
         $el.find('a.picker-cell').each ->
           $offset = $(@).offset()
