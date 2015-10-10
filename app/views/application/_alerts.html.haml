@@ -2,7 +2,7 @@
   .alert.alert-danger
     .glyphicons.glyphicons-remove-2.pull-left
     = flash[:alert]
-- elsif defined?(model) && model.errors.present?
+- elsif defined?(model) && model.try(:errors).present?
   %ul.alert.alert-danger
     - model.errors.full_messages.each do |error|
       %li

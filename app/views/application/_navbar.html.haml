@@ -40,8 +40,12 @@
               Log out
 
     - else
+      %a.pull-left.navbar-toggler{ type: "button", data: { toggle: "hamburger-menu" }}
+        .bar
+        .bar
+        .bar
+
       = link_to "/", class: "navbar-brand" do
-        = image_tag "sprites-retina/logo-header.png", size: '46x46'
         %span
           Fu<span class="text-highlight">zz</span>y Calendar
 
