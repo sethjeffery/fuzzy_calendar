@@ -34,6 +34,8 @@ gem 'rails_autolink'
 gem 'obfuscate_id'
 gem 'dotenv'
 gem 'roadie-rails'
+gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'valid_email'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

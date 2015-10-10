@@ -1,0 +1,15 @@
+= form_for (@contact || :contact), url: contact_path do |f|
+
+  .m-t
+    %i.glyphicons.glyphicons-user.form-control-icon
+    = f.text_field :name, class: 'form-control', placeholder: 'Your name'
+  .m-t-sm
+    %i.glyphicons.glyphicons-envelope.form-control-icon
+    = f.email_field :email, class: 'form-control', placeholder: 'Your email'
+  .m-t-sm.m-b
+    %i.glyphicons.glyphicons-pen.form-control-icon
+    = f.text_area :message, class: 'form-control', placeholder: 'Message', rows: 3
+
+  = recaptcha_tags
+
+  = f.submit "Send", class: 'btn btn-primary m-t'
