@@ -1,14 +1,21 @@
 @import 'variables';
 @import 'mixins';
+@import 'compass/css3/filter';
+@import 'compass/css3/transition';
 
 body {
+  background-color: white;
+}
+
+.main-content {
+  padding-top: 4rem;
+  @include transition(filter 0.3s);
+  min-height: 100vh;
+  padding-bottom: 1px;
   background-image: image-url('sky-bottom.png'), image-url('sky-top.jpg');
   background-size: contain, contain;
   background-position: center bottom, center top;
   background-repeat: no-repeat;
-  background-color: white;
-  min-height: 100vh;
-  padding-bottom: 1px;
 }
 
 .navbar {

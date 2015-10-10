@@ -30,8 +30,10 @@
       }(document, 'script', 'facebook-jssdk'));
 
     = render "navbar"
+    = render "hamburger_menu"
 
-    = yield
+    .main-content
+      = yield
 
     - unless logged_in?
       = render "modal_login"
