@@ -16,14 +16,14 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :password, presence: true, allow_nil: true
-  validates :email, presence: true, uniqueness: true, allow_nil: true, unless: :has_linked_facebook?
+  validates :email, presence: true, uniqueness: true, email: true, allow_nil: true, unless: :has_linked_provider?
 
-  def has_linked_facebook?
-    authentications.where(provider: 'facebook').present?
+  def has_linked_provider?
+    authentications.present?
   end
 
   def send_emails?
-    email.present?
+    email.present? && email_notifications?
   end
 
   def avatar_url(size = :thumb)
