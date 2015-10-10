@@ -11,7 +11,7 @@ describe EventsController, type: :controller do
   describe '#new' do
     context 'not logged in' do
       before { get :new }
-      it { is_expected.to redirect_to root_path }
+      it { is_expected.to redirect_to login_path }
     end
 
     context 'logged in' do
@@ -31,7 +31,7 @@ describe EventsController, type: :controller do
   describe '#create' do
     context 'not logged in' do
       before { post :create }
-      it { is_expected.to redirect_to root_path }
+      it { is_expected.to redirect_to login_path }
     end
 
     context 'logged in' do
