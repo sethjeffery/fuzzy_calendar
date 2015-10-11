@@ -78,12 +78,19 @@
   }
 }
 
-.navbar-nav .nav-link, .navbar-brand, .navbar .text-highlight {
-  @include transition(color 0.3s);
+.navbar-nav .nav-link, .navbar-brand, .navbar .text-highlight, .navbar .btn-primary-outline {
+  @include transition(color 0.3s, border-color 0.2s, background-color 0.2s);
 }
 
-.navbar-dark .text-highlight {
-  color: white;
+.navbar-dark {
+  .text-highlight {
+    color: white;
+  }
+
+  .btn-primary-outline {
+    &:not(:hover) { border-color: white; }
+    color: white;
+  }
 }
 
 #hamburger-menu {
