@@ -2,7 +2,7 @@ $(document).on 'click', '[data-toggle="hamburger-menu"]', (e) ->
   e.preventDefault()
   unless $('#hamburger-menu').hasClass('showing')
     $('#hamburger-menu').addClass('showing')
-    _.defer -> $('#hamburger-menu').toggleClass('in')
+    setTimeout (-> $('#hamburger-menu').toggleClass('in')), 50
     $('#navbar').toggleClass('navbar-dark').toggleClass('navbar-light')
     setTimeout (-> $('#hamburger-menu').removeClass('showing')), 300
 

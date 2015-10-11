@@ -2,6 +2,7 @@
 @import 'compass/css3/transition';
 @import 'compass/css3/transform';
 @import 'compass/css3/filter';
+@import 'compass/css3/images';
 
 .dropdown-menu {
   font-size: 0.85rem;
@@ -110,6 +111,9 @@
     + .main-content {
       @include filter(blur(0));
     }
+    .nav {
+      @include transform(translateY(-50%) scale(1.15));
+    }
   }
 
   &.in {
@@ -118,10 +122,14 @@
     + .main-content {
       @include filter(blur(10px));
     }
+    .nav {
+      @include transform(translateY(-50%) scale(1));
+    }
   }
 
   .nav {
-    @include transform(translateY(-50%));
+    @include transform(translateY(-50%) scale(1.15));
+    @include transition(transform 0.3s);
     position: absolute;
     text-align: center;
     left: 0;
