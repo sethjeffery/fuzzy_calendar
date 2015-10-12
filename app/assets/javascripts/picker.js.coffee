@@ -22,6 +22,7 @@ class @Picker
     @$el.html("<input type=\"hidden\" name=\"#{@name}\"/>")
     @$el.data(date: @date)
     @updateInput()
+    @updateActiveCells()
     @renderBlocks()
 
   updateInput: =>

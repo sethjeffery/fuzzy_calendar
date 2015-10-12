@@ -8,6 +8,7 @@ rangeItemMoving = undefined
 
 class @DayPicker extends Picker
   template: JST["templates/day_picker"]
+  jqSpecificity: 'cell'
 
   renderBlocks: ->
     if @blocks > 0
@@ -24,14 +25,15 @@ class @DayPicker extends Picker
   setupEvents: ->
     $el = @$el
     _picker = @
+    jqs = @jqSpecificity
 
-    $el.on 'mousedown touchstart', 'a.picker-cell', (e) ->
+    $el.off('mousedown').off('touchstart').on 'mousedown touchstart', "a.picker-#{jqs}", (e) ->
       return unless e.buttons == 1 or e.type == 'touchstart' # left-click or taps only
 
       if _picker.favorite
-        activating = !$(@).hasClass('picker-cell-favorite') or !_picker.multi
+        activating = !$(@).hasClass("picker-#{jqs}-favorite") or !_picker.multi
       else
-        activating = !$(@).hasClass('picker-cell-active') or !_picker.multi
+        activating = !$(@).hasClass("picker-#{jqs}-active") or !_picker.multi
 
       _picker.toggleDate $(@).data('date'), activating
 
@@ -43,12 +45,14 @@ class @DayPicker extends Picker
         pageX = if e.originalEvent?.touches then e.originalEvent.touches[0].pageX else e.pageX
         pageY = if e.originalEvent?.touches then e.originalEvent.touches[0].pageY else e.pageY
 
-        $el.find('a.picker-cell').each ->
+        $found = undefined
+        $el.find("a.picker-#{jqs}").each ->
           $offset = $(@).offset()
-          if $offset.left < pageX and $offset.left + $(@).outerWidth() > pageX and $offset.top < pageY and $offset.top + $(@).outerHeight() > pageY
-            _picker.toggleDate $(@).data('date'), activating
+          $found = $(@) if $offset.left < pageX and $offset.left + $(@).outerWidth() > pageX and $offset.top < pageY and $offset.top + $(@).outerHeight() > pageY
 
-    $el.on 'click', '[data-toggle=picker]', (e) ->
+        _picker.toggleDate $found.data('date'), activating if $found
+
+    $el.off('click').on 'click', '[data-toggle=picker]', (e) ->
       e.preventDefault()
       _picker.date = moment($(@).data('date'))
       _picker.render()
@@ -62,6 +66,7 @@ class @DayPicker extends Picker
       keys = _.keys(dates).sort()
       firstDate = keys[0]
       lastDate = keys[keys.length-1]
+      changedDates = []
 
       if _picker.favorite
         dates[date]?.favorite = active
@@ -92,53 +97,60 @@ class @DayPicker extends Picker
         dates[date] = {}
 
       # update if values have changed
-      unless JSON.stringify(oldDates) == JSON.stringify(dates)
+      changedDates = _.difference(_.union(_.keys(dates), _.keys(oldDates)), _.intersection(_.keys(dates), _.keys(oldDates))).sort()
+
+      if changedDates.length > 0
         _picker.dates = dates
 
         # update UI and DOM in separate thread for a little speed
-        _.defer _picker.updateActiveCells
-        _.defer _picker.updateInput
+        _picker.updateActiveCells(changedDates)
+        _picker.updateInput
 
-  updateActiveCells: =>
-    $allCells = @$el.find(".picker-days .picker-cell:not(.picker-day-outside)")
-    classesToRemove = _(['active', 'favorite', 'low', 'mid', 'high', 'start-range', 'end-range', 'in-range']).map((o) -> "picker-cell-#{o}").join(' ')
-    $allOtherCells = $allCells
+  updateActiveCells: (changedDates) =>
+    changedDates = _(@dates).keys() unless changedDates
+    jqs = @jqSpecificity
+
+    $allCells = @$el.find(".picker-days .picker-#{jqs}:not(.picker-day-outside)")
+    classesToRemove = _(['active', 'favorite', 'low', 'mid', 'high']).map((o) -> "picker-#{jqs}-#{o}").join(' ')
 
     maxScore = _.max _.map(@dates, (d) -> d.score)
 
-    for own date, props of @dates
-      classesToAdd = ""
+    for date in changedDates
+      props = @dates[date]
       $cellDate = $allCells.filter("[data-date='#{date}']")
-      classesToAdd += 'picker-cell-active '
-      classesToAdd += 'picker-cell-favorite ' if props.favorite and @favorite
 
-      if props.score?
-        classesToAdd += 'picker-cell-low '  if props.score > 0               and props.score < maxScore * .33
-        classesToAdd += 'picker-cell-mid '  if props.score >= maxScore * .33 and props.score < maxScore * .66
-        classesToAdd += 'picker-cell-high ' if props.score >= maxScore *.66  and props.score < maxScore
-        $cellDate.tooltip
-          title: JST["templates/cell_tooltip"](props)
-          html: true
-          placement: 'top'
+      if props
+        classesToAdd = ""
+        classesToAdd += "picker-#{jqs}-active "
+        classesToAdd += "picker-#{jqs}-favorite " if props.favorite and @favorite
 
-      $allOtherCells = $allOtherCells.not($cellDate)
-      $cellDate.removeClass(classesToRemove).addClass(classesToAdd)
+        if props.score?
+          classesToAdd += "picker-#{jqs}-low "  if props.score > 0               and props.score < maxScore * .33
+          classesToAdd += "picker-#{jqs}-mid "  if props.score >= maxScore * .33 and props.score < maxScore * .66
+          classesToAdd += "picker-#{jqs}-high " if props.score >= maxScore *.66  and props.score < maxScore
+          $cellDate.tooltip
+            title: JST["templates/cell_tooltip"](props)
+            html: true
+            placement: 'top'
+
+        $cellDate.removeClass(classesToRemove).addClass(classesToAdd)
+
+      else
+        $cellDate.removeClass(classesToRemove)
 
     dates = _.keys(@dates).sort()
-    $allOtherCells.removeClass(classesToRemove)
 
     # Highlight in-between dates
     if @range and dates.length > 0
       firstDate = dates[0]
       lastDate = if dates.length > 1 then dates[dates.length-1] else firstDate
-      $allCells.filter("[data-date='#{firstDate}']").addClass('picker-cell-start-range')
-      $allCells.filter("[data-date='#{lastDate}']").addClass('picker-cell-end-range')
-      startHighlighting = $allCells.first().data('date') > firstDate and $allCells.first().data('date') <= lastDate
 
       $allCells.each ->
-        startHighlighting = true if $(@).data('date') == firstDate
-        $(@).addClass('picker-cell-in-range') if startHighlighting
-        startHighlighting = false if $(@).data('date') == lastDate
+        $el = $(@)
+        date = $el.data('date')
+        $el.toggleClass "picker-#{jqs}-start-range", date == firstDate
+        $el.toggleClass "picker-#{jqs}-end-range", date == lastDate
+        $el.toggleClass "picker-#{jqs}-in-range", date >= firstDate and date <= lastDate
 
 $(window).on 'mouseup.day_picker touchend.day_picker', ->
   $(window).off('mousemove.day_picker').off('touchmove.day_picker')
