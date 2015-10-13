@@ -29,7 +29,6 @@
         = render "description"
         = render "attendance"
 
-    -#= render "comment_form"
-
+  = render "comment_form"
   = render "modal_share"
   = render "modal_rsvp" if logged_in? && @event.open?
