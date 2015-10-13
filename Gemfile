@@ -57,7 +57,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'capybara'
-  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'fuubar'
   gem 'shoulda-matchers'
@@ -73,6 +72,11 @@ end
 
 group :development do
   gem "letter_opener"
+end
+
+group :test do
+  gem 'webmock'
+  gem 'capybara-webkit'
 end
 
 # Heroku

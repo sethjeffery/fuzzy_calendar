@@ -7,10 +7,15 @@ require 'fuubar'
 require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
-require 'capybara/poltergeist'
 require 'database_cleaner'
+require 'webmock/rspec'
+require 'capybara-webkit'
 
-Capybara.javascript_driver = :poltergeist
+require 'support/login_helper'
+require 'support/signup_helper'
+require 'support/page_helper'
+
+Capybara.javascript_driver = :webkit
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -40,7 +45,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -60,20 +65,34 @@ RSpec.configure do |config|
   config.before(:suite) do
     FactoryGirl.lint
     DatabaseCleaner.clean_with :truncation
+    WebMock.disable_net_connect! allow_localhost: true
   end
 
-  config.before(:each) do
+  config.before(:each) do |example|
     ActionMailer::Base.deliveries = []
+    DatabaseCleaner.strategy = example.metadata[:js] ? :deletion : :transaction
+    DatabaseCleaner.start
   end
 
-  config.around(:each) do |example|
-    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
-    DatabaseCleaner.cleaning do
-      example.run
-    end
+  config.after(:each) do
+    DatabaseCleaner.clean
+    Capybara.reset_session!
   end
 
   config.include Sorcery::TestHelpers::Rails::Controller, type: :controller
   config.include Sorcery::TestHelpers::Rails::Integration, type: :feature
   config.include FactoryGirl::Syntax::Methods
+
+  config.include LoginHelper, type: :feature
+  config.include SignupHelper, type: :feature
+  config.include PageHelper, type: :feature
+end
+
+
+Capybara::Webkit.configure do |config|
+  # Silently return an empty 200 response for any requests to unknown URLs.
+  config.block_unknown_urls
+
+  # Don't load images
+  config.skip_image_loading
 end
