@@ -12,10 +12,10 @@
       .nav.navbar-nav.pull-right
         .nav-item.dropdown
           = link_to user_path(current_user), class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' } do
-            - if notifications?
-              .label.label-danger.label-status
-                = notifications.count
             .avatar.m-r-xs{style: "background-image:url('#{current_user.avatar_url}')"}
+              - if notifications?
+                .label.label-danger.label-status
+                  = notifications.count
             .hidden-xs-down= current_user.name
 
           .dropdown-menu.dropdown-menu-right
