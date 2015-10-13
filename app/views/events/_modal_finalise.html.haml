@@ -20,13 +20,13 @@
             .help
               Pick the #{@event.specificity_name} for the event. The attendees will be notified and no more RSVPs accepted.
 
-            .picker#picker-rsvp-available{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
-                                                  min_date: @event.starts_at.strftime('%F'),
-                                                  max_date: @event.ends_at.strftime('%F'),
-                                                  specificity: @event.specificity,
-                                                  dates: @event.scored_dates.to_json,
-                                                  name: 'event[agreed_time]',
-                                                  }}
+            .picker#picker-rsvp-finalise{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
+                                                 min_date: @event.starts_at.strftime('%F'),
+                                                 max_date: @event.ends_at.strftime('%F'),
+                                                 specificity: @event.specificity,
+                                                 dates: @event.scored_dates.to_json,
+                                                 name: 'event[agreed_time]',
+                                                 }}
 
             .clearfix
               %a.pull-left.btn.btn-secondary{data: { dismiss: 'modal' }}
