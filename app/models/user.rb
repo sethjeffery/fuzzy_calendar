@@ -5,21 +5,27 @@ class User < ActiveRecord::Base
     config.authentications_class = Authentication
   end
 
+  attr_accessor :authenticated_with_provider
+
   has_many :event_users, :dependent => :destroy
   has_many :attended_events, through: :event_users, source: :event
   has_many :created_events, class_name: 'Event', foreign_key: 'creator_id', :dependent => :destroy
   has_many :authentications, :dependent => :destroy
   accepts_nested_attributes_for :authentications
 
-  has_attached_file :avatar, styles: { full: "600x600>", medium: "300x300>", thumb: "80x80>" }
+  has_attached_file :avatar, styles: { full: "600x600>", medium: "300x300>", thumb: "160x160>" }
   validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
   validates :name, presence: true
-  validates :password, presence: true, allow_nil: true
-  validates :email, presence: true, uniqueness: true, email: true, allow_nil: true, unless: :has_linked_provider?
+  validates :password, presence: true, if: :validate_password?
+  validates :email, presence: true, uniqueness: true, email: true, unless: :has_linked_provider?
 
   def has_linked_provider?
-    authentications.present?
+    authenticated_with_provider == true || authentications.present?
+  end
+
+  def validate_password?
+    new_record? || crypted_password_changed?
   end
 
   def send_emails?

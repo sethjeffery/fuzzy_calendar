@@ -40,7 +40,7 @@ describe EventUser, type: :model do
     end
 
     context 'creator has no email' do
-      let(:event) { create(:event, creator: create(:user, email: nil)) }
+      let(:event) { create(:event, creator: create(:user, email: nil, authenticated_with_provider: true)) }
 
       before do
         event_user.update_rsvp({ "2001-01-01" => {}, "2001-01-02" => { "favorite" => true } })

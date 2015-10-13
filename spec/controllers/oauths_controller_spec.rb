@@ -123,6 +123,9 @@ describe OauthsController, type: :controller do
           set_controller_provider_variables
           nil
         end
+
+        # Pretend that Facebook is happy with this
+        stub_request(:post, "https://graph.facebook.com/oauth/access_token").to_return(:status => 200, :body => "", :headers => {})
       end
 
       context 'with success' do
@@ -145,7 +148,6 @@ describe OauthsController, type: :controller do
 
         it { is_expected.to set_flash[:alert] }
       end
-
     end
 
   end

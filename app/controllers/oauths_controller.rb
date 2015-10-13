@@ -32,6 +32,7 @@ class OauthsController < ApplicationController
         begin
           @user = create_from(provider) {|user|
             user.password = SecureRandom.hex
+            user.authenticated_with_provider = true
           }
 
           reset_and_login(@user)

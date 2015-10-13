@@ -40,6 +40,9 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :avatar, :email_notifications)
+    params.require(:user).permit(:name, :email, :password, :avatar, :email_notifications).tap{|x|
+      x[:password] ||= ''
+      x[:email] ||= ''
+    }
   end
 end
