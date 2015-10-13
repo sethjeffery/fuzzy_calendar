@@ -104,7 +104,7 @@ class @DayPicker extends Picker
 
         # update UI and DOM in separate thread for a little speed
         _picker.updateActiveCells(changedDates)
-        _picker.updateInput
+        _picker.updateInput()
 
   updateActiveCells: (changedDates) =>
     changedDates = _(@dates).keys() unless changedDates
