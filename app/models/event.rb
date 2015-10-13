@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  COVERS = 12
+
   obfuscate_id spin: ENV["SPIN"].to_i + 29
 
   has_many :event_users
@@ -93,6 +95,10 @@ class Event < ActiveRecord::Base
 
   def send_rsvp_mail_from(event_user)
     EventMailer.rsvp(event_user).deliver_now! if creator.send_emails? && event_user.user.send_emails?
+  end
+
+  def cover_url(size = :full)
+    cover_file_name.try(:start_with?, 'http') ? cover_file_name : cover.url(size)
   end
 
   def send_close_mails

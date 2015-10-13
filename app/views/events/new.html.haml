@@ -2,19 +2,19 @@
 
 .container.m-y-sm.m-b-xxl
 
-  - if @event.errors.present?
-    %ul.alert.alert-danger.card-alert
-      - @event.errors.each do |key, error|
-        %li= error
-
   = form_for @event do |f|
+    = render "modal_covers", form: f
 
     .form-group-lg
-      .card-img-top{style: "background-image:url('#{@event.cover.url}')"}
+      .card-img-top.text-right{style: "background-image:url('#{@event.cover_url}')"}
+        %a.btn.btn-secondary.btn-sm.m-a-sm{data: { toggle: 'modal', target: '#event-covers-modal'}}
+          %i.glyphicons.glyphicons-picture
+          Change picture
+      = render "application/alerts", model: @event
       = f.text_field :name, class: 'form-control form-control-group form-control-clear form-control-lg', placeholder: 'Enter a name for your event'
       = f.text_area :description, class: 'form-control form-control-group form-control-clear form-control-sm', placeholder: 'And optionally a small description or instructions for your guests...', rows: 1
 
-    .form-group-lg
+    .form-group-lg.m-t-md
       .subtitle
         How specific is the time-frame for this event?
 

@@ -1,10 +1,12 @@
 class EventsController < ApplicationController
+
   before_filter :authenticate!, except: [:index, :show]
   before_filter :fetch_event, except: [:index, :new, :create]
   before_filter :authenticate_event!, only: [:edit, :update, :close, :finalise]
 
   def new
-    @event = Event.new
+    cover_path = "covers/cover-#{sprintf('%03d', (srand % Event::COVERS + 1))}.jpg"
+    @event = Event.new(cover_file_name: view_context.image_url(cover_path))
   end
 
   def create
@@ -45,7 +47,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :description, :date_range, :specificity).tap{|x| parse_json_params(x, :date_range)}
+    params.require(:event).permit(:name, :description, :date_range, :specificity, :cover_file_name).tap{|x| parse_json_params(x, :date_range)}
   end
 
   def finalise_params

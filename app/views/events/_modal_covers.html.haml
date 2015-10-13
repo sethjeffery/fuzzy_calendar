@@ -1,0 +1,15 @@
+.modal.fade#event-covers-modal
+  .modal-dialog.modal-dialog-lg
+    .modal-content
+      .modal-body
+        %button.close{type: "button", data: { dismiss: "modal" }}
+          %span &times;
+        .subtitle.m-b
+          Choose a picture
+
+        .row-0.event-covers
+          - Event::COVERS.times do |i|
+            .col-xs-6.col-sm-4
+              %label.c-input.c-radio.c-cover-image
+                = form.radio_button :cover_file_name, image_url("covers/cover-#{sprintf('%03d', i + 1)}.jpg")
+                = image_tag "covers/cover-#{sprintf('%03d', i + 1)}t.jpg", width: '100%'

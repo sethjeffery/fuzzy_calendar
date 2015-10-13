@@ -2,7 +2,7 @@
 - content_for :description, @event.description if @event.description.present?
 
 .container.m-y-sm.m-b-xxl
-  .card-img-top{style: "background-image:url('#{@event.cover.url}')"}
+  .card-img-top{style: "background-image:url('#{@event.cover_url}')"}
     %h1.xs-down-size-md= @event.name
   .card-circle.card-circle-transparent
     = render "icon"

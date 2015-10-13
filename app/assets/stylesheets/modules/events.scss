@@ -1,5 +1,6 @@
 @import "variables";
 @import 'mixins';
+@import 'compass/css3/box-shadow';
 
 .card-img-top {
   height: 200px;
@@ -11,10 +12,10 @@
   h1 {
     text-align: center;
     margin: 0;
-    padding: 1em 1em 2em;
-    color: black;
-    // text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+    padding: 1em 1em 1em;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    background-image: linear-gradient(to bottom, rgba(0,0,0, 0.75), transparent);
     border-radius: $border-radius $border-radius 0 0;
     white-space: nowrap;
     overflow: hidden;
@@ -32,7 +33,7 @@
   }
 }
 
-.card .card-img-top {
+form .card-img-top {
   border-radius: 0.25rem 0.25rem 0 0;
 }
 
@@ -125,4 +126,21 @@
 .event-icon-closed {
   background-image: image-url('sprites-retina/event-closed.png');
   background-color: #ccc;
+}
+
+.c-cover-image {
+  padding-left: 0;
+  cursor: pointer;
+
+  img {
+    opacity: 0.8;
+    display: block;
+    background-color: #ccc;
+    border-left: solid 1px white;
+    border-bottom: solid 1px white;
+  }
+
+  &:hover img {
+    opacity: 1;
+  }
 }

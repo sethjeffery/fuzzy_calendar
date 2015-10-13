@@ -17,6 +17,15 @@ describe Event, type: :model do
     expect(event).to_not be_valid
   end
 
+  describe '#cover_url' do
+    context 'with http file name' do
+      it 'returns cover_file_name' do
+        event.cover_file_name = "http://www.example.com/image.jpg"
+        expect(event.cover_url).to eq "http://www.example.com/image.jpg"
+      end
+    end
+  end
+
   describe '#state' do
     before do
       event.save

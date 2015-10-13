@@ -8,3 +8,7 @@ $(document).on 'click', '#change_password', ->
 $(document).on 'change', '#user_avatar', ->
   file = @files?[0]
   $('label.btn[for="user_avatar"] span').text(file.name) if file
+
+$(document).on 'change', '[name="event[cover_file_name]"]:checked', ->
+  $('[data-dismiss="modal"]').click()
+  $('.card-img-top').css(backgroundImage: "url('#{$(@).val()}')")
