@@ -4,10 +4,13 @@
     = flash[:alert]
 - elsif defined?(model) && model.try(:errors).present?
   %ul.alert.alert-danger
-    - model.errors.full_messages.each do |error|
+    - model.errors.each do |attribute, message|
       %li
         .glyphicons.glyphicons-remove-2.pull-left
-        = error
+        - if message =~ /^[A-Z]/
+          = message
+        - else
+          = full_message(attribute, message)
 
 - if flash[:success].present?
   .alert.alert-success

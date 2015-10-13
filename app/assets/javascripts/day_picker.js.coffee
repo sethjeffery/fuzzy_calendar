@@ -28,7 +28,7 @@ class @DayPicker extends Picker
     jqs = @jqSpecificity
 
     $el.off('mousedown').off('touchstart').on 'mousedown touchstart', "a.picker-#{jqs}", (e) ->
-      return unless e.buttons == 1 or e.type == 'touchstart' # left-click or taps only
+      return unless e.button < 2 or e.type == 'touchstart' # left-click or taps only
 
       if _picker.favorite
         activating = !$(@).hasClass("picker-#{jqs}-favorite") or !_picker.multi
@@ -39,7 +39,7 @@ class @DayPicker extends Picker
 
       # Track dragging and highlight the cells we drag over
       $(window).on 'mousemove.day_picker touchmove.day_picker', (e) ->
-        return unless e.buttons == 1 or e.type == 'touchmove'
+        return unless e.button < 2 or e.type == 'touchmove'
 
         e.preventDefault() if e.type == 'touchmove'
         pageX = if e.originalEvent?.touches then e.originalEvent.touches[0].pageX else e.pageX

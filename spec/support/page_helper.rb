@@ -12,4 +12,8 @@ module PageHelper
       yield
     end
   end
+
+  def resize_window(width, height)
+    page.driver.resize_to(width, height)
+  end
 end
