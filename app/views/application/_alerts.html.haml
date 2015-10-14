@@ -10,7 +10,7 @@
         - if message =~ /^[A-Z]/
           = message
         - else
-          = full_message(attribute, message)
+          = model.errors.full_message(attribute, message)
 
 - if flash[:success].present?
   .alert.alert-success
