@@ -63,6 +63,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'spring-commands-rspec'
+  gem 'webmock'
+  gem 'capybara-webkit'
 
   # Guard
   gem 'guard'
@@ -72,11 +74,6 @@ end
 
 group :development do
   gem "letter_opener"
-end
-
-group :test do
-  gem 'webmock'
-  gem 'capybara-webkit'
 end
 
 # Heroku
