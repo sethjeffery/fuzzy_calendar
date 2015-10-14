@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
   end
 
   def send_emails?
+    email.present?
+  end
+
+  def receive_emails?
     email.present? && email_notifications?
   end
 

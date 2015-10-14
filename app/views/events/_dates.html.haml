@@ -2,10 +2,10 @@
 - if @event.open?
   .help This event's final #{@event.specificity_name} is still #{link_to_if((mine?(@event) && @event.has_rsvps?), "undecided", "#event-finalise-modal", data: { toggle: 'modal' })}.
 
-.picker{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
-                size: :sm,
-                min_date: @event.starts_at.strftime('%F'),
-                max_date: @event.ends_at.strftime('%F'),
-                specificity: @event.specificity,
-                dates: @event.scored_dates.to_json,
-                read_only: true }}
+.picker#event-dates{data: { double: !same_calendar?(@event.starts_at.month, @event.ends_at.month),
+                            size: :sm,
+                            min_date: @event.starts_at.strftime('%F'),
+                            max_date: @event.ends_at.strftime('%F'),
+                            specificity: @event.specificity,
+                            dates: @event.scored_dates.to_json,
+                            read_only: true }}

@@ -79,11 +79,12 @@ class Event < ActiveRecord::Base
   def scored_dates
     @scored_dates ||= event_users.reduce({}){|memo, event_user|
       name = event_user.user.name
-      event_user.times.reduce(memo) {|m, time|
-        m[time.time.strftime('%F')] ||= { score: 0, favorites: 0, users: [] }
-        m[time.time.strftime('%F')][:score] += 1
-        m[time.time.strftime('%F')][:favorites] += 1 if time.favorite
-        m[time.time.strftime('%F')][:users] << { name: name, favorite: time.favorite }
+      event_user.times.all.reduce(memo) {|m, time|
+        tm = time.time.strftime('%F')
+        m[tm] ||= { score: 0, favorites: 0, users: [] }
+        m[tm][:score] += 1
+        m[tm][:favorites] += 1 if time.favorite
+        m[tm][:users] << { name: name, favorite: time.favorite }
         m
       }
     } || {}
@@ -94,7 +95,7 @@ class Event < ActiveRecord::Base
   end
 
   def send_rsvp_mail_from(event_user)
-    EventMailer.rsvp(event_user).deliver_now! if creator.send_emails? && event_user.user.send_emails?
+    EventMailer.rsvp(event_user).deliver_now! if creator.receive_emails?
   end
 
   def cover_url(size = :full)
@@ -102,17 +103,15 @@ class Event < ActiveRecord::Base
   end
 
   def send_close_mails
-    if creator.send_emails?
-      event_users.each do |event_user|
-        EventMailer.close(event_user).deliver_now! if event_user.user_id != creator_id && event_user.user.send_emails?
-      end
+    event_users.each do |event_user|
+      EventMailer.close(event_user).deliver_now! if event_user.user_id != creator_id && event_user.user.receive_emails?
     end
   end
 
   def send_finalise_mails
-    if creator.send_emails? && agreed_time.present?
+    if agreed_time.present?
       event_users.each do |event_user|
-        EventMailer.finalise(event_user).deliver_now! if event_user.user_id != creator_id && event_user.user.send_emails?
+        EventMailer.finalise(event_user).deliver_now! if event_user.user_id != creator_id && event_user.user.receive_emails?
       end
     end
   end

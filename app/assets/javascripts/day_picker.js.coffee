@@ -66,7 +66,6 @@ class @DayPicker extends Picker
       keys = _.keys(dates).sort()
       firstDate = keys[0]
       lastDate = keys[keys.length-1]
-      changedDates = []
 
       if _picker.favorite
         dates[date]?.favorite = active
@@ -97,7 +96,16 @@ class @DayPicker extends Picker
         dates[date] = {}
 
       # update if values have changed
-      changedDates = _.difference(_.union(_.keys(dates), _.keys(oldDates)), _.intersection(_.keys(dates), _.keys(oldDates))).sort()
+      dateKeys = undefined; oldDateKeys = undefined
+
+      if _picker.favorite
+        dateKeys = _.filter _.keys(dates), (k) -> dates[k].favorite
+        oldDateKeys = _.filter _.keys(oldDates), (k) -> oldDates[k].favorite
+      else
+        dateKeys = _.keys(dates)
+        oldDateKeys = _.keys(oldDates)
+
+      changedDates = _.difference(_.union(dateKeys, oldDateKeys), _.intersection(dateKeys, oldDateKeys)).sort()
 
       if changedDates.length > 0
         _picker.dates = dates

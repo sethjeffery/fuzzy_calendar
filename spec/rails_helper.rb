@@ -14,6 +14,7 @@ require 'capybara-webkit'
 require 'support/login_helper'
 require 'support/signup_helper'
 require 'support/page_helper'
+require 'support/event_helper'
 
 Capybara.javascript_driver = :webkit
 
@@ -66,7 +67,7 @@ RSpec.configure do |config|
     FactoryGirl.lint
     DatabaseCleaner.clean_with :truncation
     WebMock.disable_net_connect! allow_localhost: true
-  end
+  end#
 
   config.before(:each) do |example|
     ActionMailer::Base.deliveries = []
@@ -74,9 +75,9 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after(:each) do |example|
     DatabaseCleaner.clean
-    Capybara.reset_session!
+    Capybara.reset_session! if example.metadata[:js]
   end
 
   config.include Sorcery::TestHelpers::Rails::Controller, type: :controller
@@ -86,6 +87,7 @@ RSpec.configure do |config|
   config.include LoginHelper, type: :feature
   config.include SignupHelper, type: :feature
   config.include PageHelper, type: :feature
+  config.include EventHelper, type: :feature
 end
 
 

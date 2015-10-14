@@ -8,16 +8,11 @@ feature "Events::New", :js do
   context 'Create a new event' do
     scenario 'with day specificity' do
       login_user user
-      visit root_path
-
       visit new_event_path
 
       fill_in "Enter a name for your event", with: "Event name"
 
-      within '#event_date_range' do
-        find(".picker-cell[data-date='#{start_date.strftime('%F')}']").click
-        find(".picker-cell[data-date='#{end_date.strftime('%F')}']").click
-      end
+      click_dates('#event_date_range', start_date, end_date)
 
       expect(page).to have_css(".picker-cell[data-date='#{start_date.strftime('%F')}'].picker-cell-active")
       expect(page).to have_css(".picker-cell[data-date='#{end_date.strftime('%F')}'].picker-cell-active")
@@ -31,17 +26,12 @@ feature "Events::New", :js do
 
     scenario 'with week specificity' do
       login_user user
-      visit root_path
-
       visit new_event_path
 
       fill_in "Enter a name for your event", with: "Event name"
       find('#event_specificity_week + .c-indicator').click
 
-      within '#event_date_range' do
-        find(".picker-cell[data-date='#{start_date.strftime('%F')}']").click
-        find(".picker-cell[data-date='#{end_date.strftime('%F')}']").click
-      end
+      click_dates('#event_date_range', start_date, end_date)
 
       expect(page).to have_css(".picker-row[data-date='#{start_date.beginning_of_week(:sunday).strftime('%F')}'].picker-row-active")
       expect(page).to have_css(".picker-row[data-date='#{end_date.beginning_of_week(:sunday).strftime('%F')}'].picker-row-active")
@@ -55,8 +45,6 @@ feature "Events::New", :js do
 
     scenario 'with invalid params' do
       login_user user
-      visit root_path
-
       visit new_event_path
       click_on "Create your event"
 
