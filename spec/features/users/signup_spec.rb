@@ -21,7 +21,10 @@ feature "Users::Signup", :js do
         click_on "Sign up"
       end
 
-      fill_in_signup_form
+      within '#signup_form' do
+        fill_in_signup_form
+      end
+
       user_is_logged_in
     end
 
