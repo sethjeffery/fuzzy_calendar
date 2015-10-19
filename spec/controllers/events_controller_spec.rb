@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe EventsController, type: :controller do
-  let(:user) { create(:user) }
-  let(:event) { create(:event) }
+  let(:user) { build(:user) }
+  let(:event) { build_stubbed(:event, id: 1) }
 
   before do
     allow(Event).to receive(:find).with(event.to_param).and_return(event)
@@ -68,6 +68,9 @@ describe EventsController, type: :controller do
   end
 
   describe '#rsvp' do
+    let(:event) { create(:event) }
+    let(:user) { create(:user) }
+
     context 'not logged in' do
       before { post :rsvp, id: event.to_param, rsvp: {} }
       it { is_expected.to redirect_to login_path }
@@ -112,6 +115,8 @@ describe EventsController, type: :controller do
   end
 
   describe '#close' do
+    let(:event) { create(:event) }
+
     context 'not logged in' do
       before { put :close, id: event.to_param }
       it { is_expected.to redirect_to login_path }
@@ -142,6 +147,8 @@ describe EventsController, type: :controller do
   end
 
   describe '#finalise' do
+    let(:event) { create(:event) }
+
     context 'not logged in' do
       before { put :finalise, id: event.to_param }
       it { is_expected.to redirect_to login_path }
@@ -168,6 +175,37 @@ describe EventsController, type: :controller do
       end
 
       it { is_expected.to redirect_to event_path(event) }
+    end
+  end
+
+  describe '#show' do
+    it 'remembers the current event' do
+      get :show, id: event.to_param
+      expect(session[:recent_events]).to eq [event.to_param]
+    end
+
+    it 'remembers max 4 events' do
+      get :show, id: event.to_param
+      allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1000) }
+      get :show, id: event.to_param
+      allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1001) }
+      get :show, id: event.to_param
+      allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1002) }
+      get :show, id: event.to_param
+      allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1003) }
+      get :show, id: event.to_param
+      expect(session[:recent_events]).to eq [1003, 1002, 1001, 1000]
+    end
+
+    it 'remembers each event once' do
+      get :show, id: event.to_param
+      allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1000) }
+      get :show, id: event.to_param
+      allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1001) }
+      get :show, id: event.to_param
+      allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1000) }
+      get :show, id: event.to_param
+      expect(session[:recent_events]).to eq [1000, 1001, event.to_param]
     end
   end
 end

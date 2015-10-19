@@ -4,6 +4,10 @@ class EventsController < ApplicationController
   before_filter :fetch_event, except: [:index, :new, :create]
   before_filter :authenticate_event!, only: [:edit, :update, :close, :finalise]
 
+  def show
+    remember_event
+  end
+
   def new
     cover_path = "covers/cover-#{sprintf('%03d', (srand % Event::COVERS + 1))}.jpg"
     @event = Event.new(cover_file_name: view_context.image_url(cover_path))
@@ -60,5 +64,9 @@ class EventsController < ApplicationController
 
   def authenticate_event!
     not_found unless @event.creator == current_user
+  end
+
+  def remember_event
+    session[:recent_events] = ([@event.to_param] + (session[:recent_events] || [])).uniq[0...4]
   end
 end
