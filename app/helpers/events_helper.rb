@@ -51,4 +51,8 @@ module EventsHelper
   def has_rsvp?(event)
     event.event_users.where(user_id: current_user.id).exists?
   end
+
+  def recent_events
+    @recent_events # set in controller
+  end
 end

@@ -1,11 +1,12 @@
 class EventsController < ApplicationController
+  include EventsConcern
 
   before_filter :authenticate!, except: [:index, :show]
   before_filter :fetch_event, except: [:index, :new, :create]
   before_filter :authenticate_event!, only: [:edit, :update, :close, :finalise]
 
   def show
-    remember_event
+    remember_event(@event)
   end
 
   def new
@@ -64,9 +65,5 @@ class EventsController < ApplicationController
 
   def authenticate_event!
     not_found unless @event.creator == current_user
-  end
-
-  def remember_event
-    session[:recent_events] = ([@event.to_param] + (session[:recent_events] || [])).uniq[0...4]
   end
 end

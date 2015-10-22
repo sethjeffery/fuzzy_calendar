@@ -8,6 +8,10 @@ describe EventsController, type: :controller do
     allow(Event).to receive(:find).with(event.to_param).and_return(event)
   end
 
+  after do
+    session.clear
+  end
+
   describe '#new' do
     context 'not logged in' do
       before { get :new }
@@ -181,7 +185,7 @@ describe EventsController, type: :controller do
   describe '#show' do
     it 'remembers the current event' do
       get :show, id: event.to_param
-      expect(session[:recent_events]).to eq [event.to_param]
+      expect(session[:recent_events]).to eq event.to_param.to_s
     end
 
     it 'remembers max 4 events' do
@@ -194,7 +198,7 @@ describe EventsController, type: :controller do
       get :show, id: event.to_param
       allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1003) }
       get :show, id: event.to_param
-      expect(session[:recent_events]).to eq [1003, 1002, 1001, 1000]
+      expect(session[:recent_events]).to eq [1003, 1002, 1001, 1000].join(',')
     end
 
     it 'remembers each event once' do
@@ -205,7 +209,7 @@ describe EventsController, type: :controller do
       get :show, id: event.to_param
       allow(Event).to receive(:find).with(event.to_param) { double(to_param: 1000) }
       get :show, id: event.to_param
-      expect(session[:recent_events]).to eq [1000, 1001, event.to_param]
+      expect(session[:recent_events]).to eq [1000, 1001, event.to_param].join(',')
     end
   end
 end

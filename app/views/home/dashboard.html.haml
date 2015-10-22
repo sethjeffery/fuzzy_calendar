@@ -1,13 +1,28 @@
 - content_for :title, "My events"
 
-.container.m-y-lg
 
-  - if my_events.any?
+- if recent_events.present?
+  .container.m-t-lg
+    %h4.caps.text-gray.m-b-0
+      Recently visited events
+  %hr.m-t-sm.m-b-md
+  .container
     .row
-      - my_events.each do |event|
+      - recent_events.each do |event|
         = render "event", event: event
 
-  - else
+- if (my_events - recent_events).any?
+  .container.m-t-lg
+    %h4.caps.text-gray.m-b-0
+      Events I am attending
+  %hr.m-t-sm.m-b-md
+  .container
+    .row
+      - (my_events - recent_events).each do |event|
+        = render "event", event: event
+
+- if my_events.blank? && recent_events.blank?
+  .container.m-y-lg
     .subtitle.text-center
       You do not have any events.
 

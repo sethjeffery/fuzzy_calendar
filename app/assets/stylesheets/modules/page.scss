@@ -2,6 +2,7 @@
 @import 'mixins';
 @import 'compass/css3/filter';
 @import 'compass/css3/transition';
+@import 'compass/css3/images';
 
 body {
   background-color: white;
@@ -51,10 +52,15 @@ body {
 }
 
 hr {
-  border-top-color: #f0f0f0;
+  border-top-color: rgba(96,96,96,0.1);
 }
 
 .card {
   border-width: 0;
   background-color: rgba(255,255,255,0.5);
+}
+
+.card-fade {
+  background-color: transparent;
+  @include background-image(linear-gradient(to bottom, rgba(255,255,255,0.5), transparent));
 }
