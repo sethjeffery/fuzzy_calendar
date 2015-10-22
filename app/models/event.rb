@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
 
   scope :ordered, -> { order(:starts_at, :ends_at) }
   scope :available, -> { where.not(state: 'closed').where("ends_at >= ?", Date.today) }
-  scope :for, ->(user){ joins("LEFT OUTER JOIN event_users ON events.id = event_users.event_id").where("events.creator_id = ? OR event_users.user_id = ?", user.id, user.id).select('events.*') }
+  scope :for, ->(user){ joins("LEFT OUTER JOIN event_users ON events.id = event_users.event_id").where("events.creator_id = ? OR event_users.user_id = ?", user.id, user.id).distinct.select('events.*') }
 
   state_machine :state, initial: :open do
     event :close do
